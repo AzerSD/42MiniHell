@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/20 00:18:24 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/20 00:57:22 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ pid_t	fork_command(int argc, char **argv)
 	if (child_pid == 0)
 	{
 		exec_cmd(argc, argv);
-		ft_printf_fd(STDERR_FILENO, "minishell: %s: command not found\n", \
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: No such file or directory\n", \
 			argv[0]);
 		if (errno == ENOEXEC)
 			exit(126);

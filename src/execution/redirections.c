@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:04:09 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/07/03 21:08:48 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/20 00:40:26 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,3 @@ int	setup_redirections(t_node *node)
 	}
 	return (0);
 }
-
-		// int saved_stdin = dup(STDIN_FILENO);
-		// int saved_stdout = dup(STDOUT_FILENO);
-		// int saved_stderr = dup(STDERR_FILENO);
-		// dup2(saved_stdin, STDIN_FILENO);
-		// dup2(saved_stdout, STDOUT_FILENO);
-		// dup2(saved_stderr, STDERR_FILENO);
-		// close(saved_stdin);
-		// close(saved_stdout);
-		// close(saved_stderr);
