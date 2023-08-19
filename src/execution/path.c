@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 05:03:22 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 20:22:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/20 00:18:06 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,14 @@ char	*search_path(char *file)
 	char	*p2;
 	int		plen;
 	char	*valid_path;
+	struct s_symtab_entry			*symtab;
 
-	path = getenv("PATH");
+	symtab = get_symtab_entry("PATH");
+	if (!symtab)
+		return ((errno = ENOENT), NULL);
+	path = symtab->val;
+	if (!path)
+		return ((errno = ENOENT), NULL);
 	p = path;
 	while (p && *p)
 	{
