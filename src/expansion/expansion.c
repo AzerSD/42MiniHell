@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
+/*   expansion2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 08:39:39 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/19 23:28:35 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,12 @@ struct s_word	*expand(char *orig_word)
 	{
 		m->escaped = 0;
 		check_tilde(&(m->pstart), &(m->p), m->in_dquotes);
-		if (!*(m->p)) break ;
 		check_double_quotes(&(m->p), &(m->in_dquotes), (m->in_squotes));
 		if (!*(m->p)) break ;
 		check_single_quotes(&(m->p), &(m->in_dquotes), &(m->in_squotes));
 		if (!*(m->p)) break ;
 		check_backslash(&(m->p), &(m->escaped));
-		if (!*(m->p)) break ;
 		check_dollar_sign(&(m->pstart), &(m->p), m->in_squotes, &m->escaped);
-		if (!*(m->p)) break ;
 		(m->p)++;
 	}
 	words = make_word(m->pstart);
