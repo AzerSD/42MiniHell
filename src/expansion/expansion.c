@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion2.c                                       :+:      :+:    :+:   */
+/*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 23:28:35 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/19 23:42:48 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	free_all_words(struct s_word *first)
 		del = first;
 		first = first->next;
 		if (del->data)
-			free(del->data);
-		free(del);
+			my_free(&g_shell.memory, del->data);
+		my_free(&g_shell.memory, del);
 	}
 }

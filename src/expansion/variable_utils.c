@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 23:27:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 03:09:23 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/19 23:40:08 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	check_result(struct s_var_expand *var)
 			sprintf(var->buf, "0");
 		else
 			sprintf(var->buf, "%lu", ft_strlen(var->tmp));
-		var->p = my_malloc(&g_shell.memory, ft_strlen(var->buf) + 1);
+		var->p = malloc(ft_strlen(var->buf) + 1);
 		if (var->p)
 			ft_strcpy(var->p, var->buf);
 	}
 	else
 	{
-		var->p = my_malloc(&g_shell.memory, ft_strlen(var->tmp) + 1);
+		var->p = malloc(ft_strlen(var->tmp) + 1);
 		if (var->p)
 			ft_strcpy(var->p, var->tmp);
 	}

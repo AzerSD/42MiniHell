@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:09:50 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 08:26:35 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/19 23:39:43 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	process_word(struct s_word *word, int *in_double_quotes)
 void	substitute_norm(char **tmp, char **tmp2, char *(func)(char *), \
 	size_t *len, char **p)
 {
-	*tmp = my_malloc(&g_shell.memory, *len + 1);
+	*tmp = malloc(*len + 1);
 	if (!*tmp)
 	{
 		(*p) += *len;
