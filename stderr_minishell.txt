@@ -1,0 +1,198 @@
+Std error for: exit 0001
+minishell: exit: too many arguments
+Std error for: exit 001
+minishell: exit: too many arguments
+Std error for: exit 01
+minishell: exit: too many arguments
+Std error for: exit exit -12560
+minishell: exit: too many arguments
+Std error for: exit exit +1
+minishell: exit: too many arguments
+Std error for: exit exit -1
+minishell: exit: too many arguments
+Std error for: exit exit 1
+minishell: exit: too many arguments
+Std error for: exit exit 42
+minishell: exit: too many arguments
+Std error for: exit exit 10
+minishell: exit: too many arguments
+Std error for: exit exit 0
+minishell: exit: too many arguments
+Std error for: exit exit
+exit
+=================================================================
+==87057==ERROR: AddressSanitizer: attempting double-free on 0x6020000071f0 in thread T0:
+    #0 0x1091122c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x10903574b in free_all_mem memory.c:81
+    #2 0x109004a9c in exit_shell exit.c:46
+    #3 0x109004f2b in ft_exit exit.c:71
+    #4 0x109008333 in exec_builtin builtins.c:63
+    #5 0x1090095a0 in execc executor.c:102
+    #6 0x108ffc1eb in parse_and_execute shell.c:88
+    #7 0x108ffc07d in main_loop shell.c:51
+    #8 0x108ffc49f in main shell.c:69
+    #9 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+0x6020000071f0 is located 0 bytes inside of 3-byte region [0x6020000071f0,0x6020000071f3)
+freed by thread T0 here:
+    #0 0x1091122c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x109016683 in free_token tokenizer_utils.c:50
+    #2 0x1090100a8 in p_redirection parser.c:68
+    #3 0x109010b14 in parse_token parser.c:95
+    #4 0x1090117bd in parse_cmd parser.c:131
+    #5 0x108ffc1c0 in parse_and_execute shell.c:84
+    #6 0x108ffc07d in main_loop shell.c:51
+    #7 0x108ffc49f in main shell.c:69
+    #8 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+previously allocated by thread T0 here:
+    #0 0x10911217d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x4917d)
+    #1 0x109035546 in add_mem_block memory.c:22
+    #2 0x10903567c in my_malloc memory.c:57
+    #3 0x109014a81 in create_token tokenizer.c:27
+    #4 0x109013a15 in get_token tokenizer.c:83
+    #5 0x1090118a2 in parse_cmd parser.c:132
+    #6 0x108ffc1c0 in parse_and_execute shell.c:84
+    #7 0x108ffc07d in main_loop shell.c:51
+    #8 0x108ffc49f in main shell.c:69
+    #9 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+SUMMARY: AddressSanitizer: double-free (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6) in wrap_free+0xa6
+==87057==ABORTING
+argc before va_start= 3
+argc  before va_end= 3
+argc inside if argc > 1= 3
+argc before if argc >  = 3
+argc = 3
+minishell: exit: too many arguments
+exit
+=================================================================
+==96584==ERROR: AddressSanitizer: attempting double-free on 0x602000003130 in thread T0:
+    #0 0x101ce52c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x101c0d60b in free_all_mem memory.c:81
+    #2 0x101bdc91c in exit_shell exit.c:48
+    #3 0x101bdcdf6 in ft_exit exit.c:76
+    #4 0x101be01f3 in exec_builtin builtins.c:63
+    #5 0x101be1460 in execc executor.c:102
+    #6 0x101bd404b in parse_and_execute shell.c:88
+    #7 0x101bd3edd in main_loop shell.c:51
+    #8 0x101bd42ff in main shell.c:69
+    #9 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+0x602000003130 is located 0 bytes inside of 3-byte region [0x602000003130,0x602000003133)
+freed by thread T0 here:
+    #0 0x101ce52c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x101bee543 in free_token tokenizer_utils.c:50
+    #2 0x101be7f68 in p_redirection parser.c:68
+    #3 0x101be89d4 in parse_token parser.c:95
+    #4 0x101be967d in parse_cmd parser.c:131
+    #5 0x101bd4020 in parse_and_execute shell.c:84
+    #6 0x101bd3edd in main_loop shell.c:51
+    #7 0x101bd42ff in main shell.c:69
+    #8 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+previously allocated by thread T0 here:
+    #0 0x101ce517d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x4917d)
+    #1 0x101c0d406 in add_mem_block memory.c:22
+    #2 0x101c0d53c in my_malloc memory.c:57
+    #3 0x101bec941 in create_token tokenizer.c:27
+    #4 0x101beb8d5 in get_token tokenizer.c:83
+    #5 0x101be9762 in parse_cmd parser.c:132
+    #6 0x101bd4020 in parse_and_execute shell.c:84
+    #7 0x101bd3edd in main_loop shell.c:51
+    #8 0x101bd42ff in main shell.c:69
+    #9 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+SUMMARY: AddressSanitizer: double-free (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6) in wrap_free+0xa6
+==96584==ABORTING
+argc before va_start= 3
+argc  before va_end= 3
+argc inside if argc > 1= 3
+argc before if argc >  = 3
+argc = 3
+minishell: exit: too many arguments
+argc in main loop = 1
+exit
+=================================================================
+==98408==ERROR: AddressSanitizer: attempting double-free on 0x602000003110 in thread T0:
+    #0 0x1064d02c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x1063fd5cb in free_all_mem memory.c:81
+    #2 0x1063cc8dc in exit_shell exit.c:48
+    #3 0x1063ccdb6 in ft_exit exit.c:76
+    #4 0x1063d01b3 in exec_builtin builtins.c:63
+    #5 0x1063d1420 in execc executor.c:102
+    #6 0x1063c3ffb in parse_and_execute shell.c:89
+    #7 0x1063c3e73 in main_loop shell.c:51
+    #8 0x1063c42b5 in main shell.c:70
+    #9 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+0x602000003110 is located 0 bytes inside of 3-byte region [0x602000003110,0x602000003113)
+freed by thread T0 here:
+    #0 0x1064d02c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x1063de503 in free_token tokenizer_utils.c:50
+    #2 0x1063d7f28 in p_redirection parser.c:68
+    #3 0x1063d8994 in parse_token parser.c:95
+    #4 0x1063d963d in parse_cmd parser.c:131
+    #5 0x1063c3fd0 in parse_and_execute shell.c:85
+    #6 0x1063c3e73 in main_loop shell.c:51
+    #7 0x1063c42b5 in main shell.c:70
+    #8 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+previously allocated by thread T0 here:
+    #0 0x1064d017d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x4917d)
+    #1 0x1063fd3c6 in add_mem_block memory.c:22
+    #2 0x1063fd4fc in my_malloc memory.c:57
+    #3 0x1063dc901 in create_token tokenizer.c:27
+    #4 0x1063db895 in get_token tokenizer.c:83
+    #5 0x1063d9722 in parse_cmd parser.c:132
+    #6 0x1063c3fd0 in parse_and_execute shell.c:85
+    #7 0x1063c3e73 in main_loop shell.c:51
+    #8 0x1063c42b5 in main shell.c:70
+    #9 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+SUMMARY: AddressSanitizer: double-free (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6) in wrap_free+0xa6
+==98408==ABORTING
+
+
+exit //
+minishell: exit: 			: numeric argument required
+exit
+=================================================================
+==3030==ERROR: AddressSanitizer: attempting double-free on 0x6020000034d0 in thread T0:
+    #0 0x1039bf2c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x1038eda7b in free_all_mem memory.c:81
+    #2 0x1038bcdcc in exit_shell exit.c:52
+    #3 0x1038bd25b in ft_exit exit.c:77
+    #4 0x1038c0663 in exec_builtin builtins.c:63
+    #5 0x1038c18d0 in execc executor.c:102
+    #6 0x1038b471b in parse_and_execute shell.c:88
+    #7 0x1038b45ad in main_loop shell.c:51
+    #8 0x1038b49cf in main shell.c:69
+    #9 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+0x6020000034d0 is located 0 bytes inside of 3-byte region [0x6020000034d0,0x6020000034d3)
+freed by thread T0 here:
+    #0 0x1039bf2c6 in wrap_free+0xa6 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6)
+    #1 0x1038ce9b3 in free_token tokenizer_utils.c:50
+    #2 0x1038c83d8 in p_redirection parser.c:68
+    #3 0x1038c8e44 in parse_token parser.c:95
+    #4 0x1038c9aed in parse_cmd parser.c:131
+    #5 0x1038b46f0 in parse_and_execute shell.c:84
+    #6 0x1038b45ad in main_loop shell.c:51
+    #7 0x1038b49cf in main shell.c:69
+    #8 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+previously allocated by thread T0 here:
+    #0 0x1039bf17d in wrap_malloc+0x9d (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x4917d)
+    #1 0x1038ed876 in add_mem_block memory.c:22
+    #2 0x1038ed9ac in my_malloc memory.c:57
+    #3 0x1038ccdb1 in create_token tokenizer.c:27
+    #4 0x1038cbd45 in get_token tokenizer.c:83
+    #5 0x1038c9bd2 in parse_cmd parser.c:132
+    #6 0x1038b46f0 in parse_and_execute shell.c:84
+    #7 0x1038b45ad in main_loop shell.c:51
+    #8 0x1038b49cf in main shell.c:69
+    #9 0x7fff68172cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+SUMMARY: AddressSanitizer: double-free (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0x492c6) in wrap_free+0xa6
+==3030==ABORTING
