@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"name": "42MiniHell",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iterator": "c",
+			"sstream": "c"
+		}
+	}
+}
