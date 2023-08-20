@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+         #
+#    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/19 08:42:52 by asioud           ###   ########.fr        #
+#    Updated: 2023/08/19 14:28:09 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC			=	cc
 RM			=	rm -rf
 LIBFT		= 	libs/libft/libft.a
 GC			=	libs/garbage_collector/garbage_collector.a
-CFLAGS		=	-g -Wall -Werror -Werror -Wextra -fsanitize=address -fsanitize=undefined
+CFLAGS		=	-g3 -Wall -Werror -Werror -Wextra -fsanitize=address -fsanitize=undefined -o3
 HEADER_FILES=	-I ./includes -I ./libs/libft/includes
 
 ifeq ($(OS), Linux)
