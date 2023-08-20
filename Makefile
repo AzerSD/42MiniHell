@@ -5,10 +5,14 @@
 #                                                     +:+ +:+         +:+      #
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/20 12:42:51 by lhasmi           ###   ########.fr        #
+#    Created: Invalid Date        by              +#+  #+#    #+#              #
+#    Updated: 2023/08/20 19:30:30 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
+
+
 
 NAME		=	minishell
 CC			=	gcc

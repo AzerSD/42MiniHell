@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_symtab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:28:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 03:14:24 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/19 15:59:06 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	string_to_symtab(const char *env_var)
 
 void	init_symtab(char **env)
 {
-	// struct s_symtab_entry	*entry;
-	char					**p2;
+	char	**p2;
 
+	// struct s_symtab_entry	*entry;
 	init_symtab_stack();
 	p2 = env;
 	while (*p2)

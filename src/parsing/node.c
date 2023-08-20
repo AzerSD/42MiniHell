@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:58:07 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 20:23:03 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/19 21:18:18 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,12 @@ void	set_node_val_str(t_node *node, char *val)
 		node->val.str = NULL;
 	else
 	{
-		val2 = my_malloc(&g_shell.memory, ft_strlen(val) + 1);
+		//use ft_strdup instead of ft_strcpy to avoid segfault when val is NULL (ex: echo $)
+		val2 = ft_strdup(val);
 		if (!val2)
 			node->val.str = NULL;
 		else
-		{
-			ft_strcpy(val2, val);
 			node->val.str = val2;
-		}
 	}
 }
 
