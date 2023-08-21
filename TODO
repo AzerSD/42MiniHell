@@ -1,4 +1,5 @@
-- the exit builtin needs some work, check testcases in tester
+- DONE ----- >the exit builtin needs some work, check testcases in tester
+
 - the export builtin needs some work, check testcases in tester
 
 - shoud be able to execute commands inside /bin even if the PATH is unset
