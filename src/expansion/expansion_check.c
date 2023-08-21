@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:49:41 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 15:39:45 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/07/02 00:42:38 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	check_backtick(char **pstart, char **p)
 	{
 		len = find_closing_quote(*p);
 		if (len != 0)
+		{
 			substitute_word(pstart, p, len + 1, command_substitute, 0);
+		}
 	}
 }
 

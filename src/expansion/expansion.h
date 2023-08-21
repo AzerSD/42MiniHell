@@ -36,14 +36,6 @@ typedef struct s_marker
 	int				in_squotes;
 	int				escaped;
 }	t_m;
-// typedef struct s_expansMetadata
-// {
-// 	char			*startPosition;
-// 	char			*currentPosition;
-// 	int				inside_dquotes;
-// 	int				inside_squotes;
-// 	int				isEscaped;
-// }	t_expansMetadata;
 
 typedef struct s_match
 {
@@ -121,7 +113,7 @@ int				has_glob_chars(char *p, size_t len);
  * @brief find the shortest or longest prefix of str that matches
  * pattern, depending on the value of longest.
  * @return value is the index of 1 after the last character
- * in the prefix, i.e. where you should put a '\0' to get
+ * in the prefix, i.e. where you should put a '\0' to get 
  * the prefix.
 */
 int				match_prefix(char *pattern, char *str, int longest);
@@ -151,7 +143,7 @@ char			*tilde_expansion(char *s);
  * @param words Pointer to the first word in the linked list.
  * @return The head of the linked list after globbing is completed.
  *
- * Filename globbing is the process of expanding wildcard characters
+ * Filename globbing is the process of expanding wildcard characters 
  * (`*`, `?`, etc.) in a string to match actual file and directory names.
 */
 struct s_word	*pathnames_expand(struct s_word *words);
@@ -161,7 +153,7 @@ void			delete_char_at(char *str, size_t index);
 
 /**
  * @brief check if the given str is a valid name.. POSIX says a
- * names can consist of alphanumeric chars and underscores,and
+ * names can consist of alphanumeric chars and underscores,and 
  * start with an alphabetic char or underscore.
  * @returns 1 if str is a valid name, 0 otherwise.
  */
@@ -179,14 +171,14 @@ int				is_name(char *str);
 char			*substitute_str(char *s1, char *s2, size_t start, size_t end);
 
 /**
- * @brief a helper function that calls the other word expansion functions,
+ * @brief a helper function that calls the other word expansion functions, 
  * which we'll define in the following sections.
- * @param pstart
- * @param p
- * @param len
- * @param func
- * @param add_quotes
- * @return int
+ * @param pstart 
+ * @param p 
+ * @param len 
+ * @param func 
+ * @param add_quotes 
+ * @return int 
  */
 int				substitute_word(char **pstart, char **p, size_t len, \
 				char *(func)(char *), int add_quotes);

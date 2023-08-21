@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_handlers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 17:37:53 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/20 15:50:35 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/07/03 20:15:39 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ int	handle_output_redirection(t_cli *cli, t_curr_tok *curr, int *endloop,
 		}
 	}
 	else
+	{
 		add_to_buf(nc, curr);
+	}
 	*endloop = 1;
 	return (1);
 }
@@ -74,7 +76,9 @@ int	handle_input_redirection(t_cli *cli, t_curr_tok *curr, int *endloop,
 		}
 	}
 	else
+	{
 		add_to_buf(nc, curr);
+	}
 	*endloop = 1;
 	return (1);
 }

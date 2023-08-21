@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/20 15:38:55 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/20 00:59:20 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	main_loop(t_shell *shell)
 		if (isatty(STDIN_FILENO))
 			add_history(cmd);
 		cli.buffer = cmd;
-		cli.buff_size = ft_strlen(cmd);
+		cli.buff_size = strlen(cmd);
 		cli.cur_pos = INIT_SRC_POS;
 		shell->status = parse_and_execute(&cli);
 		dup2(original_stdout, STDOUT_FILENO);
@@ -88,28 +88,28 @@ int	parse_and_execute(t_cli *cli)
 	return (execc(ast_cmd));
 }
 
-// void	print_ast(t_node *node, int indent)
-// {
-// 	t_node	*child;
-// 	if (node == NULL)
-// 		return ;
-// 	for (int i = 0; i < indent - 1; i++)
-// 		printf("%s  │%s", BLU, RESET);
-// 	if (indent > 0)
-// 		printf("%s  ├─%s", CYN, RESET);
-// 	printf("%sValue: %s%s,%s	%slevel: %s%u%s\n",
-// 			GRN,
-// 			YEL,
-// 			node->val.str,
-// 			RESET,
-// 			RED,
-// 			YEL,
-// 			node->type,
-// 			RESET);
-// 	child = node->first_child;
-// 	while (child != NULL)
-// 	{
-// 		print_ast(child, indent + 1);
-// 		child = child->next_sibling;
-// 	}
-// }
+void	print_ast(t_node *node, int indent)
+{
+	t_node	*child;
+	if (node == NULL)
+		return ;
+	for (int i = 0; i < indent - 1; i++)
+		printf("%s  │%s", BLU, RESET);
+	if (indent > 0)
+		printf("%s  ├─%s", CYN, RESET);
+	printf("%sValue: %s%s,%s	%slevel: %s%u%s\n",
+			GRN,
+			YEL,
+			node->val.str,
+			RESET,
+			RED,
+			YEL,
+			node->type,
+			RESET);
+	child = node->first_child;
+	while (child != NULL)
+	{
+		print_ast(child, indent + 1);
+		child = child->next_sibling;
+	}
+}

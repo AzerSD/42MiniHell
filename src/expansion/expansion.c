@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/20 19:31:19 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/19 23:42:48 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,12 @@ int	init_expand(t_m *m, char *orig_word)
 		return (1);
 	if (!*orig_word)
 		return (0);
-	m->pstart = ft_strdup(orig_word);
+	m->pstart = my_malloc(&g_shell.memory, ft_strlen(orig_word) + 1);
 	if (!m->pstart)
 		return (1);
+	ft_strcpy(m->pstart, orig_word);
 	m->p = m->pstart;
+	m->p[ft_strlen(orig_word)] = '\0';
 	m->escaped = 0;
 	return (1);
 }
@@ -87,29 +89,22 @@ struct s_word	*expand(char *orig_word)
 	if (!init_expand(m, orig_word))
 	{
 		w = make_word(orig_word);
-		free(m);
-		return (w);
+		return (free(m), w);
 	}
 	while (*(m->p))
 	{
 		m->escaped = 0;
 		check_tilde(&(m->pstart), &(m->p), m->in_dquotes);
 		check_double_quotes(&(m->p), &(m->in_dquotes), (m->in_squotes));
-		if (!*(m->p))
-			break ;
+		if (!*(m->p)) break ;
 		check_single_quotes(&(m->p), &(m->in_dquotes), &(m->in_squotes));
-		if (!*(m->p))
-			break ;
+		if (!*(m->p)) break ;
 		check_backslash(&(m->p), &(m->escaped));
 		check_dollar_sign(&(m->pstart), &(m->p), m->in_squotes, &m->escaped);
 		(m->p)++;
 	}
 	words = make_word(m->pstart);
 	words = pathnames_expand(words);
-	if (m->pstart)
-		free(m->pstart);
-	if (m)
-		free(m);
 	return (remove_quotes(words), words);
 }
 
