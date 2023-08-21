@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:49 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/21 18:31:56 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/21 19:50:12 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long long	parse_exit_args(char **argv)
 		g_shell.status = 255;
 		return (255);
 	}
-	num = strtoll(argv[1], &end, 10);
+	num = ft_strtoll(argv[1], &end, 10);
 	if (*end != '\0' || num > INT_MAX || num < INT_MIN)
 	{
 		ft_printf_fd(STDERR_FILENO, "minishell: exit: \

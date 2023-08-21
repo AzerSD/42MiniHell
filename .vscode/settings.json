@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "iterator": "c",
-        "sstream": "c"
-    }
+		"iterator": "c",
+		"sstream": "c",
+		"libft.h": "c"
+	}
 }
