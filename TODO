@@ -1,8 +1,43 @@
-- the exit builtin needs some work, check testcases in tester
-- the export builtin needs some work, check testcases in tester
+		4:  STD_OUT: KO  STD_ERR: OK  EXIT_CODE: OK  echo '' ""
+------------
+## For the case exit:
+		97: STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK  exit
+minishell seg faults
+bash std error is exit.
 
-- shoud be able to execute commands inside /bin even if the PATH is unset
+## DONE ## For all cases bellow: (see stderr_minishell.txt)  explanation (2>> is not handeled and therefore will be counted as extra argument)
+	std error of minishell is: minishell: exit: too many arguments
+	std error of bash is: exit
+
+		99: STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		100:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		101:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		102:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		105:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		110:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		112:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		122:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		123:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+		124:STD_OUT: OK  STD_ERR: KO  EXIT_CODE: OK
+
+#### the export builtin needs some work, check testcases in tester
+	ALL TESTCASES of export passed in the tester of tim (see telegram)
+
+#### shoud be able to execute commands inside /bin even if the PATH is unset
 
 - syntax error: `|` `<` `>` `<<<<` `>>>>>` `|echO|` `<>`
 
 - remove global variable
+
+
+
+
+
+
+
+# script for dummies
+The symbols > and 2> are used for redirection:
+
+    >: Redirects the standard output (stdout). If you write command > file.txt, the standard output of command will be written to file.txt.
+
+    2>: Redirects the standard error (stderr). If you write command 2> err.txt, the error messages (if any) from command will be written to err.txt.

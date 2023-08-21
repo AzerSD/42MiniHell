@@ -1,0 +1,17 @@
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+Std error for: exit
+exit
+exit //
+exit
+bash: exit: : numeric argument required
