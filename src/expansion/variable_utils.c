@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 23:27:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 23:40:08 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*exit_code_expansion(char *orig_var_name)
 	char	*exit_code_copy;
 
 	(void) orig_var_name;
-	exit_code_str = exit_code_to_str(g_shell.status);
+	exit_code_str = exit_code_to_str(shell_instance.status);
 	exit_code_copy = ft_strdup(exit_code_str);
 	if (exit_code_copy == NULL)
 	{

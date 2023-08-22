@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:48 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 20:22:40 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	update_pwd(char *newpwd)
 	struct s_symtab_entry	*oldpwd;
 	struct s_symtab_entry	*pwd;
 
-	oldpwd = do_lookup("PWD", g_shell.s_symtab_stack.local_symtab);
-	pwd = do_lookup("PWD", g_shell.s_symtab_stack.local_symtab);
+	oldpwd = do_lookup("PWD", shell_instance.s_symtab_stack.local_symtab);
+	pwd = do_lookup("PWD", shell_instance.s_symtab_stack.local_symtab);
 	update_entry(oldpwd, oldpwd->val, "OLDPWD");
 	update_entry(pwd, newpwd, "PWD");
 }
@@ -29,7 +29,7 @@ int	change_to_home(void)
 	char					*newpwd;
 	int						result;
 
-	entry = do_lookup("HOME", g_shell.s_symtab_stack.local_symtab);
+	entry = do_lookup("HOME", shell_instance.s_symtab_stack.local_symtab);
 	if (entry == NULL)
 	{
 		ft_printf_fd(STDERR_FILENO, "minishell: cd: HOME not set\n");
@@ -44,7 +44,7 @@ int	change_to_home(void)
 	}
 	newpwd = getcwd(NULL, 0);
 	update_pwd(newpwd);
-	g_shell.status = 0;
+	shell_instance.status = 0;
 	return (0);
 }
 
@@ -54,7 +54,7 @@ int	change_to_oldpwd(void)
 	char					*newpwd;
 	int						result;
 
-	oldpwd_entry = do_lookup("OLDPWD", g_shell.s_symtab_stack.local_symtab);
+	oldpwd_entry = do_lookup("OLDPWD", shell_instance.s_symtab_stack.local_symtab);
 	if (oldpwd_entry == NULL)
 	{
 		ft_printf_fd(STDERR_FILENO, "minishell: cd: OLDPWD not set\n");

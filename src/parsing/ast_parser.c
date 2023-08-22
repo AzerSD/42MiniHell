@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 00:48:44 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 05:51:31 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parse_ast(t_node *node, int *argc, int *targc, char ***argv)
 		{
 			if (check_buffer_bounds(argc, targc, argv))
 			{
-				arg = my_malloc(&g_shell.memory, ft_strlen(w->data) + 1);
+				arg = my_malloc(&shell_instance.memory, ft_strlen(w->data) + 1);
 				if (arg)
 				{
 					ft_strcpy(arg, w->data);

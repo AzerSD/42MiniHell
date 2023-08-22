@@ -6,11 +6,16 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/20 00:59:20 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:08:04 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_shell *get_shell_instance() {
+    static t_shell g_shell_instance;
+    return &g_shell_instance;
+}
 
 char	*get_cmd(void)
 {
@@ -59,7 +64,7 @@ int	main(int argc, char **argv, char **env)
 	struct termios	mirror_termios;
 	t_shell			*shell;
 
-	shell = my_malloc(&g_shell.memory, sizeof(t_shell));
+	shell = my_malloc(&shell_instance.memory, sizeof(t_shell));
 	shell->memory = NULL;
 	(void)argc;
 	(void)argv;
@@ -78,7 +83,7 @@ int	parse_and_execute(t_cli *cli)
 	t_token		*tok;
 	t_curr_tok	*curr;
 
-	curr = my_malloc(&g_shell.memory, sizeof(t_curr_tok));
+	curr = my_malloc(&shell_instance.memory, sizeof(t_curr_tok));
 	skip_whitespaces(cli);
 	tok = get_token(cli, curr);
 	ast_cmd = parse_cmd(tok, curr);

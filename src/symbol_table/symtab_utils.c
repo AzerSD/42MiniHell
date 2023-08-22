@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 00:26:03 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/20 00:58:57 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	update_entry(struct s_symtab_entry *entry, char *new_val, char *name)
 {
-	entry = do_lookup(name, g_shell.s_symtab_stack.local_symtab);
+	entry = do_lookup(name, shell_instance.s_symtab_stack.local_symtab);
 	if (!entry)
 	{
 		entry = add_to_symtab(name);
@@ -28,7 +28,7 @@ void	symtab_entry_setval(struct s_symtab_entry *entry, char *val)
 
 	if (entry->val)
 	{
-		my_free(&g_shell.memory, entry->val);
+		my_free(&shell_instance.memory, entry->val);
 	}
 	if (!val)
 	{
@@ -36,7 +36,7 @@ void	symtab_entry_setval(struct s_symtab_entry *entry, char *val)
 	}
 	else
 	{
-		val2 = my_malloc(&g_shell.memory, strlen(val) + 1);
+		val2 = my_malloc(&shell_instance.memory, strlen(val) + 1);
 		if (val2)
 		{
 			strcpy(val2, val);
@@ -56,10 +56,10 @@ struct s_symtab_entry	*get_symtab_entry(const char *str)
 	struct s_symtab			*symtab;
 	struct s_symtab_entry	*entry;
 
-	i = g_shell.s_symtab_stack.symtab_count - 1;
+	i = shell_instance.s_symtab_stack.symtab_count - 1;
 	while (i >= 0)
 	{
-		symtab = g_shell.s_symtab_stack.symtab_list[i];
+		symtab = shell_instance.s_symtab_stack.symtab_list[i];
 		entry = do_lookup(str, symtab);
 		if (entry)
 		{

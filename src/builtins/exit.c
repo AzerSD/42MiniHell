@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:49 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/21 19:50:12 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:00:56 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ long long	parse_exit_args(char **argv)
 		ft_printf_fd(STDERR_FILENO,
 						"minishell: exit: %s: numeric argument required\n",
 						argv[1]);
-		g_shell.status = 255;
+		shell_instance.status = 255;
 		return (255);
 	}
 	num = ft_strtoll(argv[1], &end, 10);
 	if (*end != '\0' || num > INT_MAX || num < INT_MIN)
 	{
-		ft_printf_fd(STDERR_FILENO, "minishell: exit: \
-            %s: numeric argument required\n", argv[1]);
-		g_shell.status = 255;
+		ft_printf_fd(STDERR_FILENO,
+						"minishell: exit: %s: numeric argument required\n",
+						argv[1]);
+		shell_instance.status = 255;
 		return (255);
 	}
 	return (num);
@@ -49,9 +50,10 @@ int	check_too_many_args(int argc)
 
 void	exit_shell(int exit_code)
 {
-	g_shell.status = exit_code;
-	// ft_printf_fd(STDOUT_FILENO, "exit\n");
-	free_all_mem(&g_shell.memory);
+	shell_instance.status = exit_code;
+	if (isatty(fileno(stdin)))
+		ft_printf_fd(STDOUT_FILENO, "exit\n");
+	free_all_mem(&shell_instance.memory);
 	exit(exit_code);
 }
 

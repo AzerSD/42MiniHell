@@ -28,7 +28,7 @@ char	*wordlist_to_str(struct s_word *word)
 		len += w->len + 1;
 		w = w->next;
 	}
-	str = my_malloc(&g_shell.memory, len + 1);
+	str = my_malloc(&shell_instance.memory, len + 1);
 	str2 = str;
 	w = word;
 	while (w)
@@ -78,21 +78,21 @@ char	*substitute_str(char *s1, char *s2, size_t start, size_t end)
 	char	*after;
 	char	*final;
 
-	before = (char *)my_malloc(&g_shell.memory, (start + 1) * sizeof(char));
+	before = (char *)my_malloc(&shell_instance.memory, (start + 1) * sizeof(char));
 	ft_strncpy(before, s1, start);
 	before[start] = '\0';
 	afterlen = ft_strlen(s1) - end + 1;
-	after = (char *)my_malloc(g_shell.memory, afterlen * sizeof(char));
+	after = (char *)my_malloc(shell_instance.memory, afterlen * sizeof(char));
 	if (!after)
 		return (NULL);
 	ft_strcpy(after, s1 + end + 1);
 	totallen = start + afterlen + ft_strlen(s2);
-	final = my_malloc(&g_shell.memory, totallen + 1);
+	final = my_malloc(&shell_instance.memory, totallen + 1);
 	if (!final)
-		return (my_free(&g_shell.memory, final), NULL);
+		return (my_free(&shell_instance.memory, final), NULL);
 	if (!totallen)
 		final[0] = '\0';
 	else
 		final = create_final_string(before, s2, after, final);
-	return (my_free(&g_shell.memory, after), final);
+	return (my_free(&shell_instance.memory, after), final);
 }
