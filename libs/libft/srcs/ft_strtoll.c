@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:41:43 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/21 20:28:56 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/22 21:22:33 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,181 +20,234 @@ int	ft_iswspace(const char nptr)
 	return (0);
 }
 
-long long	ft_strtoll(const char *nptr, char **endptr, int base)
+int	ft_isxdigit(char c)
 {
-	const char			*s;
-	unsigned long long	acc;
-	char				c;
-	unsigned long long	cutoff;
-	int					neg;
-	int					any;
-	int					cutlim;
+	if (ft_isdigit(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))
+		return (1);
+	return (0);
+}
+int ft_islower(char c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	return (0);
+}
 
-	s = nptr;
-	neg = 0, any = 0, cutlim = 0;
-	acc = 0;
-	// Skip white space
-	do
+int ft_isupper(char c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
+}
+
+t_strtoll	*strtoll_init(void)
+{
+	t_strtoll	*strtoll;
+
+	strtoll = (t_strtoll *)malloc(sizeof(t_strtoll));
+	if (!strtoll)
+		return (NULL);
+	strtoll->s = NULL;
+	strtoll->neg = 0;
+	strtoll->any = 0;
+	strtoll->cutlim = 0;
+	strtoll->c = 0;
+	strtoll->cutoff = 0;
+	strtoll->start = NULL;
+	return (strtoll);
+}
+
+static void	skip_whitespace(t_strtoll *strtoll)
+{
+	while (ft_iswspace((unsigned char)strtoll->c))
+		strtoll->c = *strtoll->s++;
+}
+
+static void	handle_sign(t_strtoll *strtoll)
+{
+	if (strtoll->c == '-')
 	{
-		c = *s++;
-	} while (ft_iswspace((unsigned char)c));
-	// Handle sign
-	if (c == '-')
+		strtoll->neg = 1;
+		strtoll->c = *strtoll->s++;
+	}
+	else if (strtoll->c == '+')
+		strtoll->c = *strtoll->s++;
+}
+
+static void	handle_hex(t_strtoll *strtoll, int *base)
+{
+	if ((*base == 0 || *base == 16) && strtoll->c == '0' && (*strtoll->s == 'x'
+			|| *strtoll->s == 'X') && ft_isxdigit(strtoll->s[1]))
 	{
-		neg = 1;
-		c = *s++;
+		strtoll->c = strtoll->s[1];
+		strtoll->s += 2;
+		*base = 16;
 	}
-	else if (c == '+')
-		c = *s++;
-	// Handle hex
-	if ((base == 0 || base == 16) && c == '0' && (*s == 'x' || *s == 'X')
-		&& isxdigit(s[1]))
+}
+
+static void	convert_digits(t_strtoll *strtoll, unsigned long long *acc,
+		int base)
+{
+	while (1)
 	{
-		c = s[1];
-		s += 2;
-		base = 16;
-	}
-	// Determine base
-	if (base == 0){
-		base = c == '0' ? 8 : 10;
-	}
-	if (base < 2 || base > 36){
-		errno = EINVAL;
-		goto noconv;
-	}
-	// Initialize variables for conversion
-	cutoff = neg ? -(unsigned long long)LLONG_MIN : LLONG_MAX;
-	cutlim = cutoff % base;
-	cutoff /= base;
-	acc = 0;
-	// Convert digits
-	for (;; c = *s++)
-	{
-		if (isdigit(c))
-			c -= '0';
-		else if (isupper(c))
-			c -= 'A' - 10;
-		else if (islower(c))
-			c -= 'a' - 10;
+		if (ft_isdigit(strtoll->c))
+			strtoll->c -= '0';
+		else if (ft_isupper(strtoll->c))
+			strtoll->c -= 'A' - 10;
+		else if (ft_islower(strtoll->c))
+			strtoll->c -= 'a' - 10;
 		else
 			break ;
-		if (c >= base)
+		if (strtoll->c >= base)
 			break ;
-		if (any < 0 || acc > cutoff || (acc == cutoff && c > cutlim))
-			any = -1;
+		if (strtoll->any < 0 || *acc > strtoll->cutoff
+			|| (*acc == strtoll->cutoff && strtoll->c > strtoll->cutlim))
+			strtoll->any = -1;
 		else
 		{
-			any = 1;
-			acc *= base;
-			acc += c;
+			strtoll->any = 1;
+			*acc *= base;
+			*acc += strtoll->c;
 		}
+		strtoll->c = *strtoll->s++;
 	}
-	// Handle result
-	if (any < 0)
+}
+
+long long	ft_strtoll(const char *nptr, char **endptr, int base)
+{
+	t_strtoll			*strtoll;
+	unsigned long long	acc;
+
+	strtoll = strtoll_init();
+	strtoll->start = nptr;
+	strtoll->s = nptr;
+	strtoll->c = *strtoll->s++;
+	skip_whitespace(strtoll);
+	handle_sign(strtoll);
+	handle_hex(strtoll, &base);
+	if (base == 0)
 	{
-		acc = neg ? LLONG_MIN : LLONG_MAX;
+		if (strtoll->c == '0')
+			base = 8;
+		else
+			base = 10;
+	}
+	if (base < 2 || base > 36)
+		return (errno = EINVAL, free(strtoll), 0);
+	if (strtoll->neg)
+		strtoll->cutoff = -(unsigned long long)LLONG_MIN;
+	else
+		strtoll->cutoff = LLONG_MAX;
+	strtoll->cutlim = strtoll->cutoff % base;
+	strtoll->cutoff /= base;
+	acc = 0;
+	convert_digits(strtoll, &acc, base);
+	if (strtoll->any < 0)
+	{
+		if (strtoll->neg)
+			acc = LLONG_MIN;
+		else
+			acc = LLONG_MAX;
 		errno = ERANGE;
 	}
-	else if (neg)
+	else if (strtoll->neg)
 		acc = -acc;
-	else if (!any)
-	{
-	noconv:
-		s = nptr;
-	}
-	// Assign end pointer if required
+	else if (!strtoll->any)
+		strtoll->s = strtoll->start;
 	if (endptr != NULL)
-		*endptr = (char *)(any ? s - 1 : s);
+	{
+		if (strtoll->any)
+			*endptr = (char *)(strtoll->s - 1);
+		else
+			*endptr = (char *)(strtoll->s);
+	}
+	free(strtoll);
 	return (acc);
 }
 
-// static unsigned char	charmap(char c)
-// {
-// 	char	chr;
-
-// 	chr = ft_toupper(c);
-// 	if (chr >= '0' && chr <= '9')
-// 		return (chr - '0');
-// 	if (chr >= 'A' && chr <= 'Z')
-// 		return (chr - 'A' + 10);
-// 	return (36);
-// }
-
-// static int	getbase(const char **nptr, int base)
-// {
-// 	const char	*ptr;
-
-// 	ptr = *nptr;
-// 	if (base == 0)
-// 	{
-// 		if (*ptr == '0')
-// 		{
-// 			++ptr;
-// 			if (*ptr == 'x' || *ptr == 'X')
-// 			{
-// 				base = 16;
-// 				++ptr;
-// 			}
-// 			else
-// 				base = 8;
-// 		}
-// 		else
-// 			base = 10;
-// 	}
-// 	*nptr = ptr;
-// 	return (base);
-// }
-
 // long long	ft_strtoll(const char *nptr, char **endptr, int base)
 // {
-// 	int				neg;
-// 	long long		result;
-// 	long long		prev_result;
-// 	unsigned char	digit;
-// 	const char		*start;
+// 	t_strtoll			*strtoll;
+// 	unsigned long long	acc;
 
-// 	start = nptr;
-// 	// to ensure endptr remains unchanged if no conversion is done
-// 	if (base < 0 || base == 1 || base > 36)
+// 	strtoll = strtoll_init();
+// 	strtoll ->s = nptr;
+// 	acc = 0;
+// 	// Skip white space
+// 	do
 // 	{
+// 		strtoll ->c = *strtoll ->s++;
+// 	} while (ft_iswspace((unsigned char)strtoll->c));
+// 	// Handle sign
+// 	if (strtoll ->c == '-')
+// 	{
+// 		strtoll ->neg = 1;
+// 		strtoll ->c = *strtoll ->s++;
+// 	}
+// 	else if (strtoll -> c == '+')
+// 		strtoll ->c = *strtoll ->s++;
+// 	// Handle hex
+// 	if ((base == 0 || base == 16) && strtoll ->c == '0' && (*strtoll ->s == 'x'
+// 			|| *strtoll ->s == 'X')
+// 		&& ft_isxdigit(strtoll ->s[1]))
+// 	{
+// 		strtoll ->c = strtoll ->s[1];
+// 		strtoll ->s += 2;
+// 		base = 16;
+// 	}
+// 	// Determine base
+// 	if (base == 0){
+// 		base = strtoll ->c == '0' ? 8 : 10;
+// 	}
+// 	if (base < 2 || base > 36){
 // 		errno = EINVAL;
-// 		if (endptr)
-// 			*endptr = (char *)nptr;
-// 		return (0); // Base out of valid range
+// 		goto noconv;
 // 	}
-// 	neg = 1;
-// 	result = 0;
-// 	prev_result = 0;
-// 	while (ft_iswspace(*nptr))
-// 		nptr++;
-// 	if (*nptr == '-')
+// 	// Initialize variables for conversion
+// 	strtoll ->cutoff = strtoll ->neg ?
+// 		-(unsigned long long)LLONG_MIN : LLONG_MAX;
+// 	strtoll ->cutlim = strtoll ->cutoff % base;
+// 	strtoll ->cutoff /= base;
+// 	acc = 0;
+// 	// Convert digits
+// 	for (;; strtoll ->c = *strtoll ->s++)
 // 	{
-// 		neg = -1;
-// 		nptr++;
-// 	}
-// 	else if (*nptr == '+')
-// 		nptr++;
-// 	base = getbase(&nptr, base);
-// 	while ((digit = charmap(*nptr)) < base)
-// 	{
-// 		prev_result = result;
-// 		result = result * base + digit;
-// 		if (result < prev_result)
+// 		if (ft_isdigit(strtoll ->c))
+// 			strtoll ->c -= '0';
+// 		else if (ft_isupper(strtoll ->c))
+// 			strtoll ->c -= 'A' - 10;
+// 		else if (ft_islower(strtoll ->c))
+// 			strtoll ->c -= 'a' - 10;
+// 		else
+// 			break ;
+// 		if (strtoll ->c >= base)
+// 			break ;
+// 		if (strtoll ->any < 0 || acc > strtoll ->cutoff || (acc == strtoll
+// 				->cutoff && strtoll ->c > strtoll ->cutlim))
+// 			strtoll ->any = -1;
+// 		else
 // 		{
-// 			errno = ERANGE;
-// 			if (endptr)
-// 				*endptr = (char *)(nptr + 1);
-// 			// point to character after last valid char
-// 			return (neg == -1 ? FT_LONG_MIN : FT_LONG_MAX);
+// 			strtoll ->any = 1;
+// 			acc *= base;
+// 			acc += strtoll ->c;
 // 		}
-// 		nptr++;
 // 	}
-// 	if (endptr)
+// 	// Handle result
+// 	if (strtoll ->any < 0)
 // 	{
-// 		if (nptr == start) // No conversion done, endptr remains unchanged
-// 			*endptr = (char *)nptr;
-// 		else // Point to the character after the last valid character processed
-// 			*endptr = (char *)(nptr - 1);
+// 		acc = strtoll ->neg ? LLONG_MIN : LLONG_MAX;
+// 		errno = ERANGE;
 // 	}
-// 	return (result * neg);
+// 	else if (strtoll ->neg)
+// 		acc = -acc;
+// 	else if (!strtoll ->any)
+// 	{
+// 	noconv:
+// 		strtoll ->s = nptr;
+// 	}
+// 	// Assign end pointer if required
+// 	if (endptr != NULL)
+// 		*endptr = (char *)(strtoll ->any ? strtoll ->s - 1 : strtoll ->s);
+// 	free (strtoll);
+// 	return (acc);
 // }

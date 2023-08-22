@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:48 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 21:31:46 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,13 @@ int	ft_cd(int argc, ...)
 	path = va_arg(args, char **);
 	va_end(args);
 	if (argc == 1)
-	{
 		result = change_to_home();
-	}
 	else
 	{
 		if (ft_strcmp(*(path + 1), "-") == 0)
-		{
 			result = change_to_oldpwd();
-		}
 		else
-		{
 			result = change_to_new_dir(*(path + 1));
-		}
 	}
 	return (result);
 }
