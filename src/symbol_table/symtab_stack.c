@@ -14,9 +14,9 @@
 
 static void	symtab_stack_add(struct s_symtab *symtab)
 {
-	g_shell.s_symtab_stack.symtab_list \
-	[g_shell.s_symtab_stack.symtab_count++] = symtab;
-	g_shell.s_symtab_stack.local_symtab = symtab;
+	shell_instance.s_symtab_stack.symtab_list \
+	[shell_instance.s_symtab_stack.symtab_count++] = symtab;
+	shell_instance.s_symtab_stack.local_symtab = symtab;
 }
 
 struct s_symtab	*symtab_stack_push(void)
@@ -32,30 +32,30 @@ struct s_symtab	*symtab_stack_pop(void)
 {
 	struct s_symtab	*st;
 
-	if (g_shell.s_symtab_stack.symtab_count == 0)
+	if (shell_instance.s_symtab_stack.symtab_count == 0)
 		return (NULL);
-	st = g_shell.s_symtab_stack.symtab_list \
-		[g_shell.s_symtab_stack.symtab_count - 1];
-	g_shell.s_symtab_stack.symtab_list \
-	[--g_shell.s_symtab_stack.symtab_count] = NULL;
-	if (g_shell.s_symtab_stack.symtab_count == 0)
+	st = shell_instance.s_symtab_stack.symtab_list \
+		[shell_instance.s_symtab_stack.symtab_count - 1];
+	shell_instance.s_symtab_stack.symtab_list \
+	[--shell_instance.s_symtab_stack.symtab_count] = NULL;
+	if (shell_instance.s_symtab_stack.symtab_count == 0)
 	{
-		g_shell.s_symtab_stack.local_symtab = NULL;
-		g_shell.s_symtab_stack.global_symtab = NULL;
+		shell_instance.s_symtab_stack.local_symtab = NULL;
+		shell_instance.s_symtab_stack.global_symtab = NULL;
 	}
 	else
-		g_shell.s_symtab_stack.local_symtab = \
-		g_shell.s_symtab_stack.symtab_list
-		[g_shell.s_symtab_stack.symtab_count - 1];
+		shell_instance.s_symtab_stack.local_symtab = \
+		shell_instance.s_symtab_stack.symtab_list
+		[shell_instance.s_symtab_stack.symtab_count - 1];
 	return (st);
 }
 
 struct s_symtab	*get_local_symtab(void)
 {
-	return (g_shell.s_symtab_stack.local_symtab);
+	return (shell_instance.s_symtab_stack.local_symtab);
 }
 
 struct s_symtab	*get_global_symtab(void)
 {
-	return (g_shell.s_symtab_stack.global_symtab);
+	return (shell_instance.s_symtab_stack.global_symtab);
 }

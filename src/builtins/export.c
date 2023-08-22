@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 21:26:39 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	process_plus_equal(char *name, struct s_symtab *symtab, char **argv)
 	entry = do_lookup(name, symtab);
 	if (entry)
 		old_value = entry->val;
-	new_value = my_malloc(&g_shell.memory, strlen(old_value) \
+	new_value = my_malloc(&shell_instance.memory, strlen(old_value) \
 	+ strlen(value) + 1);
 	ft_strcpy(new_value, old_value);
 	ft_strcat(new_value, value);
@@ -105,7 +105,7 @@ int	ft_export(int argc, ...)
 
 	entry = NULL;
 	name = NULL;
-	symtab = g_shell.s_symtab_stack.local_symtab;
+	symtab = shell_instance.s_symtab_stack.local_symtab;
 	va_start(args, argc);
 	argv = va_arg(args, char **);
 	entry = symtab->first;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:49 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/21 17:39:56 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ long long	parse_exit_args(char **argv)
 
 	if ((argv[1] && argv[1][0] == '\0')|| ft_isalpha(argv[1][0]))
 	{
-		// printf("argv[1] = %s\n", argv[1]);
-		// printf("argv[1][0] = %c\n", argv[1][0]);
 		ft_printf_fd(STDERR_FILENO,
 						"minishell: exit: %s: numeric argument required\n",
 						argv[1]);
-		g_shell.status = 255;
+		shell_instance.status = 255;
 		return (255);
 	}
 	num = strtoll(argv[1], &end, 10);
@@ -33,7 +31,7 @@ long long	parse_exit_args(char **argv)
 		ft_printf_fd(STDERR_FILENO,
 						"minishell: exit: %s: numeric argument required\n",
 						argv[1]);
-		g_shell.status = 255;
+		shell_instance.status = 255;
 		return (255);
 	}
 	return (num);
@@ -51,9 +49,9 @@ int	check_too_many_args(int argc)
 
 void	exit_shell(int exit_code)
 {
-	g_shell.status = exit_code;
-	ft_printf_fd(STDOUT_FILENO, "exit\n");
-	free_all_mem(&g_shell.memory);
+	shell_instance.status = exit_code;
+	// ft_printf_fd(STDOUT_FILENO, "exit\n");
+	free_all_mem(&shell_instance.memory);
 	exit(exit_code);
 }
 
@@ -69,10 +67,7 @@ int	ft_exit(int argc, ...)
 	va_end(args);
 	if (argc > 1)
 	{
-		// printf("hi\n");
 		num = parse_exit_args(argv);
-		// if (num == 255)
-		// 	return (255);
 		if (check_too_many_args(argc) == 1 && num != 255)
 			return (1);
 		exit_code = (int)num;

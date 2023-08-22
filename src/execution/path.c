@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 05:03:22 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/20 00:18:06 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*build_path(char *start, char *end, char *file, int plen)
 {
 	char	*path;
 
-	path = my_malloc(&g_shell.memory, plen + 1 + ft_strlen(file) + 1);
+	path = my_malloc(&shell_instance.memory, plen + 1 + ft_strlen(file) + 1);
 	if (!path)
 		return (NULL);
 	ft_strncpy(path, start, plen);

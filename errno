@@ -1,0 +1,3 @@
+master: 418:STD_OUT: 42  STD_ERR: 25  EXIT_CODE: 33
+bh_minus6 : STD_OUT: 39  STD_ERR: 12  EXIT_CODE: 31 
+bh_minus7 : STD_OUT: 39  STD_ERR: 13  EXIT_CODE: 31

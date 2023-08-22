@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 07:28:23 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 20:23:12 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	export_symtab(void)
 	struct s_symtab			*symtab;
 	struct s_symtab_entry	*entry;
 
-	symtab = g_shell.s_symtab_stack.local_symtab;
+	symtab = shell_instance.s_symtab_stack.local_symtab;
 	entry = symtab->first;
 	while (entry)
 	{

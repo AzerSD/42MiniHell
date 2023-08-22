@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 23:42:48 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	init_expand(t_m *m, char *orig_word)
 		return (1);
 	if (!*orig_word)
 		return (0);
-	m->pstart = my_malloc(&g_shell.memory, ft_strlen(orig_word) + 1);
+	m->pstart = my_malloc(&shell_instance.memory, ft_strlen(orig_word) + 1);
 	if (!m->pstart)
 		return (1);
 	ft_strcpy(m->pstart, orig_word);
@@ -85,7 +85,7 @@ struct s_word	*expand(char *orig_word)
 	struct s_word	*words;
 	struct s_word	*w;
 
-	m = (t_m *)my_malloc(g_shell.memory, sizeof(t_m));
+	m = (t_m *)my_malloc(shell_instance.memory, sizeof(t_m));
 	if (!init_expand(m, orig_word))
 	{
 		w = make_word(orig_word);
@@ -117,7 +117,7 @@ void	free_all_words(struct s_word *first)
 		del = first;
 		first = first->next;
 		if (del->data)
-			my_free(&g_shell.memory, del->data);
-		my_free(&g_shell.memory, del);
+			my_free(&shell_instance.memory, del->data);
+		my_free(&shell_instance.memory, del);
 	}
 }

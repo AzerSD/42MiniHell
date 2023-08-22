@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 07:05:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 20:23:13 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void					init_symtab_stack(void);
 /**
  * @brief Initializes the symbol table stack, populates it with
  * environment variables from the global `environ` variable, and sets the
- * default prompt strings of our g_shell.
+ * default prompt strings of our shell_instance.
  * @see man environ
  * @see printenv
  */

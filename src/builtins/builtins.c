@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:41:31 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 20:22:34 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_builtin_info	*get_bt(void)
 {
 	t_builtin_info	*bt;
 
-	bt = my_malloc(&g_shell.memory, sizeof(t_builtin_info));
+	bt = my_malloc(&shell_instance.memory, sizeof(t_builtin_info));
 	if (bt == NULL)
 	{
 		return (NULL);

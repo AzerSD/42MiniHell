@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 19:45:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 20:22:59 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_buffer_bounds(int *count, int *len, char ***buf)
 	{
 		if (!(*buf))
 		{
-			*buf = my_malloc(&g_shell.memory, 32 * sizeof(char **));
+			*buf = my_malloc(&shell_instance.memory, 32 * sizeof(char **));
 			if (!(*buf))
 				return (0);
 			*len = 32;
@@ -59,7 +59,7 @@ void	search_colon(char *orig_var_name, struct s_var_expand *var)
 		ft_strlen(orig_var_name);
 	if (var->sub && *var->sub == ':')
 		var->sub++;
-	var->var_name = my_malloc(&g_shell.memory, var->len + 1);
+	var->var_name = my_malloc(&shell_instance.memory, var->len + 1);
 	ft_strncpy(var->var_name, orig_var_name, var->len);
 	var->var_name[var->len] = '\0';
 	var->empty_val = "";
