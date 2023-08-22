@@ -6,11 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:49 by asioud            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
-=======
-/*   Updated: 2023/08/21 18:02:22 by lhasmi           ###   ########.fr       */
->>>>>>> 3258fb473a49a8828c9be9e54edc9a246f3d2852
+/*   Updated: 2023/08/22 03:16:02 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +49,9 @@ int	check_too_many_args(int argc)
 
 void	exit_shell(int exit_code)
 {
-<<<<<<< HEAD
 	shell_instance.status = exit_code;
 	// ft_printf_fd(STDOUT_FILENO, "exit\n");
 	free_all_mem(&shell_instance.memory);
-=======
-	g_shell.status = exit_code;
-	// ft_printf_fd(STDOUT_FILENO, "exit\n");
-	free_all_mem(&g_shell.memory);
->>>>>>> 3258fb473a49a8828c9be9e54edc9a246f3d2852
 	exit(exit_code);
 }
 
