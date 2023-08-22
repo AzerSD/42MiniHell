@@ -1,4 +1,5 @@
 - DONE ----- >the exit builtin needs some work, check testcases in tester
+ALTHOUGH : people removed print exit to stdout for the tester and have put it back for the evaluation and this bad because the comparision with bash gives different cases where exit gets printed and this is confusing
 
 - the export builtin needs some work, check testcases in tester
 
