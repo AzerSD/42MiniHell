@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/20 13:12:26 by asioud            #+#    #+#              #
-#    Updated: 2023/08/21 19:49:56 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/22 22:23:42 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,8 @@ SRCS = 			\
 				./srcs/ft_strlen.c \
 				./srcs/ft_atoll.c \
 				./srcs/ft_strtoll.c \
+				./srcs/ft_strtoll_utils.c \
+				./srcs/ft_strtoll_helpers.c \
 				./srcs/print_2d_fd.c \
 				./srcs/free_2d_guard.c \
 				./srcs/free_2d.c \

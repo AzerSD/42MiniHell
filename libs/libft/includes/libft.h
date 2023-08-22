@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:59:15 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 20:55:27 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/22 22:26:27 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_strtoll
 	int					cutlim;
 	const char			*start;
 }						t_strtoll;
+
 /**
  * return x * x
  * @param x to square
@@ -811,5 +812,8 @@ size_t					ft_strspn(const char *s1, const char *s2);
 size_t					ft_strcspn(const char *s, const char *charset);
 char					*ft_strncpy(char *dst, const char *src, size_t len);
 char					*ft_randstring(size_t length);
+int						ft_islower(char c);
+int						ft_isupper(char c);
+int						ft_isxdigit(char c);
 
 #endif
