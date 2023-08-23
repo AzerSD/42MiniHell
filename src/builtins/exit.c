@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:49 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:53:47 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:17:48 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ long long	parse_exit_args(char **argv)
 	char		*end;
 	long long	num;
 
-	if ((argv[1] && argv[1][0] == '\0')|| ft_isalpha(argv[1][0]))
+	if ((argv[1] && argv[1][0] == '\0') || ft_isalpha(argv[1][0]))
 	{
 		ft_printf_fd(STDERR_FILENO,
-						"minishell: exit: %s: numeric argument required\n",
-						argv[1]);
-		shell_instance.status = 255;
+			"minishell: exit: %s: numeric argument required\n",
+			argv[1]);
+		SHELL_INSTANCE.status = 255;
 		return (255);
 	}
 	num = ft_strtoll(argv[1], &end, 10);
 	if (*end != '\0' || num > INT_MAX || num < INT_MIN)
 	{
 		ft_printf_fd(STDERR_FILENO,
-						"minishell: exit: %s: numeric argument required\n",
-						argv[1]);
-		shell_instance.status = 255;
+			"minishell: exit: %s: numeric argument required\n",
+			argv[1]);
+		SHELL_INSTANCE.status = 255;
 		return (255);
 	}
 	return (num);
@@ -50,10 +50,10 @@ int	check_too_many_args(int argc)
 
 void	exit_shell(int exit_code)
 {
-	shell_instance.status = exit_code;
+	SHELL_INSTANCE.status = exit_code;
 	if (isatty(STDIN_FILENO))
 		ft_printf_fd(STDOUT_FILENO, "exit\n");
-	free_all_mem(&shell_instance.memory);
+	free_all_mem(&SHELL_INSTANCE.memory);
 	exit(exit_code);
 }
 

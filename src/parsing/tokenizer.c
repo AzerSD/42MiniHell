@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:22:45 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:11:55 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static t_token	*create_token(char *str)
 	t_token	*tok;
 	char	*nstr;
 
-	tok = my_malloc(&shell_instance.memory, sizeof(t_token));
+	tok = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_token));
 	if (!tok)
 		return (NULL);
 	ft_memset(tok, 0, sizeof(t_token));
 	tok->text_len = ft_strlen(str);
-	nstr = my_malloc(&shell_instance.memory, tok->text_len + 1);
+	nstr = my_malloc(&SHELL_INSTANCE.memory, tok->text_len + 1);
 	if (!nstr)
 	{
 		free(tok);
@@ -103,7 +103,7 @@ static void	*init_curr_tok_buff(t_cli *cli, t_curr_tok *curr)
 	if (!curr->tok_buff)
 	{
 		curr->tok_buff_size = 1024;
-		curr->tok_buff = my_malloc(&shell_instance.memory, curr->tok_buff_size);
+		curr->tok_buff = my_malloc(&SHELL_INSTANCE.memory, curr->tok_buff_size);
 		if (!curr->tok_buff)
 		{
 			errno = ENOMEM;

@@ -203,7 +203,7 @@ char			*strchr_any(char *string, char *chars);
 
 /**
  * @return the passed string value, quoted in a format that can
- * be used for reinput to the shell_instance.
+ * be used for reinput to the SHELL_INSTANCE.
 */
 char			*quote_val(char *val, int add_quotes);
 void			free_buffer(int len, char **buf);

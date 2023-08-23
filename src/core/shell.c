@@ -6,22 +6,24 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:53:57 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:22:04 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell *get_shell_instance() {
-    static t_shell g_shell_instance;
-    return &g_shell_instance;
+t_shell	*get_shell_instance(void)
+{
+	static t_shell	g_shell_instance;
+
+	return (&g_shell_instance);
 }
 
 char	*get_cmd(void)
 {
 	char	*cmd;
 
-	if (isatty(fileno(stdin)))
+	if (isatty(STDIN_FILENO))
 		cmd = readline(MAG "minishell> " RESET);
 	else
 	{
@@ -64,7 +66,7 @@ int	main(int argc, char **argv, char **env)
 	struct termios	mirror_termios;
 	t_shell			*shell;
 
-	shell = my_malloc(&shell_instance.memory, sizeof(t_shell));
+	shell = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_shell));
 	shell->memory = NULL;
 	(void)argc;
 	(void)argv;
@@ -83,38 +85,38 @@ int	parse_and_execute(t_cli *cli)
 	t_token		*tok;
 	t_curr_tok	*curr;
 
-	curr = my_malloc(&shell_instance.memory, sizeof(t_curr_tok));
+	curr = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_curr_tok));
 	skip_whitespaces(cli);
 	tok = get_token(cli, curr);
 	ast_cmd = parse_cmd(tok, curr);
-	// print_ast(ast_cmd, 0);
 	if (!ast_cmd)
 		return (1);
 	return (execc(ast_cmd));
 }
 
-void	print_ast(t_node *node, int indent)
-{
-	t_node	*child;
-	if (node == NULL)
-		return ;
-	for (int i = 0; i < indent - 1; i++)
-		printf("%s  │%s", BLU, RESET);
-	if (indent > 0)
-		printf("%s  ├─%s", CYN, RESET);
-	printf("%sValue: %s%s,%s	%slevel: %s%u%s\n",
-			GRN,
-			YEL,
-			node->val.str,
-			RESET,
-			RED,
-			YEL,
-			node->type,
-			RESET);
-	child = node->first_child;
-	while (child != NULL)
-	{
-		print_ast(child, indent + 1);
-		child = child->next_sibling;
-	}
-}
+// void	print_ast(t_node *node, int indent)
+// {
+// 	t_node	*child;
+
+// 	if (node == NULL)
+// 		return ;
+// 	for (int i = 0; i < indent - 1; i++)
+// 		printf("%s  │%s", BLU, RESET);
+// 	if (indent > 0)
+// 		printf("%s  ├─%s", CYN, RESET);
+// 	printf("%sValue: %s%s,%s	%slevel: %s%u%s\n",
+// 			GRN,
+// 			YEL,
+// 			node->val.str,
+// 			RESET,
+// 			RED,
+// 			YEL,
+// 			node->type,
+// 			RESET);
+// 	child = node->first_child;
+// 	while (child != NULL)
+// 	{
+// 		print_ast(child, indent + 1);
+// 		child = child->next_sibling;
+// 	}
+// }

@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 11:22:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:16:39 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:15:17 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
-# define EXPORT \
-	"bash: export: --: invalid option\nexport: \
-        usage: export [-nf] [name[=value] ...] or export -p\n"
 
 typedef struct s_env
 {

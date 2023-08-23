@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   symtab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 07:28:23 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:13:17 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:11:55 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	export_symtab(void)
 	struct s_symtab			*symtab;
 	struct s_symtab_entry	*entry;
 
-	symtab = shell_instance.s_symtab_stack.local_symtab;
+	symtab = SHELL_INSTANCE.s_symtab_stack.local_symtab;
 	entry = symtab->first;
 	while (entry)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 22:03:26 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/23 22:15:09 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:19:31 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	ft_setenv(const char *name, const char *value, int overwrite)
 {
-	struct s_symtab_entry	*entry;// Edge case handling
-	struct s_symtab *symtab;
+	struct s_symtab_entry	*entry;
+	struct s_symtab			*symtab;
 
-	symtab = get_local_symtab();// Or use get_global_symtab() as needed
-	entry = do_lookup(name, symtab);// Check if the entry already exists
+	symtab = get_local_symtab();
+	entry = do_lookup(name, symtab);
 	if (entry != NULL && overwrite == 0)
-		return (0); // Do not overwrite if the flag is set to 0
-	if (entry != NULL)// Update the existing value if an entry with the given name already exists
+		return (0);
+	if (entry != NULL)
 		update_entry(entry, (char *)value, (char *)name);
 	else
-	{// Create a new entry if it doesn't exist
+	{
 		entry = create_symtab_entry(name);
 		if (entry == NULL)
 		{

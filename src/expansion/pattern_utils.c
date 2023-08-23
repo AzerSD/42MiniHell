@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 01:55:24 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:52:18 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:26:35 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ void	init_match(t_match *match)
 bool match(const char *pattern, const char *string) {
     while (*pattern != '\0' && *string != '\0') {
         if (*pattern == '?') {
-            // '?' matches any single character
             pattern++;
             string++;
         } else if (*pattern == '*') {
-            // '*' matches zero or more characters
             pattern++;
             while (*string != '\0') {
                 if (match(pattern, string)) {
@@ -33,9 +31,8 @@ bool match(const char *pattern, const char *string) {
                 }
                 string++;
             }
-            return match(pattern, string); // Try matching the rest of the pattern
+            return match(pattern, string);
         } else {
-            // Regular character comparison
             if (*pattern != *string) {
                 return false;
             }
@@ -43,8 +40,7 @@ bool match(const char *pattern, const char *string) {
             string++;
         }
     }
-    
-    // Check if both pattern and string are at the end
+
     return (*pattern == '\0' && *string == '\0');
 }
 

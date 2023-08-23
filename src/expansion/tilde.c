@@ -41,7 +41,7 @@ char	*tilde_expansion(char *s)
 		home = find_home_from_symtab();
 	if (!home)
 		return (NULL);
-	s2 = my_malloc(&shell_instance.memory, ft_strlen(home) + 1);
+	s2 = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(home) + 1);
 	if (!s2)
 		return (NULL);
 	ft_strcpy(s2, home);

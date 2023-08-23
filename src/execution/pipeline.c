@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 02:34:11 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:11:55 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ pid_t	create_first_child_process(int *pipefd, t_node *node)
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
 		execc(node->first_child);
-		exit(shell_instance.status);
+		exit(SHELL_INSTANCE.status);
 	}
 	return (child_pid1);
 }
@@ -48,8 +48,8 @@ pid_t	create_second_child_process(int *pipefd, t_node *node)
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
-		shell_instance.status = execc(node->first_child->next_sibling);
-		exit(shell_instance.status);
+		SHELL_INSTANCE.status = execc(node->first_child->next_sibling);
+		exit(SHELL_INSTANCE.status);
 	}
 	return (child_pid2);
 }

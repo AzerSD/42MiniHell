@@ -92,7 +92,7 @@ char	*quote_val(char *val, int add_quotes)
 	char	*p;
 
 	len = calculate_length(val, add_quotes);
-	res = my_malloc(&shell_instance.memory, len + 1);
+	res = my_malloc(&SHELL_INSTANCE.memory, len + 1);
 	if (!val || !*val)
 	{
 		if (add_quotes)

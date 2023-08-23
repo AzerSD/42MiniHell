@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:28:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:11:55 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_varname(const char *str)
 	if (eq)
 	{
 		len = eq - str;
-		var_name = my_malloc(&shell_instance.memory, len + 1);
+		var_name = my_malloc(&SHELL_INSTANCE.memory, len + 1);
 		ft_strncpy(var_name, str, len);
 		var_name[len] = '\0';
 		return (var_name);
@@ -65,17 +65,17 @@ void	init_symtab(char **env)
 		string_to_symtab(*p2);
 		p2++;
 	}
-	// entry = do_lookup("OLDPWD", shell_instance.s_symtab_stack.local_symtab);
+	// entry = do_lookup("OLDPWD", SHELL_INSTANCE.s_symtab_stack.local_symtab);
 	// if (entry)
-	// 	rem_from_symtab(entry, shell_instance.s_symtab_stack.local_symtab);
+	// 	rem_from_symtab(entry, SHELL_INSTANCE.s_symtab_stack.local_symtab);
 }
 
 void	init_symtab_stack(void)
 {
 	struct s_symtab	*global_symtab;
 
-	global_symtab = my_malloc(&shell_instance.memory, sizeof(struct s_symtab));
-	shell_instance.s_symtab_stack.symtab_count = 1;
+	global_symtab = my_malloc(&SHELL_INSTANCE.memory, sizeof(struct s_symtab));
+	SHELL_INSTANCE.s_symtab_stack.symtab_count = 1;
 	if (!global_symtab)
 	{
 		ft_printf_fd(STDERR_FILENO, "fatal error: no memory \
@@ -83,16 +83,16 @@ void	init_symtab_stack(void)
 		exit(EXIT_FAILURE);
 	}
 	ft_memset(global_symtab, 0, sizeof(struct s_symtab));
-	shell_instance.s_symtab_stack.global_symtab = global_symtab;
-	shell_instance.s_symtab_stack.local_symtab = global_symtab;
-	shell_instance.s_symtab_stack.symtab_list[0] = global_symtab;
+	SHELL_INSTANCE.s_symtab_stack.global_symtab = global_symtab;
+	SHELL_INSTANCE.s_symtab_stack.local_symtab = global_symtab;
+	SHELL_INSTANCE.s_symtab_stack.symtab_list[0] = global_symtab;
 }
 
 struct s_symtab	*new_symtab(void)
 {
 	struct s_symtab	*symtab;
 
-	symtab = my_malloc(&shell_instance.memory, sizeof(struct s_symtab));
+	symtab = my_malloc(&SHELL_INSTANCE.memory, sizeof(struct s_symtab));
 	if (!symtab)
 	{
 		ft_printf_fd(STDERR_FILENO, "fatal error: no memory \
