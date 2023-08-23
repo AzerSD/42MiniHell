@@ -14,8 +14,30 @@
 - Replace functions from external libraries used in minishell
 # 	# 	# 	#
 
-_execv
+_time
+# in		srand(time(NULL));  #in p_heredoc.c
 
+_srand
+# in		srand(time(NULL));  #in p_heredoc.c
+
+_pclose
+# in		pclose(fp); #in command_substitution.c
+
+
+_popen
+# in	FILE	*pipe_command(char *cmd) # in command_substitution.c
+
+	fp = popen(cmd, "r");
+
+
+_rand
+# in		key = rand() % (int)(sizeof(charset) - 1); #ft_randstring.c
+
+
+_realloc
+# in				hn2 = realloc(*buf, newlen * sizeof(char **)); in utils.c
+
+_execv
 
 # in	int	exec_cmd(int argc, char **argv)
 
@@ -52,12 +74,11 @@ _getpwnam
 
 	pass = getpwnam(s + 1);
 
-
 _getpwuid
 # in			pass = getpwuid(getuid()); # in tilde.c
+
 _getuid
 # in			pass = getpwuid(getuid()); # in tilde.c
-
 
 _globfree
 # in					globfree(&glob_info.glob); #in filename.c
@@ -65,42 +86,17 @@ _globfree
 
 _memcpy
 
-_pclose
-# in		pclose(fp); #in command_substitution.c
-
-
-_popen
-# in	FILE	*pipe_command(char *cmd) # in command_substitution.c
-
-	fp = popen(cmd, "r");
-
-
-_rand
-# in		key = rand() % (int)(sizeof(charset) - 1); #ft_randstring.c
-
-
-_realloc
-# in				hn2 = realloc(*buf, newlen * sizeof(char **)); in utils.c
-
 _setenv
 # in		setenv(name, new_value, 1); #in export.c
 
 
-_srand
-# in		srand(time(NULL));  #in p_heredoc.c
-
 _strchr
+
 _strcmp
 
 _strlen
+
 _strstr
-
-
-_time
-# in		srand(time(NULL));  #in p_heredoc.c
-
-
-
 
 
 
