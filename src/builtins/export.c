@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 22:15:17 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	process_plus_equal(char *name, struct s_symtab *symtab, char **argv)
 	entry = do_lookup(name, symtab);
 	if (entry)
 		old_value = entry->val;
-	new_value = my_malloc(&shell_instance.memory, strlen(old_value) \
-	+ strlen(value) + 1);
+	new_value = my_malloc(&shell_instance.memory, ft_strlen(old_value) \
+	+ ft_strlen(value) + 1);
 	ft_strcpy(new_value, old_value);
 	ft_strcat(new_value, value);
-	setenv(name, new_value, 1);
+	ft_setenv(name, new_value, 1);
 	free(new_value);
 	return (0);
 }
@@ -75,12 +75,12 @@ int	check_input_arguments(char **argv, struct s_symtab *symtab, char *name)
 	name = get_varname(argv[1]);
 	if (!name)
 		name = argv[1];
-	if (strstr(argv[1], "+=") != NULL)
+	if (ft_strstr(argv[1], "+=") != NULL)
 	{
 		name = ft_strtok(argv[1], "+=");
 		return (process_plus_equal(name, symtab, argv));
 	}
-	else if (strchr(argv[1], '=') != NULL)
+	else if (ft_strchr(argv[1], '=') != NULL)
 		return (process_equal(name, argv));
 	else
 	{
@@ -111,9 +111,7 @@ int	ft_export(int argc, ...)
 	entry = symtab->first;
 	va_end(args);
 	if (argc == 1)
-	{
 		return (print_export(entry));
-	}
 	else
 	{
 		va_start(args, argc);

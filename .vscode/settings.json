@@ -1,7 +1,8 @@
 {
     "files.associations": {
-        "iterator": "c",
-        "sstream": "c",
-        "builtins.h": "c"
-    }
+		"iterator": "c",
+		"sstream": "c",
+		"libft.h": "c",
+		"bitset": "c"
+	}
 }

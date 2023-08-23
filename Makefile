@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+         #
+#    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/20 00:33:18 by asioud           ###   ########.fr        #
+#    Updated: 2023/08/23 22:17:12 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC	=	core/shell \
 		builtins/exit \
 		builtins/unset \
 		builtins/export \
+		builtins/export_utils \
 		builtins/builtins \
 		\
 		execution/executor \
@@ -98,17 +99,16 @@ $(NAME): $(OBJS)
 	cd libs/garbage_collector && make
 	$(CC) $(HEADER_FILES) -lreadline -lhistory $(CFLAGS) $(OBJS) $(GC) $(LIBFT) -o $(NAME) $(INCL_RDL_LIB)
 
-
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(@D)
 	$(CC) $(HEADER_FILES) $(INCL_RDL_HEADER) $(CFLAGS) -c $< -o $@
 
 clean:
+	@cd libs/libft && make fclean
+	@cd libs/garbage_collector && make fclean
 	@$(RM) $(OBJ_DIR)
 
 fclean:	clean
-	# @cd libs/libft && make fclean
-	# @cd libs/garbage_collector && make fclean
 	@$(RM) $(NAME)
 
 re:	fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 13:03:57 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 20:15:46 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 22:11:23 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_valid_variable_name(const char *str)
 {
-	if (!str || !*str)
+	if (str == NULL || *str == '\0' || ft_strchr(str, '=') != NULL)
 		return (0);
 	if (!ft_isalpha(*str) && *str != '_')
 		return (0);

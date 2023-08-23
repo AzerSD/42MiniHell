@@ -10,20 +10,99 @@
 
 - DONE ----- > make ft_strtoll in the exit function norm conform
 
+# 	# 	# 	#
+- Replace functions from external libraries used in minishell
+# 	# 	# 	#
 
-_memcpy
+_time
+# in		srand(time(NULL));  #in p_heredoc.c
+
+_srand
+# in		srand(time(NULL));  #in p_heredoc.c
+
+_pclose
+# in		pclose(fp); #in command_substitution.c
+
+
+_popen
+# in	FILE	*pipe_command(char *cmd) # in command_substitution.c
+
+	fp = popen(cmd, "r");
+
+
+_rand
+# in		key = rand() % (int)(sizeof(charset) - 1); #ft_randstring.c
+
+
+_realloc
+# in				hn2 = realloc(*buf, newlen * sizeof(char **)); in utils.c
+
+_execv
+
+# in	int	exec_cmd(int argc, char **argv)
+
+		execv(argv[0], argv);
+
+		execv(path, argv);
+
+_fileno
+
+# in	void	exit_shell(int exit_code)
+
+_snprintf
+
+_sprintf
+
+	if (isatty(fileno(stdin)))
+
+_fnmatch
+
+# in	int	is_match_found(char *pattern, int longest, t_match *m)
+
+		if (fnmatch(pattern, m->str, 0) == 0)
+
+# in	void	check_pattern(char *pattern, int longest, t_match *m, char **s)
+
+		if (fnmatch(pattern, m->str, 0) == 0)
+
+_fread
+
+# in	*read_from_pipe(FILE *fp, char *b, size_t *bufsz, char **p)
+
+	i = fread(b, 1, 1024, fp);
+		i = fread(b, 1, 1024, fp);
+
+_getpwnam
+# in	char	*find_home_from_pwnam(char *s)
+
+	pass = getpwnam(s + 1);
+
+_getpwuid
+# in			pass = getpwuid(getuid()); # in tilde.c
+
+_getuid
+# in			pass = getpwuid(getuid()); # in tilde.c
+
+_globfree
+# in					globfree(&glob_info.glob); #in filename.c
+# in			globfree(matches); # in pattern.c
+
 
 _setenv
 # in		setenv(name, new_value, 1); #in export.c
 
+_DONE - strcpy
 
-_strchr
+_DONE - strchr
 
-_strcmp
+_DONE - strcmp
 
-_strlen
+_DONE - strlen
 
-_strstr
+
+_DONE - strstr
+
+
 
 
 here is the reply by gpt4
@@ -63,8 +142,8 @@ int process_plus_equal(char *name, struct s_symtab *symtab, char **argv) {
     for (env_len = 0; environ[env_len]; env_len++);
     char **new_environ = malloc((env_len + 2) * sizeof(char *));
     for (int i = 0; i < env_len; i++) {
-        if (strncmp(environ[i], name, strlen(name)) == 0 && environ[i][strlen(name)] == '=') {
-            new_environ[i] = malloc(strlen(name) + strlen(new_value) + 2);
+        if (ft_strncmp(environ[i], name, ft_strlen(name)) == 0 && environ[i][ft_strlen(name)] == '=') {
+            new_environ[i] = malloc(ft_strlen(name) + ft_strlen(new_value) + 2);
             sprintf(new_environ[i], "%s=%s", name, new_value);
         } else {
             new_environ[i] = strdup(environ[i]);

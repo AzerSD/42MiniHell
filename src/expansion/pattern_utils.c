@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 01:55:24 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:41:22 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 22:52:18 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,7 @@ void	check_pattern(char *pattern, int longest, t_match *m, char **s)
 			if (!m->smatch)
 			{
 				if (!longest)
-				{
 					return ;
-				}
 				m->smatch = *s;
 			}
 			m->lmatch = *s;

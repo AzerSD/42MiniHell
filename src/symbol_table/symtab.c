@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   symtab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 07:28:23 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:13:17 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ struct s_symtab_entry	*do_lookup(const char *str, struct s_symtab *symtable)
 	entry = symtable->first;
 	while (entry)
 	{
-		if (strcmp(entry->name, str) == 0)
+		if (ft_strcmp(entry->name, str) == 0)
 			return (entry);
 		entry = entry->next;
 	}

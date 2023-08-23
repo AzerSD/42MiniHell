@@ -84,7 +84,7 @@ struct s_word	*pathnames_expand(struct s_word *words)
 	glob_info = init_glob_info(words);
 	while (glob_info.w)
 	{
-		if (has_glob_chars(glob_info.w->data, strlen(glob_info.w->data)))
+		if (has_glob_chars(glob_info.w->data, ft_strlen(glob_info.w->data)))
 		{
 			glob_info.matches = get_filename_matches(glob_info.w->data, \
 				&glob_info.glob);

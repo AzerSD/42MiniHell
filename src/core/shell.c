@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:31:56 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 22:53:57 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	main_loop(t_shell *shell)
 		if (isatty(STDIN_FILENO))
 			add_history(cmd);
 		cli.buffer = cmd;
-		cli.buff_size = strlen(cmd);
+		cli.buff_size = ft_strlen(cmd);
 		cli.cur_pos = INIT_SRC_POS;
 		shell->status = parse_and_execute(&cli);
 		dup2(original_stdout, STDOUT_FILENO);
