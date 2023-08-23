@@ -57,7 +57,6 @@ char	**get_filename_matches(char *pattern, glob_t *matches)
 	res = glob(pattern, 0, NULL, matches);
 	if (res != 0)
 	{
-		globfree(matches);
 		return (NULL);
 	}
 	return (matches->gl_pathv);

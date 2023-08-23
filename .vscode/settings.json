@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "iterator": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "builtins.h": "c"
     }
 }

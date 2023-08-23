@@ -37,16 +37,14 @@
 # include <string.h>
 # include <termios.h>
 # include <stdbool.h>
-# include <glob.h> // https://c-for-dummies.com/blog/?p=4782
+# include <glob.h> 
 # include <ctype.h>
 # include <dirent.h>
 # include <regex.h>
-# include <fnmatch.h>
 # include <pwd.h>
 # include <locale.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-
 # include "libft.h"
 # include "../src/symbol_table/symtab.h"
 # include "../src/parsing/lexer.h"

@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:29:47 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	exec_cmd(int argc, char **argv)
 
 	(void)argc;
 	if (ft_strchr(argv[0], '/'))
-		execv(argv[0], argv);
+		execve(argv[0], argv, NULL);
 	else
 	{
 		path = search_path(argv[0]);
 		if (!path)
 			return (1);
-		execv(path, argv);
+		execve(path, argv, NULL);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:49 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:39:49 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:32:35 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_too_many_args(int argc)
 void	exit_shell(int exit_code)
 {
 	shell_instance.status = exit_code;
-	if (isatty(fileno(stdin)))
+	if (isatty(STDIN_FILENO))
 		ft_printf_fd(STDOUT_FILENO, "exit\n");
 	free_all_mem(&shell_instance.memory);
 	exit(exit_code);

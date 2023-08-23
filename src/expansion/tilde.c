@@ -15,7 +15,6 @@
 char	*find_home_from_symtab(void)
 {
 	struct s_symtab_entry	*entry;
-	struct passwd			*pass;
 	char					*home;
 
 	home = NULL;
@@ -24,22 +23,8 @@ char	*find_home_from_symtab(void)
 		home = entry->val;
 	else
 	{
-		pass = getpwuid(getuid());
-		if (pass)
-			home = pass->pw_dir;
+		return (NULL);
 	}
-	return (home);
-}
-
-char	*find_home_from_pwnam(char *s)
-{
-	struct passwd	*pass;
-	char			*home;
-
-	home = NULL;
-	pass = getpwnam(s + 1);
-	if (pass)
-		home = pass->pw_dir;
 	return (home);
 }
 
@@ -54,8 +39,6 @@ char	*tilde_expansion(char *s)
 	s2 = NULL;
 	if (len == 1)
 		home = find_home_from_symtab();
-	else
-		home = find_home_from_pwnam(s);
 	if (!home)
 		return (NULL);
 	s2 = my_malloc(&shell_instance.memory, ft_strlen(home) + 1);

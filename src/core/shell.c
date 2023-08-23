@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:08:04 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:31:56 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_cmd(void)
 		cmd = readline(MAG "minishell> " RESET);
 	else
 	{
-		cmd = get_next_line(fileno(stdin));
+		cmd = get_next_line(STDIN_FILENO);
 		cmd = ft_strtrim(cmd, "\n");
 	}
 	return (cmd);

@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 19:45:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:27:36 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_buffer_bounds(int *count, int *len, char ***buf)
 		else
 		{
 			newlen = (*len) * 2;
-			hn2 = realloc(*buf, newlen * sizeof(char **));
+			hn2 = ft_realloc(*buf, newlen * sizeof(char **));
 			if (!hn2)
 				return (0);
 			*buf = hn2;

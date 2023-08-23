@@ -96,7 +96,6 @@ struct s_word	*pathnames_expand(struct s_word *words)
 				link_to_existing_list(&glob_info);
 				free_all_words(glob_info.w);
 				glob_info.w = glob_info.tail;
-				globfree(&glob_info.glob);
 			}
 		}
 		glob_info.pw = glob_info.w;

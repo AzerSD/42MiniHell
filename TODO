@@ -7,3 +7,79 @@
 - syntax error: `|` `<` `>` `<<<<` `>>>>>` `|echO|` `<>`
 
 - DONE ---- > remove global variable
+
+- DONE ----- > make ft_strtoll in the exit function norm conform
+
+
+_memcpy
+
+_setenv
+# in		setenv(name, new_value, 1); #in export.c
+
+
+_strchr
+
+_strcmp
+
+_strlen
+
+_strstr
+
+
+here is the reply by gpt4
+The `setenv` function is used to set an environment variable in a process's environment. Since you are not allowed to use this function, you can instead use the `getenv` and `execve` functions to manipulate the environment variables manually.
+
+Here's how you could replace the `setenv` call in the `process_plus_equal` function:
+
+1. First, get the current environment using `getenv`.
+2. Then, create a new environment array, copying all the existing variables and adding or modifying the one you want to change.
+3. Finally, use `execve` with the new environment when launching new processes.
+
+Here's an example of how you might modify the `process_plus_equal` function:
+
+```c
+int process_plus_equal(char *name, struct s_symtab *symtab, char **argv) {
+    char *value;
+    char *old_value;
+    struct s_symtab_entry *entry;
+    char *new_value;
+    extern char **environ; // Global variable containing the environment
+    int env_len;
+
+    old_value = "";
+    if (!name || !is_valid_variable_name(argv[1])) {
+        ft_printf_fd(STDERR_FILENO, "minishell: export: `%s': not a valid identifier\n", argv[1]);
+        return (1);
+    }
+    value = ft_strtok(NULL, "+=");
+    entry = do_lookup(name, symtab);
+    if (entry)
+        old_value = entry->val;
+    new_value = my_malloc(&shell_instance.memory, ft_strlen(old_value) + ft_strlen(value) + 1);
+    ft_strcpy(new_value, old_value);
+    ft_strcat(new_value, value);
+
+    // Create new environment array with the modified variable
+    for (env_len = 0; environ[env_len]; env_len++);
+    char **new_environ = malloc((env_len + 2) * sizeof(char *));
+    for (int i = 0; i < env_len; i++) {
+        if (strncmp(environ[i], name, strlen(name)) == 0 && environ[i][strlen(name)] == '=') {
+            new_environ[i] = malloc(strlen(name) + strlen(new_value) + 2);
+            sprintf(new_environ[i], "%s=%s", name, new_value);
+        } else {
+            new_environ[i] = strdup(environ[i]);
+        }
+    }
+    new_environ[env_len] = NULL;
+
+    // Update the global environ variable
+    environ = new_environ;
+
+    free(new_value);
+    return (0);
+}
+```
+
+This code snippet manually creates a new environment array, copying all the existing variables, and modifying the one you want to change. The new environment is then assigned to the global `environ` variable.
+
+Note: The code assumes that the global `environ` variable is available. This might require including specific headers or declaring `extern char **environ;` in the file. Also, please review the memory management, especially regarding the allocation and deallocation of the `new_environ` array. You might want to free the old environment array if it was dynamically allocated.
