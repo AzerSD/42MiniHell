@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/19 03:09:05 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:15:26 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*prepare_for_pipe(int *pipe_fd, t_token *tok, int expanding, char *line)
 	}
 	line = get_next_line(fileno(stdin));
 	{
-		if (strchr(line, '$') && expanding)
+		if (ft_strchr(line, '$') && expanding)
 			w = expand(line);
 		if (w)
 			content = w->data;
@@ -52,7 +52,7 @@ void	write_to_pipe_and_cleanup(int *pipe_fd, t_token *tok,
 	{
 		write(pipe_fd[1], content, ft_strlen(content));
 		line = get_next_line(fileno(stdin));
-		if (strchr(line, '$'))
+		if (ft_strchr(line, '$'))
 			w = expand(line);
 		if (w)
 			content = w->data;

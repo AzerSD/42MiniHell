@@ -84,19 +84,19 @@ _globfree
 # in					globfree(&glob_info.glob); #in filename.c
 # in			globfree(matches); # in pattern.c
 
-_memcpy
 
 _setenv
 # in		setenv(name, new_value, 1); #in export.c
 
 
-_strchr
+_DONE - strchr
 
-_strcmp
+_DONE - strcmp
 
-_strlen
+_DONE - strlen
 
-_strstr
+
+_DONE - strstr
 
 
 
@@ -138,8 +138,8 @@ int process_plus_equal(char *name, struct s_symtab *symtab, char **argv) {
     for (env_len = 0; environ[env_len]; env_len++);
     char **new_environ = malloc((env_len + 2) * sizeof(char *));
     for (int i = 0; i < env_len; i++) {
-        if (strncmp(environ[i], name, strlen(name)) == 0 && environ[i][strlen(name)] == '=') {
-            new_environ[i] = malloc(strlen(name) + strlen(new_value) + 2);
+        if (ft_strncmp(environ[i], name, ft_strlen(name)) == 0 && environ[i][ft_strlen(name)] == '=') {
+            new_environ[i] = malloc(ft_strlen(name) + ft_strlen(new_value) + 2);
             sprintf(new_environ[i], "%s=%s", name, new_value);
         } else {
             new_environ[i] = strdup(environ[i]);

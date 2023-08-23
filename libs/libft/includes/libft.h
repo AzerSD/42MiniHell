@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:59:15 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 22:26:27 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/23 20:49:20 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -815,5 +815,6 @@ char					*ft_randstring(size_t length);
 int						ft_islower(char c);
 int						ft_isupper(char c);
 int						ft_isxdigit(char c);
+char					*ft_strstr(char *haystack, char *needle);
 
 #endif

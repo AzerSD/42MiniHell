@@ -6,13 +6,12 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/20 13:12:26 by asioud            #+#    #+#              #
-#    Updated: 2023/08/23 18:56:09 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/23 20:51:08 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CFLAGS = -g
-# -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 CC = gcc
 GNL	= ./srcs/get_next_line/
 SRCS = 			\
@@ -46,6 +45,7 @@ SRCS = 			\
 				./srcs/ft_putstr_fd.c \
 				./srcs/ft_intlen.c \
 				./srcs/ft_strtrim.c \
+				./srcs/ft_strstr.c \
 				./srcs/ft_tolower.c \
 				./srcs/ft_memcpy.c \
 				./srcs/ft_putendl_fd.c \

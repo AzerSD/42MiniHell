@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/23 18:55:30 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/23 20:50:49 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ CC			=	cc
 RM			=	rm -rf
 LIBFT		= 	libs/libft/libft.a
 GC			=	libs/garbage_collector/garbage_collector.a
-CFLAGS		=	-g
-# -Wall -Werror -Werror -Wextra -fsanitize=address -fsanitize=undefined
+CFLAGS		=	-g -Wall -Werror -Werror -Wextra -fsanitize=address -fsanitize=undefined
 HEADER_FILES=	-I ./includes -I ./libs/libft/includes
 
 ifeq ($(OS), Linux)

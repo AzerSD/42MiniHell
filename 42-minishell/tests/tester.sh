@@ -49,13 +49,13 @@ test_mandatory() {
 	done
 }
 
-test_bonus() {
-	FILES="cmds/bonus/*"
-	for file in $FILES
-	do
-		test_from_file $file
-	done
-}
+# test_bonus() {
+# 	FILES="cmds/bonus/*"
+# 	for file in $FILES
+# 	do
+# 		test_from_file $file
+# 	done
+# }
 
 print_stats() {
 	echo -e "\033[0;33m# ============================================================================ #"

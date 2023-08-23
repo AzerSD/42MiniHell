@@ -87,7 +87,7 @@ size_t	find_closing_quote(char *data)
 	if (quote != '\'' && quote != '"' && quote != '`')
 		return (0);
 	i = 0;
-	len = strlen(data);
+	len = ft_strlen(data);
 	while (++i < len)
 	{
 		if (data[i] == quote)

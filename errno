@@ -5,4 +5,11 @@ today is bh_minus_5
 bh_minus 6 : 471:STD_OUT: 66  STD_ERR: 34  EXIT_CODE: 51
 today is bh_minus_4
 23.08.2023, branch laila is working on curently (17h37) is:
-bh_minus 5 :
+bh_minus 5 : after strstr
+            418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31
+after strlen
+            418:STD_OUT: 39  STD_ERR: 12  EXIT_CODE: 31
+after strcmp
+            418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31
+after strchr
+            418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31 

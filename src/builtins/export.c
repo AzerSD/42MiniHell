@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 21:32:55 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:16:26 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	check_input_arguments(char **argv, struct s_symtab *symtab, char *name)
 	name = get_varname(argv[1]);
 	if (!name)
 		name = argv[1];
-	if (strstr(argv[1], "+=") != NULL)
+	if (ft_strstr(argv[1], "+=") != NULL)
 	{
 		name = ft_strtok(argv[1], "+=");
 		return (process_plus_equal(name, symtab, argv));
 	}
-	else if (strchr(argv[1], '=') != NULL)
+	else if (ft_strchr(argv[1], '=') != NULL)
 		return (process_equal(name, argv));
 	else
 	{

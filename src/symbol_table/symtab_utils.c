@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   symtab_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 00:26:03 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:08:37 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,12 @@ void	symtab_entry_setval(struct s_symtab_entry *entry, char *val)
 	}
 	else
 	{
-		val2 = my_malloc(&shell_instance.memory, strlen(val) + 1);
+		val2 = my_malloc(&shell_instance.memory, ft_strlen(val) + 1);
 		if (val2)
-		{
-			strcpy(val2, val);
-		}
+			ft_strcpy(val2, val);
 		else
-		{
 			ft_printf_fd(STDERR_FILENO,
 				"error: no memory for symbol table entry's value\n");
-		}
 		entry->val = val2;
 	}
 }
