@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_symtab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:28:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 22:25:35 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	string_to_symtab(const char *env_var)
 
 void	init_symtab(char **env)
 {
-	// struct s_symtab_entry	*entry;
-	char					**p2;
+	char	**p2;
 
 	init_symtab_stack();
 	p2 = env;
@@ -65,9 +64,6 @@ void	init_symtab(char **env)
 		string_to_symtab(*p2);
 		p2++;
 	}
-	// entry = do_lookup("OLDPWD", shell_instance.s_symtab_stack.local_symtab);
-	// if (entry)
-	// 	rem_from_symtab(entry, shell_instance.s_symtab_stack.local_symtab);
 }
 
 void	init_symtab_stack(void)

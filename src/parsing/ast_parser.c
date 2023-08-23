@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 00:48:44 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 22:29:09 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,22 @@ struct s_word	*get_node_content(t_node **child)
 	return (w);
 }
 
+void	add_argument(char **argv, int *argc, const char *data)
+{
+	char	*arg;
+
+	arg = my_malloc(&shell_instance.memory, ft_strlen(data) + 1);
+	if (arg)
+	{
+		ft_strcpy(arg, data);
+		argv[(*argc)++] = arg;
+	}
+}
+
 void	parse_ast(t_node *node, int *argc, int *targc, char ***argv)
 {
 	struct s_word	*w;
 	t_node			*child;
-	char			*arg;
 
 	child = node->first_child;
 	while (child)
@@ -47,17 +58,40 @@ void	parse_ast(t_node *node, int *argc, int *targc, char ***argv)
 		while (w)
 		{
 			if (check_buffer_bounds(argc, targc, argv))
-			{
-				arg = my_malloc(&shell_instance.memory, ft_strlen(w->data) + 1);
-				if (arg)
-				{
-					ft_strcpy(arg, w->data);
-					(*argv)[(*argc)++] = arg;
-				}
-			}
+				add_argument(*argv, argc, w->data);
 			w = w->next;
 		}
 		child = child->next_sibling;
 	}
 	(*argv)[(*argc)] = NULL;
 }
+
+// void	parse_ast(t_node *node, int *argc, int *targc, char ***argv)
+// {
+// 	struct s_word	*w;
+// 	t_node			*child;
+// 	char			*arg;
+
+// 	child = node->first_child;
+// 	while (child)
+// 	{
+// 		w = get_node_content(&child);
+// 		if (!w)
+// 			continue ;
+// 		while (w)
+// 		{
+// 			if (check_buffer_bounds(argc, targc, argv))
+// 			{
+// 				arg = my_malloc(&shell_instance.memory, ft_strlen(w->data) + 1);
+// 				if (arg)
+// 				{
+// 					ft_strcpy(arg, w->data);
+// 					(*argv)[(*argc)++] = arg;
+// 				}
+// 			}
+// 			w = w->next;
+// 		}
+// 		child = child->next_sibling;
+// 	}
+// 	(*argv)[(*argc)] = NULL;
+// }

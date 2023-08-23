@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:20:34 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,21 @@ int	init_expand(t_m *m, char *orig_word)
 	return (1);
 }
 
+void	process_char(t_m *m)
+{
+	m->escaped = 0;
+	check_tilde(&(m->pstart), &(m->p), m->in_dquotes);
+	check_double_quotes(&(m->p), &(m->in_dquotes), (m->in_squotes));
+	if (!*(m->p))
+		return ;
+	check_single_quotes(&(m->p), &(m->in_dquotes), &(m->in_squotes));
+	if (!*(m->p))
+		return ;
+	check_backslash(&(m->p), &(m->escaped));
+	check_dollar_sign(&(m->pstart), &(m->p), m->in_squotes, &m->escaped);
+	(m->p)++;
+}
+
 struct s_word	*expand(char *orig_word)
 {
 	t_m				*m;
@@ -93,31 +108,42 @@ struct s_word	*expand(char *orig_word)
 	}
 	while (*(m->p))
 	{
-		m->escaped = 0;
-		check_tilde(&(m->pstart), &(m->p), m->in_dquotes);
-		check_double_quotes(&(m->p), &(m->in_dquotes), (m->in_squotes));
-		if (!*(m->p)) break ;
-		check_single_quotes(&(m->p), &(m->in_dquotes), &(m->in_squotes));
-		if (!*(m->p)) break ;
-		check_backslash(&(m->p), &(m->escaped));
-		check_dollar_sign(&(m->pstart), &(m->p), m->in_squotes, &m->escaped);
-		(m->p)++;
+		process_char(m);
+		if (!*(m->p))
+			break ;
 	}
 	words = make_word(m->pstart);
 	words = pathnames_expand(words);
 	return (remove_quotes(words), words);
 }
 
-void	free_all_words(struct s_word *first)
-{
-	struct s_word	*del;
+// struct s_word	*expand(char *orig_word)
+// {
+// 	t_m				*m;
+// 	struct s_word	*words;
+// 	struct s_word	*w;
 
-	while (first)
-	{
-		del = first;
-		first = first->next;
-		if (del->data)
-			my_free(&shell_instance.memory, del->data);
-		my_free(&shell_instance.memory, del);
-	}
-}
+// 	m = (t_m *)my_malloc(shell_instance.memory, sizeof(t_m));
+// 	if (!init_expand(m, orig_word))
+// 	{
+// 		w = make_word(orig_word);
+// 		return (free(m), w);
+// 	}
+// 	while (*(m->p))
+// 	{
+// 		m->escaped = 0;
+// 		check_tilde(&(m->pstart), &(m->p), m->in_dquotes);
+// 		check_double_quotes(&(m->p), &(m->in_dquotes), (m->in_squotes));
+// 		if (!*(m->p))
+// 			break ;
+// 		check_single_quotes(&(m->p), &(m->in_dquotes), &(m->in_squotes));
+// 		if (!*(m->p))
+// 			break ;
+// 		check_backslash(&(m->p), &(m->escaped));
+// 		check_dollar_sign(&(m->pstart), &(m->p), m->in_squotes, &m->escaped);
+// 		(m->p)++;
+// 	}
+// 	words = make_word(m->pstart);
+// 	words = pathnames_expand(words);
+// 	return (remove_quotes(words), words);
+// }

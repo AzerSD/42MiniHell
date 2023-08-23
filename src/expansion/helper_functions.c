@@ -78,7 +78,8 @@ char	*substitute_str(char *s1, char *s2, size_t start, size_t end)
 	char	*after;
 	char	*final;
 
-	before = (char *)my_malloc(&shell_instance.memory, (start + 1) * sizeof(char));
+	before = (char *)my_malloc(&shell_instance.memory,
+			(start + 1) * sizeof(char));
 	ft_strncpy(before, s1, start);
 	before[start] = '\0';
 	afterlen = ft_strlen(s1) - end + 1;

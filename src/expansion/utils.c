@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 19:45:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 22:57:28 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,18 @@ void	search_colon(char *orig_var_name, struct s_var_expand *var)
 	var->result = NULL;
 	var->expanded = 0;
 	var->p = NULL;
+}
+
+void	free_all_words(struct s_word *first)
+{
+	struct s_word	*del;
+
+	while (first)
+	{
+		del = first;
+		first = first->next;
+		if (del->data)
+			my_free(&shell_instance.memory, del->data);
+		my_free(&shell_instance.memory, del);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 05:03:22 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:06:43 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/23 23:29:35 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ char	*build_path_and_check_existence(char *p, char *p2, char *file, int plen)
 
 char	*search_path(char *file)
 {
-	char	*path;
-	char	*p;
-	char	*p2;
-	int		plen;
-	char	*valid_path;
-	struct s_symtab_entry			*symtab;
+	char					*path;
+	char					*p;
+	char					*p2;
+	int						plen;
+	char					*valid_path;
+	struct s_symtab_entry	*symtab;
 
 	symtab = get_symtab_entry("PATH");
 	if (!symtab)
