@@ -51,7 +51,7 @@ int prepare_command_and_open_pipe(char *orig_cmd, char **cmd_ptr) {
 
     fd = -1;
     cmd = orig_cmd; // No need to "fix" the command here
-    cmdlen = strlen(cmd);
+    cmdlen = ft_strlen(cmd);
     fd = pipe_command(cmd);
     *cmd_ptr = cmd;
     return fd;
