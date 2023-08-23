@@ -12,4 +12,6 @@ after strlen
 after strcmp
             418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31
 after strchr
-            418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31 
+            418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31
+after setenv
+            418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31

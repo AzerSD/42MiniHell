@@ -70,7 +70,6 @@ _fread
 # in	*read_from_pipe(FILE *fp, char *b, size_t *bufsz, char **p)
 
 	i = fread(b, 1, 1024, fp);
-
 		i = fread(b, 1, 1024, fp);
 
 _getpwnam

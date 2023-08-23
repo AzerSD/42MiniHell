@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/23 20:50:49 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/23 22:17:12 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC	=	core/shell \
 		builtins/exit \
 		builtins/unset \
 		builtins/export \
+		builtins/export_utils \
 		builtins/builtins \
 		\
 		execution/executor \

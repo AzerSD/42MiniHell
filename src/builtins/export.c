@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:16:26 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/23 22:15:17 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	process_plus_equal(char *name, struct s_symtab *symtab, char **argv)
 	+ ft_strlen(value) + 1);
 	ft_strcpy(new_value, old_value);
 	ft_strcat(new_value, value);
-	setenv(name, new_value, 1);
+	ft_setenv(name, new_value, 1);
 	free(new_value);
 	return (0);
 }
@@ -111,9 +111,7 @@ int	ft_export(int argc, ...)
 	entry = symtab->first;
 	va_end(args);
 	if (argc == 1)
-	{
 		return (print_export(entry));
-	}
 	else
 	{
 		va_start(args, argc);
