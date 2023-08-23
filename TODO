@@ -49,6 +49,10 @@ _fileno
 
 # in	void	exit_shell(int exit_code)
 
+_snprintf
+
+_sprintf
+
 	if (isatty(fileno(stdin)))
 
 _fnmatch
@@ -88,6 +92,7 @@ _globfree
 _setenv
 # in		setenv(name, new_value, 1); #in export.c
 
+_DONE - strcpy
 
 _DONE - strchr
 
