@@ -80,7 +80,7 @@ char *read_and_cleanup_pipe(int fd, char *cmd) {
             buf = ft_realloc(buf, bufsz + bytes_read);
             p = buf + bufsz;
         }
-        memcpy(p, b, bytes_read);
+        ft_memcpy(p, b, bytes_read);
         bufsz += bytes_read;
         bytes_read = read_from_pipe(fd, b, sizeof(b));
     }

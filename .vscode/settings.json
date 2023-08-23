@@ -1,7 +1,16 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "iterator": "c",
         "sstream": "c",
         "builtins.h": "c"
     }
 }
+=======
+		"iterator": "c",
+		"sstream": "c",
+		"libft.h": "c",
+		"bitset": "c"
+	}
+}
+>>>>>>> BH_minus_5

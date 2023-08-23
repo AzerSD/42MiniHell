@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+         #
+#    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/20 13:12:26 by asioud            #+#    #+#              #
-#    Updated: 2023/07/03 18:53:59 by asioud           ###   ########.fr        #
+#    Updated: 2023/08/23 18:56:09 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -g
+# -Wall -Wextra -Werror
 CC = gcc
 GNL	= ./srcs/get_next_line/
 SRCS = 			\
@@ -72,6 +73,9 @@ SRCS = 			\
 				./srcs/ft_split.c \
 				./srcs/ft_strlen.c \
 				./srcs/ft_atoll.c \
+				./srcs/ft_strtoll.c \
+				./srcs/ft_strtoll_utils.c \
+				./srcs/ft_strtoll_helpers.c \
 				./srcs/print_2d_fd.c \
 				./srcs/free_2d_guard.c \
 				./srcs/free_2d.c \
@@ -99,7 +103,6 @@ SRCS = 			\
 				./srcs/ft_strtok.c \
 				./srcs/ft_strncpy.c \
 				./srcs/ft_randstring.c \
-				
 
 BONUS_SRCS = 	./bonus/ft_lstadd_back.c \
 				./bonus/ft_lstdelone.c \
@@ -144,7 +147,7 @@ bonus : $(BONUS_OBJS) $(OBJS)
 	@ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 clean:
-	@echo "$(B_RED)🧹 Cleaning: $(RED) libft object files $(NC)"
+	echo "$(B_RED)🧹 Cleaning: $(RED) libft object files $(NC)"
 	@rm -f $(OBJS) $(BONUS_OBJS)
 	@$(MAKE) -C $(GNL) fclean
 

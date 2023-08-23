@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/22 21:32:55 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	process_plus_equal(char *name, struct s_symtab *symtab, char **argv)
 	entry = do_lookup(name, symtab);
 	if (entry)
 		old_value = entry->val;
-	new_value = my_malloc(&shell_instance.memory, strlen(old_value) \
-	+ strlen(value) + 1);
+	new_value = my_malloc(&shell_instance.memory, ft_strlen(old_value) \
+	+ ft_strlen(value) + 1);
 	ft_strcpy(new_value, old_value);
 	ft_strcat(new_value, value);
 	setenv(name, new_value, 1);
