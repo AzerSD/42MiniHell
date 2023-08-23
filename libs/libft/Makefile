@@ -6,12 +6,13 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/20 13:12:26 by asioud            #+#    #+#              #
-#    Updated: 2023/08/22 22:23:42 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/23 18:56:09 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g
+# -Wall -Wextra -Werror
 CC = gcc
 GNL	= ./srcs/get_next_line/
 SRCS = 			\
@@ -146,7 +147,7 @@ bonus : $(BONUS_OBJS) $(OBJS)
 	@ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 clean:
-	@echo "$(B_RED)🧹 Cleaning: $(RED) libft object files $(NC)"
+	echo "$(B_RED)🧹 Cleaning: $(RED) libft object files $(NC)"
 	@rm -f $(OBJS) $(BONUS_OBJS)
 	@$(MAKE) -C $(GNL) fclean
 

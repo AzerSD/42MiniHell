@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pattern_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 01:55:24 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/02 02:02:35 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/23 19:56:24 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ void	check_pattern(char *pattern, int longest, t_match *m, char **s)
 			if (!m->smatch)
 			{
 				if (!longest)
-				{
 					return ;
-				}
 				m->smatch = *s;
 			}
 			m->lmatch = *s;
