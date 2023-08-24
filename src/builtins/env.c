@@ -6,13 +6,13 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:19 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 18:59:00 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(int argc, ...)
+int	ft_env(t_shell *g_shell, int argc, ...)
 {
 	va_list					args;
 	char					**argv;
@@ -24,12 +24,12 @@ int	ft_env(int argc, ...)
 	va_end(args);
 	if (argc > 1)
 	{
-		exec_cmd(argc - 1, argv + 1);
+		exec_cmd(g_shell, argc - 1, argv + 1);
 		return (0);
 	}
 	else
 	{
-		symtab = SHELL_INSTANCE.s_symtab_stack.local_symtab;
+		symtab = g_shell->s_symtab_stack.local_symtab;
 		entry = symtab->first;
 		while (entry)
 		{

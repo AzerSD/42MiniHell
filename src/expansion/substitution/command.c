@@ -20,7 +20,7 @@ FILE	*pipe_command(char *cmd)
 	return (fp);
 }
 
-char	*read_from_pipe(FILE *fp, char *b, size_t *bufsz, char **p)
+char	*read_from_pipe(t_shell *g_shell, FILE *fp, char *b, size_t *bufsz, char **p)
 {
 	int		i;
 	char	*buf;
@@ -30,7 +30,7 @@ char	*read_from_pipe(FILE *fp, char *b, size_t *bufsz, char **p)
 	{
 		if (!buf)
 		{
-			buf = my_malloc(&SHELL_INSTANCE.memory, i + 1);
+			buf = my_malloc(&g_shell->memory, i + 1);
 			if (!buf)
 				return (buf);
 			*p = buf;
@@ -48,14 +48,14 @@ char	*read_from_pipe(FILE *fp, char *b, size_t *bufsz, char **p)
 	return (buf);
 }
 
-FILE	*prepare_command_and_open_pipe(char *orig_cmd, char **cmd_ptr)
+FILE	*prepare_command_and_open_pipe(t_shell *g_shell, char *orig_cmd, char **cmd_ptr)
 {
 	char	*cmd;
 	size_t	cmdlen;
 	FILE	*fp;
 
 	fp = NULL;
-	cmd = fix_cmd(orig_cmd, *orig_cmd == '`');
+	cmd = fix_cmd(g_shell, orig_cmd, *orig_cmd == '`');
 	if (!cmd)
 		return (NULL);
 	cmdlen = ft_strlen(cmd);
@@ -68,7 +68,7 @@ FILE	*prepare_command_and_open_pipe(char *orig_cmd, char **cmd_ptr)
 	return (fp);
 }
 
-char	*read_and_cleanup_pipe(FILE *fp, char *cmd)
+char	*read_and_cleanup_pipe(t_shell *g_shell, FILE *fp, char *cmd)
 {
 	char	b[1024];
 	size_t	bufsz;
@@ -82,7 +82,7 @@ char	*read_and_cleanup_pipe(FILE *fp, char *cmd)
 			strerror(errno));
 		return (NULL);
 	}
-	buf = read_from_pipe(fp, b, &bufsz, &p);
+	buf = read_from_pipe(g_shell, fp, b, &bufsz, &p);
 	if (!bufsz)
 	{
 		free(cmd);
@@ -97,12 +97,12 @@ char	*read_and_cleanup_pipe(FILE *fp, char *cmd)
 	return (buf);
 }
 
-char	*command_substitute(char *orig_cmd)
+char	*command_substitute(t_shell *g_shell, char *orig_cmd)
 {
 	char	*cmd;
 	FILE	*fp;
 
 	cmd = NULL;
-	fp = prepare_command_and_open_pipe(orig_cmd, &cmd);
-	return (read_and_cleanup_pipe(fp, cmd));
+	fp = prepare_command_and_open_pipe(g_shell, orig_cmd, &cmd);
+	return (read_and_cleanup_pipe(g_shell, fp, cmd));
 }

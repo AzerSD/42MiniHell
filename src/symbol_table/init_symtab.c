@@ -6,13 +6,13 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:28:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 17:54:24 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_varname(const char *str)
+char	*get_varname(t_shell *g_shell, const char *str)
 {
 	char	*eq;
 	int		len;
@@ -22,7 +22,7 @@ char	*get_varname(const char *str)
 	if (eq)
 	{
 		len = eq - str;
-		var_name = my_malloc(&SHELL_INSTANCE.memory, len + 1);
+		var_name = my_malloc(&(g_shell->memory), len + 1);
 		ft_strncpy(var_name, str, len);
 		var_name[len] = '\0';
 		return (var_name);
@@ -31,7 +31,7 @@ char	*get_varname(const char *str)
 		return (NULL);
 }
 
-void	string_to_symtab(const char *env_var)
+void	string_to_symtab(t_shell *g_shell, const char *env_var)
 {
 	struct s_symtab_entry	*entry;
 	char					*eq;
@@ -40,42 +40,38 @@ void	string_to_symtab(const char *env_var)
 	eq = ft_strchr(env_var, '=');
 	if (eq)
 	{
-		name = get_varname(env_var);
-		entry = add_to_symtab(name);
+		name = get_varname(g_shell, env_var);
+		entry = add_to_symtab(g_shell, name);
 		if (entry)
-			symtab_entry_setval(entry, eq + 1);
+			symtab_entry_setval(g_shell, entry, eq + 1);
 	}
 	else
 	{
-		entry = add_to_symtab(env_var);
+		entry = add_to_symtab(g_shell, env_var);
 		if (entry)
-			symtab_entry_setval(entry, NULL);
+			symtab_entry_setval(g_shell, entry, NULL);
 	}
 }
 
-void	init_symtab(char **env)
+void	init_symtab(t_shell *g_shell, char **env)
 {
-	// struct s_symtab_entry	*entry;
 	char					**p2;
 
-	init_symtab_stack();
+	init_symtab_stack(g_shell);
 	p2 = env;
 	while (*p2)
 	{
-		string_to_symtab(*p2);
+		string_to_symtab(g_shell, *p2);
 		p2++;
 	}
-	// entry = do_lookup("OLDPWD", SHELL_INSTANCE.s_symtab_stack.local_symtab);
-	// if (entry)
-	// 	rem_from_symtab(entry, SHELL_INSTANCE.s_symtab_stack.local_symtab);
 }
 
-void	init_symtab_stack(void)
+void	init_symtab_stack(t_shell *g_shell)
 {
 	struct s_symtab	*global_symtab;
 
-	global_symtab = my_malloc(&SHELL_INSTANCE.memory, sizeof(struct s_symtab));
-	SHELL_INSTANCE.s_symtab_stack.symtab_count = 1;
+	global_symtab = my_malloc(&(g_shell->memory), sizeof(struct s_symtab));
+	g_shell->s_symtab_stack.symtab_count = 1;
 	if (!global_symtab)
 	{
 		ft_printf_fd(STDERR_FILENO, "fatal error: no memory \
@@ -83,16 +79,16 @@ void	init_symtab_stack(void)
 		exit(EXIT_FAILURE);
 	}
 	ft_memset(global_symtab, 0, sizeof(struct s_symtab));
-	SHELL_INSTANCE.s_symtab_stack.global_symtab = global_symtab;
-	SHELL_INSTANCE.s_symtab_stack.local_symtab = global_symtab;
-	SHELL_INSTANCE.s_symtab_stack.symtab_list[0] = global_symtab;
+	g_shell->s_symtab_stack.global_symtab = global_symtab;
+	g_shell->s_symtab_stack.local_symtab = global_symtab;
+	g_shell->s_symtab_stack.symtab_list[0] = global_symtab;
 }
 
-struct s_symtab	*new_symtab(void)
+struct s_symtab	*new_symtab(t_shell *g_shell)
 {
 	struct s_symtab	*symtab;
 
-	symtab = my_malloc(&SHELL_INSTANCE.memory, sizeof(struct s_symtab));
+	symtab = my_malloc(&(g_shell->memory), sizeof(struct s_symtab));
 	if (!symtab)
 	{
 		ft_printf_fd(STDERR_FILENO, "fatal error: no memory \

@@ -6,18 +6,18 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 07:28:23 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 17:52:35 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	export_symtab(void)
+void	export_symtab(t_shell *g_shell)
 {
 	struct s_symtab			*symtab;
 	struct s_symtab_entry	*entry;
 
-	symtab = SHELL_INSTANCE.s_symtab_stack.local_symtab;
+	symtab = g_shell->s_symtab_stack.local_symtab;
 	entry = symtab->first;
 	while (entry)
 	{
@@ -47,14 +47,14 @@ void	add_entry_to_symtab(struct s_symtab *st, struct s_symtab_entry *entry)
 	}
 }
 
-int	rem_from_symtab(struct s_symtab_entry *entry, struct s_symtab *symtab)
+int	rem_from_symtab(t_shell *g_shell, struct s_symtab_entry *entry, struct s_symtab *symtab)
 {
 	int	res;
 
 	res = remove_entry_from_symtab(entry, symtab);
 	if (res == 1)
 	{
-		free_symtab_entry(entry);
+		free_symtab_entry(g_shell, entry);
 	}
 	return (res);
 }

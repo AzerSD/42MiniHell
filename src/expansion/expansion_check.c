@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:49:41 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/02 00:42:38 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:17:16 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_backslash(char **p, int *escaped)
 	}
 }
 
-void	check_backtick(char **pstart, char **p)
+void	check_backtick(t_shell *g_shell, char **pstart, char **p)
 {
 	size_t	len;
 
@@ -49,12 +49,12 @@ void	check_backtick(char **pstart, char **p)
 		len = find_closing_quote(*p);
 		if (len != 0)
 		{
-			substitute_word(pstart, p, len + 1, command_substitute, 0);
+			substitute_word(g_shell, pstart, p, len + 1, command_substitute, 0);
 		}
 	}
 }
 
-void	check_dollar_sign(char **pstart, char **p, int in_single_quotes,
+void	check_dollar_sign(t_shell *g_shell, char **pstart, char **p, int in_single_quotes,
 	int *escaped)
 {
 	char	c;
@@ -66,7 +66,7 @@ void	check_dollar_sign(char **pstart, char **p, int in_single_quotes,
 		if (c == '\"')
 			(*pstart)++;
 		else if (c == '?')
-			substitute_word(pstart, p, 2, var_expand, 0);
+			substitute_word(g_shell, pstart, p, 2, var_expand, 0);
 		else
 		{
 			if (!ft_isalpha((*p)[1]) && (*p)[1] != '_')
@@ -76,7 +76,7 @@ void	check_dollar_sign(char **pstart, char **p, int in_single_quotes,
 				p2++;
 			if (p2 == *p + 1)
 				return ;
-			substitute_word(pstart, p, p2 - *p, var_expand, 0);
+			substitute_word(g_shell, pstart, p, p2 - *p, var_expand, 0);
 		}
 	}
 	else if (*escaped)

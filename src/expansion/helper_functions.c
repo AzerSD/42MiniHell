@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*wordlist_to_str(struct s_word *word)
+char	*wordlist_to_str(t_shell *g_shell, struct s_word *word)
 {
 	size_t			len;
 	struct s_word	*w;
@@ -28,7 +28,7 @@ char	*wordlist_to_str(struct s_word *word)
 		len += w->len + 1;
 		w = w->next;
 	}
-	str = my_malloc(&SHELL_INSTANCE.memory, len + 1);
+	str = my_malloc(&g_shell->memory, len + 1);
 	str2 = str;
 	w = word;
 	while (w)
@@ -70,7 +70,8 @@ char	*create_final_string(char *before, char *s2, char *after, char *final)
 	return (final);
 }
 
-char	*substitute_str(char *s1, char *s2, size_t start, size_t end)
+char	*substitute_str(t_shell *g_shell, char *s1, \
+	char *s2, size_t start, size_t end)
 {
 	char	*before;
 	size_t	afterlen;
@@ -78,21 +79,21 @@ char	*substitute_str(char *s1, char *s2, size_t start, size_t end)
 	char	*after;
 	char	*final;
 
-	before = (char *)my_malloc(&SHELL_INSTANCE.memory, (start + 1) * sizeof(char));
+	before = (char *)my_malloc(&g_shell->memory, (start + 1) * sizeof(char));
 	ft_strncpy(before, s1, start);
 	before[start] = '\0';
 	afterlen = ft_strlen(s1) - end + 1;
-	after = (char *)my_malloc(SHELL_INSTANCE.memory, afterlen * sizeof(char));
+	after = (char *)my_malloc(g_shell->memory, afterlen * sizeof(char));
 	if (!after)
 		return (NULL);
 	ft_strcpy(after, s1 + end + 1);
 	totallen = start + afterlen + ft_strlen(s2);
-	final = my_malloc(&SHELL_INSTANCE.memory, totallen + 1);
+	final = my_malloc(&g_shell->memory, totallen + 1);
 	if (!final)
-		return (my_free(&SHELL_INSTANCE.memory, final), NULL);
+		return (my_free(&g_shell->memory, final), NULL);
 	if (!totallen)
 		final[0] = '\0';
 	else
 		final = create_final_string(before, s2, after, final);
-	return (my_free(&SHELL_INSTANCE.memory, after), final);
+	return (my_free(&g_shell->memory, after), final);
 }

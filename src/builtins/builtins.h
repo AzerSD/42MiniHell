@@ -6,13 +6,14 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 11:22:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:54:37 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 18:55:11 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# include "minishell.h"
 typedef struct s_env
 {
 	char				*value;
@@ -22,7 +23,7 @@ typedef struct s_env
 struct					s_builtin
 {
 	char				*name;
-	int					(*func)(int argc, ...);
+	int					(*func)(t_shell *g_shell, int argc, ...);
 };
 typedef struct s_builtin_info
 {
@@ -30,17 +31,17 @@ typedef struct s_builtin_info
 	int					count;
 }						t_builtin_info;
 
-int						exec_builtin(int argc, char **argv);
-int						ft_exit(int argc, ...);
-int						ft_unset(int argc, ...);
-int						ft_echo(int argc, ...);
-int						ft_env(int argc, ...);
-int						ft_pwd(int argc, ...);
-int						ft_cd(int argc, ...);
-int						ft_export(int argc, ...) __attribute__((unused));
+int						exec_builtin(t_shell *g_shell, int argc, char **argv);
+int						ft_exit(t_shell *g_shell, int argc, ...);
+int						ft_unset(t_shell *g_shell, int argc, ...);
+int						ft_echo(t_shell *g_shell, int argc, ...);
+int						ft_env(t_shell *g_shell, int argc, ...);
+int						ft_pwd(t_shell *g_shell, int argc, ...);
+int						ft_cd(t_shell *g_shell, int argc, ...);
+int						ft_export(t_shell *g_shell, int argc, ...) __attribute__((unused));
 
-t_builtin_info			*get_bt(void);
-int						ft_setenv(const char *name, const char *value,
+t_builtin_info			*get_bt(t_shell *g_shell);
+int						ft_setenv(t_shell *g_shell, const char *name, const char *value,
 							int overwrite);
 
 #endif

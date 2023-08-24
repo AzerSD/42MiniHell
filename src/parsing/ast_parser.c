@@ -6,13 +6,13 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 00:48:44 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:22:16 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-struct s_word	*get_node_content(t_node **child)
+struct s_word	*get_node_content(t_shell *g_shell, t_node **child)
 {
 	struct s_word	*w;
 	char			*str;
@@ -26,13 +26,14 @@ struct s_word	*get_node_content(t_node **child)
 	str = (*child)->val.str;
 	if (!str)
 		return (NULL);
-	w = expand(str);
+	w = expand(g_shell, str);
 	if (!w)
 		return (NULL);
 	return (w);
 }
 
-void	parse_ast(t_node *node, int *argc, int *targc, char ***argv)
+void	parse_ast(t_shell *g_shell, t_node *node, int *argc,\
+	int *targc, char ***argv)
 {
 	struct s_word	*w;
 	t_node			*child;
@@ -41,14 +42,14 @@ void	parse_ast(t_node *node, int *argc, int *targc, char ***argv)
 	child = node->first_child;
 	while (child)
 	{
-		w = get_node_content(&child);
+		w = get_node_content(g_shell, &child);
 		if (!w)
 			continue ;
 		while (w)
 		{
-			if (check_buffer_bounds(argc, targc, argv))
+			if (check_buffer_bounds(g_shell, argc, targc, argv))
 			{
-				arg = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(w->data) + 1);
+				arg = my_malloc(&g_shell->memory, ft_strlen(w->data) + 1);
 				if (arg)
 				{
 					ft_strcpy(arg, w->data);

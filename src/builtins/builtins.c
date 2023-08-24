@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:41:31 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 18:55:25 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ struct s_builtin	*init_builtins(void)
 	return (builtins);
 }
 
-t_builtin_info	*get_bt(void)
+t_builtin_info	*get_bt(t_shell *g_shell)
 {
 	t_builtin_info	*bt;
 
-	bt = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_builtin_info));
+	bt = my_malloc(&(g_shell->memory), sizeof(t_builtin_info));
 	if (bt == NULL)
 	{
 		return (NULL);
@@ -47,20 +47,20 @@ t_builtin_info	*get_bt(void)
 	return (bt);
 }
 
-int	exec_builtin(int argc, char **argv)
+int	exec_builtin(t_shell *g_shell, int argc, char **argv)
 {
 	t_builtin_info	*bt;
 	int				i;
 
 	i = 0;
-	bt = get_bt();
+	bt = get_bt(g_shell);
 	if (argc < 1)
 		return (-1);
 	while (i < bt->count)
 	{
 		if (ft_strcmp(argv[0], bt->builtins[i].name) == 0)
 		{
-			return (bt->builtins[i].func(argc, argv));
+			return (bt->builtins[i].func(g_shell, argc, argv));
 		}
 		i++;
 	}

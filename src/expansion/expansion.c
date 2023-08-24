@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:18:17 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	norm_tilde(char **p2, int *tilde_quoted)
 	return (0);
 }
 
-void	check_tilde(char **pstart, char **p, int in_double_quotes)
+void	check_tilde(t_shell *g_shell, char **pstart, char **p, int in_double_quotes)
 {
 	char	*p2;
 	int		tilde_quoted;
@@ -57,11 +57,11 @@ void	check_tilde(char **pstart, char **p, int in_double_quotes)
 			return ;
 		}
 		len = p2 - *p;
-		substitute_word(pstart, p, len, tilde_expansion, !in_double_quotes);
+		substitute_word(g_shell, pstart, p, len, tilde_expansion, !in_double_quotes);
 	}
 }
 
-int	init_expand(t_m *m, char *orig_word)
+int	init_expand(t_shell *g_shell, t_m *m, char *orig_word)
 {
 	m->in_dquotes = 0;
 	m->in_squotes = 0;
@@ -69,7 +69,7 @@ int	init_expand(t_m *m, char *orig_word)
 		return (1);
 	if (!*orig_word)
 		return (0);
-	m->pstart = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(orig_word) + 1);
+	m->pstart = my_malloc(&g_shell->memory, ft_strlen(orig_word) + 1);
 	if (!m->pstart)
 		return (1);
 	ft_strcpy(m->pstart, orig_word);
@@ -79,36 +79,36 @@ int	init_expand(t_m *m, char *orig_word)
 	return (1);
 }
 
-struct s_word	*expand(char *orig_word)
+struct s_word	*expand(t_shell *g_shell, char *orig_word)
 {
 	t_m				*m;
 	struct s_word	*words;
 	struct s_word	*w;
 
-	m = (t_m *)my_malloc(SHELL_INSTANCE.memory, sizeof(t_m));
-	if (!init_expand(m, orig_word))
+	m = (t_m *)my_malloc(g_shell->memory, sizeof(t_m));
+	if (!init_expand(g_shell, m, orig_word))
 	{
-		w = make_word(orig_word);
+		w = make_word(g_shell, orig_word);
 		return (free(m), w);
 	}
 	while (*(m->p))
 	{
 		m->escaped = 0;
-		check_tilde(&(m->pstart), &(m->p), m->in_dquotes);
+		check_tilde(g_shell, &(m->pstart), &(m->p), m->in_dquotes);
 		check_double_quotes(&(m->p), &(m->in_dquotes), (m->in_squotes));
 		if (!*(m->p)) break ;
 		check_single_quotes(&(m->p), &(m->in_dquotes), &(m->in_squotes));
 		if (!*(m->p)) break ;
 		check_backslash(&(m->p), &(m->escaped));
-		check_dollar_sign(&(m->pstart), &(m->p), m->in_squotes, &m->escaped);
+		check_dollar_sign(g_shell, &(m->pstart), &(m->p), m->in_squotes, &m->escaped);
 		(m->p)++;
 	}
-	words = make_word(m->pstart);
-	words = pathnames_expand(words);
+	words = make_word(g_shell, m->pstart);
+	words = pathnames_expand(g_shell, words);
 	return (remove_quotes(words), words);
 }
 
-void	free_all_words(struct s_word *first)
+void	free_all_words(t_shell *g_shell, struct s_word *first)
 {
 	struct s_word	*del;
 
@@ -117,7 +117,7 @@ void	free_all_words(struct s_word *first)
 		del = first;
 		first = first->next;
 		if (del->data)
-			my_free(&SHELL_INSTANCE.memory, del->data);
-		my_free(&SHELL_INSTANCE.memory, del);
+			my_free(&g_shell->memory, del->data);
+		my_free(&g_shell->memory, del);
 	}
 }

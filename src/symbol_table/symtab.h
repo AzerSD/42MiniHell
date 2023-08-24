@@ -6,12 +6,14 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 07:05:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 17:54:13 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SYMTAB_H
 # define SYMTAB_H
+
+# include "minishell.h"
 
 /**
  * @brief defines the type of a symbol table entry's value
@@ -78,7 +80,7 @@ struct						s_symtab_stack
 	struct s_symtab			*local_symtab;
 };
 
-void					update_entry(struct s_symtab_entry *entry, \
+void					update_entry(t_shell *g_shell, struct s_symtab_entry *entry, \
 						char *new_val, char *name);
 
 /**
@@ -88,7 +90,7 @@ void					update_entry(struct s_symtab_entry *entry, \
 	* and frees the memory used by the entry and adjusts the linked list pointers to
  * remove the entry from the symbol table
 */
-int						rem_from_symtab(struct s_symtab_entry *entry, \
+int						rem_from_symtab(t_shell *g_shell, struct s_symtab_entry *entry, \
 						struct s_symtab *symtab);
 
 /**
@@ -111,7 +113,7 @@ struct s_symtab_entry	*do_lookup(const char *str, \
  * entry, set its name, and adjust the symbol table's pointers. Lastly,
  * we return the newly added entry.
 */
-struct s_symtab_entry	*add_to_symtab(const char *symbol);
+struct s_symtab_entry	*add_to_symtab(t_shell *g_shell, const char *symbol);
 
 /**
  * @brief searches for a symbol table entry whose key matches the given name.
@@ -119,44 +121,44 @@ struct s_symtab_entry	*add_to_symtab(const char *symbol);
  * the whole stack starting with the local symbol table.
  * This function is usefull for shell functions and script files.
 */
-struct s_symtab_entry	*get_symtab_entry(const char *str);
+struct s_symtab_entry	*get_symtab_entry(t_shell *g_shell, const char *str);
 
 /**
  * @brief creates a new, empty symbol table and pushes it on top of the stack.
  * @returns the newly created symbol table.
 */
-struct s_symtab			*symtab_stack_push(void);
+struct s_symtab			*symtab_stack_push(t_shell *g_shell);
 
 /**
  * @brief get_global_symtab
  * @returns pointers to the global symbol tables.
 */
-struct s_symtab			*get_global_symtab(void);
+struct s_symtab			*get_global_symtab(t_shell *g_shell);
 
 /**
  * @brief get the local symbol tables
  * @return pointers to the local symbol tables.
 */
-struct s_symtab			*get_local_symtab(void);
+struct s_symtab			*get_local_symtab(t_shell *g_shell);
 
 /**
  * @brief removes (or pops) the symbol table on top of the stack,
  * adjusting the stack pointers as needed.
  * @return the symbol table that was removed from the stack.
 */
-struct s_symtab			*symtab_stack_pop(void);
+struct s_symtab			*symtab_stack_pop(t_shell *g_shell);
 
 /**
  * @brief create a new symbol table
 */
-struct s_symtab			*new_symtab(void);
+struct s_symtab			*new_symtab(t_shell *g_shell);
 
 /**
  * @brief This function frees the memory used to store the old entry’s value
  * (if one exists). It then creates a copy of the new value and stores
  * it in the symbol table entry.
 */
-void					symtab_entry_setval(struct s_symtab_entry *entry, \
+void					symtab_entry_setval(t_shell *g_shell, struct s_symtab_entry *entry, \
 						char *val);
 
 /**
@@ -164,35 +166,35 @@ void					symtab_entry_setval(struct s_symtab_entry *entry, \
  * Called when we're done working with a symbol table, and
  * we want to free the memory used by the symbol table and its entries.
 */
-void					free_symtab(struct s_symtab *symtab);
+void					free_symtab(t_shell *g_shell, struct s_symtab *symtab);
 
-void					export_symtab(void);
+void					export_symtab(t_shell *g_shell);
 
 /**
  * @brief Initializes the symbol table stack.
  * Allocates memory and initializes the global symbol table.
 */
-void					init_symtab_stack(void);
+void					init_symtab_stack(t_shell *g_shell);
 
 /**
  * @brief Initializes the symbol table stack, populates it with
  * environment variables from the global `environ` variable, and sets the
- * default prompt strings of our SHELL_INSTANCE.
+ * default prompt strings of our g_shell.
  * @see man environ
  * @see printenv
  */
-void					init_symtab(char **env);
+void					init_symtab(t_shell *g_shell, char **env);
 
-void					string_to_symtab(const char *env_var);
+void					string_to_symtab(t_shell *g_shell, const char *env_var);
 
-char					*get_varname(const char *str);
+char					*get_varname(t_shell *g_shell, const char *str);
 
 int						remove_entry_from_symtab(struct s_symtab_entry *entry, \
 		struct s_symtab *symtab);
 
-void					free_symtab_entry(struct s_symtab_entry *entry);
+void					free_symtab_entry(t_shell *g_shell, struct s_symtab_entry *entry);
 
-struct s_symtab_entry	*create_symtab_entry(const char *symbol);
+struct s_symtab_entry	*create_symtab_entry(t_shell *g_shell, const char *symbol);
 
 void					add_entry_to_symtab(struct s_symtab *st, \
 	struct s_symtab_entry *entry);

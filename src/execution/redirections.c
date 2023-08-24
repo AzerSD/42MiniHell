@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:04:09 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/20 00:40:26 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:12:10 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	handle_node_types(t_node *child, int *flags, int *std_fd,
 	}
 }
 
-int	open_and_redirect(t_node *child, int flags, int std_fd, int std_fd_err)
+int	open_and_redirect(t_shell *g_shell, t_node *child, int flags, int std_fd, int std_fd_err)
 {
 	int				fd;
 	struct s_word	*w;
 
 	if (child->first_child && child->first_child->val.str)
 	{
-		w = make_word(child->first_child->val.str);
+		w = make_word(g_shell, child->first_child->val.str);
 		remove_quotes(w);
 		fd = open(w->data, flags, 0644);
 		if (fd == -1)
@@ -63,7 +63,7 @@ int	open_and_redirect(t_node *child, int flags, int std_fd, int std_fd_err)
 	return (0);
 }
 
-int	setup_redirections(t_node *node)
+int	setup_redirections(t_shell *g_shell, t_node *node)
 {
 	t_node	*child;
 	int		flags;
@@ -81,7 +81,7 @@ int	setup_redirections(t_node *node)
 			std_fd = -1;
 			std_fd_err = -1;
 			handle_node_types(child, &flags, &std_fd, &std_fd_err);
-			res = open_and_redirect(child, flags, std_fd, std_fd_err);
+			res = open_and_redirect(g_shell, child, flags, std_fd, std_fd_err);
 			if (res)
 				return (1);
 		}

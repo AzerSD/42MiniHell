@@ -6,29 +6,31 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 00:26:03 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 17:53:34 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_entry(struct s_symtab_entry *entry, char *new_val, char *name)
+void	update_entry(t_shell *g_shell, struct s_symtab_entry *entry, \
+	char *new_val, char *name)
 {
-	entry = do_lookup(name, SHELL_INSTANCE.s_symtab_stack.local_symtab);
+	entry = do_lookup(name, g_shell->s_symtab_stack.local_symtab);
 	if (!entry)
 	{
-		entry = add_to_symtab(name);
+		entry = add_to_symtab(g_shell, name);
 	}
-	symtab_entry_setval(entry, new_val);
+	symtab_entry_setval(g_shell, entry, new_val);
 }
 
-void	symtab_entry_setval(struct s_symtab_entry *entry, char *val)
+void	symtab_entry_setval(t_shell *g_shell, struct s_symtab_entry *entry, \
+	char *val)
 {
 	char	*val2;
 
 	if (entry->val)
 	{
-		my_free(&SHELL_INSTANCE.memory, entry->val);
+		my_free(&(g_shell->memory), entry->val);
 	}
 	if (!val)
 	{
@@ -36,7 +38,7 @@ void	symtab_entry_setval(struct s_symtab_entry *entry, char *val)
 	}
 	else
 	{
-		val2 = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(val) + 1);
+		val2 = my_malloc(&(g_shell->memory), ft_strlen(val) + 1);
 		if (val2)
 			ft_strcpy(val2, val);
 		else
@@ -46,16 +48,16 @@ void	symtab_entry_setval(struct s_symtab_entry *entry, char *val)
 	}
 }
 
-struct s_symtab_entry	*get_symtab_entry(const char *str)
+struct s_symtab_entry	*get_symtab_entry(t_shell *g_shell, const char *str)
 {
 	int						i;
 	struct s_symtab			*symtab;
 	struct s_symtab_entry	*entry;
 
-	i = SHELL_INSTANCE.s_symtab_stack.symtab_count - 1;
+	i = g_shell->s_symtab_stack.symtab_count - 1;
 	while (i >= 0)
 	{
-		symtab = SHELL_INSTANCE.s_symtab_stack.symtab_list[i];
+		symtab = g_shell->s_symtab_stack.symtab_list[i];
 		entry = do_lookup(str, symtab);
 		if (entry)
 		{

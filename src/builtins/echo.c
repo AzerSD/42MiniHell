@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:25 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/24 15:54:56 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 18:13:06 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	check_newline(int n_option)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
-int	ft_echo(int argc, ...)
+int	ft_echo(t_shell *g_shell, int argc, ...)
 {
 	int		i;
 	int		n_option;
@@ -71,6 +71,6 @@ int	ft_echo(int argc, ...)
 	}
 	check_newline(n_option);
 	va_end(args);
-	SHELL_INSTANCE.status = 0;
+	g_shell->status = 0;
 	return (0);
 }

@@ -21,7 +21,9 @@
 # define MAG "\001\033[35m\002" // Magenta
 # define CYN "\001\033[36m\002" // Cyan
 # define WHT "\001\033[37m\002" // White
-# define SHELL_INSTANCE (*(get_shell_instance()))
+
+typedef unsigned char		t_status;
+typedef struct g_shell 	t_shell;
 
 # include <unistd.h>
 # include <limits.h>
@@ -37,7 +39,7 @@
 # include <string.h>
 # include <termios.h>
 # include <stdbool.h>
-# include <glob.h> // https://c-for-dummies.com/blog/?p=4782
+# include <glob.h>
 # include <ctype.h>
 # include <dirent.h>
 # include <regex.h>
@@ -60,8 +62,6 @@
 # include "../src/signals/signals.h"
 # include "../libs/garbage_collector/memory.h"
 
-typedef unsigned char		t_status;
-
 typedef struct g_shell
 {
 	t_status				status;
@@ -69,6 +69,5 @@ typedef struct g_shell
 	struct s_symtab_stack	s_symtab_stack;
 }	t_shell;
 
-t_shell	*get_shell_instance(void);
 
 #endif

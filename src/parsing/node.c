@@ -6,17 +6,17 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:58:07 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:01:01 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*new_node(enum e_node_type type)
+t_node	*new_node(t_shell *g_shell, enum e_node_type type)
 {
 	t_node	*node;
 
-	node = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_node));
+	node = my_malloc(&g_shell->memory, sizeof(t_node));
 	if (!node)
 		return (NULL);
 	ft_memset(node, 0, sizeof(t_node));
@@ -52,7 +52,7 @@ void	add_parent_node(t_node *child, t_node *parent)
 	add_child_node(parent, child);
 }
 
-void	set_node_val_str(t_node *node, char *val)
+void	set_node_val_str(t_shell *g_shell, t_node *node, char *val)
 {
 	char	*val2;
 
@@ -61,7 +61,7 @@ void	set_node_val_str(t_node *node, char *val)
 		node->val.str = NULL;
 	else
 	{
-		val2 = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(val) + 1);
+		val2 = my_malloc(&g_shell->memory, ft_strlen(val) + 1);
 		if (!val2)
 			node->val.str = NULL;
 		else

@@ -6,13 +6,13 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 19:45:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:22:36 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_buffer_bounds(int *count, int *len, char ***buf)
+int	check_buffer_bounds(t_shell *g_shell, int *count, int *len, char ***buf)
 {
 	int		newlen;
 	char	**hn2;
@@ -21,7 +21,7 @@ int	check_buffer_bounds(int *count, int *len, char ***buf)
 	{
 		if (!(*buf))
 		{
-			*buf = my_malloc(&SHELL_INSTANCE.memory, 32 * sizeof(char **));
+			*buf = my_malloc(&g_shell->memory, 32 * sizeof(char **));
 			if (!(*buf))
 				return (0);
 			*len = 32;
@@ -48,7 +48,7 @@ void	free_buffer(int len, char **buf)
 	free(buf);
 }
 
-void	search_colon(char *orig_var_name, struct s_var_expand *var)
+void	search_colon(t_shell *g_shell, char *orig_var_name, struct s_var_expand *var)
 {
 	var->sub = ft_strchr(orig_var_name, ':');
 	if (!var->sub)
@@ -59,13 +59,13 @@ void	search_colon(char *orig_var_name, struct s_var_expand *var)
 		ft_strlen(orig_var_name);
 	if (var->sub && *var->sub == ':')
 		var->sub++;
-	var->var_name = my_malloc(&SHELL_INSTANCE.memory, var->len + 1);
+	var->var_name = my_malloc(&g_shell->memory, var->len + 1);
 	ft_strncpy(var->var_name, orig_var_name, var->len);
 	var->var_name[var->len] = '\0';
 	var->empty_val = "";
 	var->tmp = NULL;
 	var->setme = 0;
-	var->entry = get_symtab_entry(var->var_name);
+	var->entry = get_symtab_entry(g_shell, var->var_name);
 	if (var->entry && var->entry->val && var->entry->val[0])
 		var->tmp = var->entry->val;
 	else

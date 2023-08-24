@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:54:16 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 18:16:04 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	print_export(struct s_symtab_entry *entry)
 	return (0);
 }
 
-int	process_plus_equal(char *name, struct s_symtab *symtab, char **argv)
+int	process_plus_equal(t_shell *g_shell, char *name, \
+	struct s_symtab *symtab, char **argv)
 {
 	char					*value;
 	char					*old_value;
@@ -41,20 +42,20 @@ int	process_plus_equal(char *name, struct s_symtab *symtab, char **argv)
 	entry = do_lookup(name, symtab);
 	if (entry)
 		old_value = entry->val;
-	new_value = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(old_value) \
+	new_value = my_malloc(&g_shell->memory, ft_strlen(old_value) \
 	+ ft_strlen(value) + 1);
 	ft_strcpy(new_value, old_value);
 	ft_strcat(new_value, value);
-	ft_setenv(name, new_value, 1);
+	ft_setenv(g_shell, name, new_value, 1);
 	free(new_value);
 	return (0);
 }
 
-int	process_equal(char *name, char **argv)
+int	process_equal(t_shell *g_shell, char *name, char **argv)
 {
 	if (is_valid_variable_name(name))
 	{
-		string_to_symtab(argv[1]);
+		string_to_symtab(g_shell, argv[1]);
 		return (0);
 	}
 	else
@@ -66,7 +67,7 @@ int	process_equal(char *name, char **argv)
 	}
 }
 
-int	check_input_arguments(char **argv, struct s_symtab *symtab, char *name)
+int	check_input_arguments(t_shell *g_shell, char **argv, struct s_symtab *symtab, char *name)
 {
 	struct s_symtab_entry	*entry;
 
@@ -74,16 +75,16 @@ int	check_input_arguments(char **argv, struct s_symtab *symtab, char *name)
 		return (ft_printf_fd(STDERR_FILENO, \
 		"bash: export: --: invalid option\nexport: \
         usage: export [-nf] [name[=value] ...] or export -p\n"), 2);
-	name = get_varname(argv[1]);
+	name = get_varname(g_shell, argv[1]);
 	if (!name)
 		name = argv[1];
 	if (ft_strstr(argv[1], "+=") != NULL)
 	{
 		name = ft_strtok(argv[1], "+=");
-		return (process_plus_equal(name, symtab, argv));
+		return (process_plus_equal(g_shell, name, symtab, argv));
 	}
 	else if (ft_strchr(argv[1], '=') != NULL)
-		return (process_equal(name, argv));
+		return (process_equal(g_shell, name, argv));
 	else
 	{
 		entry = do_lookup(argv[1], symtab);
@@ -97,7 +98,7 @@ int	check_input_arguments(char **argv, struct s_symtab *symtab, char *name)
 	}
 }
 
-int	ft_export(int argc, ...)
+int	ft_export(t_shell *g_shell, int argc, ...)
 {
 	struct s_symtab_entry	*entry;
 	struct s_symtab			*symtab;
@@ -107,7 +108,7 @@ int	ft_export(int argc, ...)
 
 	entry = NULL;
 	name = NULL;
-	symtab = SHELL_INSTANCE.s_symtab_stack.local_symtab;
+	symtab = g_shell->s_symtab_stack.local_symtab;
 	va_start(args, argc);
 	argv = va_arg(args, char **);
 	entry = symtab->first;
@@ -119,7 +120,7 @@ int	ft_export(int argc, ...)
 		va_start(args, argc);
 		argv = va_arg(args, char **);
 		va_end(args);
-		return (check_input_arguments(argv, symtab, name));
+		return (check_input_arguments(g_shell, argv, symtab, name));
 	}
 	return (0);
 }

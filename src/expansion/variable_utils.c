@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 23:27:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:22:51 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	init_svar_expand(struct s_var_expand *v)
 	memset(v->buf, 0, sizeof(v->buf));
 }
 
-void	check_result(struct s_var_expand *var)
+void	check_result(t_shell *g_shell, struct s_var_expand *var)
 {
 	if (var->setme)
 	{
 		if (!var->entry)
-			var->entry = add_to_symtab(var->var_name);
+			var->entry = add_to_symtab(g_shell, var->var_name);
 		if (var->entry)
-			symtab_entry_setval(var->entry, var->tmp);
+			symtab_entry_setval(g_shell, var->entry, var->tmp);
 	}
 	if (var->get_length)
 	{
@@ -92,13 +92,13 @@ char	*exit_code_to_str(unsigned char status)
 	return (str);
 }
 
-char	*exit_code_expansion(char *orig_var_name)
+char	*exit_code_expansion(t_shell *g_shell, char *orig_var_name)
 {
 	char	*exit_code_str;
 	char	*exit_code_copy;
 
 	(void) orig_var_name;
-	exit_code_str = exit_code_to_str(SHELL_INSTANCE.status);
+	exit_code_str = exit_code_to_str(g_shell->status);
 	exit_code_copy = ft_strdup(exit_code_str);
 	if (exit_code_copy == NULL)
 	{

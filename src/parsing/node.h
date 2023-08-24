@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:58:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 04:49:11 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:01:24 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_node
  * @param type Type of node to create.
  * @return t_node* Our initialized node.
  */
-t_node					*new_node(enum e_node_type type);
+t_node					*new_node(t_shell *g_shell, enum e_node_type type);
 
 /**
  * @brief Adds a new child node to the specified parent node. 
@@ -132,7 +132,7 @@ void					free_node_tree(t_node *node);
  * @param node 
  * @param val 
  */
-void					set_node_val_str(t_node *node, char *val);
+void					set_node_val_str(t_shell *g_shell, t_node *node, char *val);
 void					print_ast(t_node *node, int indent);
 
 #endif

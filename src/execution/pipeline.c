@@ -6,13 +6,13 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 02:34:11 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:00:29 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-pid_t	create_first_child_process(int *pipefd, t_node *node)
+pid_t	create_first_child_process(t_shell *g_shell, int *pipefd, t_node *node)
 {
 	pid_t	child_pid1;
 
@@ -27,13 +27,13 @@ pid_t	create_first_child_process(int *pipefd, t_node *node)
 		close(pipefd[0]);
 		dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[1]);
-		execc(node->first_child);
-		exit(SHELL_INSTANCE.status);
+		execc(g_shell, node->first_child);
+		exit(g_shell->status);
 	}
 	return (child_pid1);
 }
 
-pid_t	create_second_child_process(int *pipefd, t_node *node)
+pid_t	create_second_child_process(t_shell *g_shell, int *pipefd, t_node *node)
 {
 	pid_t	child_pid2;
 
@@ -48,13 +48,13 @@ pid_t	create_second_child_process(int *pipefd, t_node *node)
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
-		SHELL_INSTANCE.status = execc(node->first_child->next_sibling);
-		exit(SHELL_INSTANCE.status);
+		g_shell->status = execc(g_shell, node->first_child->next_sibling);
+		exit(g_shell->status);
 	}
 	return (child_pid2);
 }
 
-int	execute_pipeline(t_node *node)
+int	execute_pipeline(t_shell *g_shell, t_node *node)
 {
 	int		pipefd[2];
 	int		status1;
@@ -66,10 +66,10 @@ int	execute_pipeline(t_node *node)
 	status2 = 0;
 	if (pipe(pipefd) == -1)
 		return (perror("pipe"), 1);
-	child_pid1 = create_first_child_process(pipefd, node);
+	child_pid1 = create_first_child_process(g_shell, pipefd, node);
 	if (child_pid1 == -1)
 		return (1);
-	child_pid2 = create_second_child_process(pipefd, node);
+	child_pid2 = create_second_child_process(g_shell, pipefd, node);
 	if (child_pid2 == -1)
 		return (1);
 	close(pipefd[0]);

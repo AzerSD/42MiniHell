@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:05:23 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_cmd(void)
 	return (cmd);
 }
 
-void	main_loop(t_shell *shell)
+void	main_loop(t_shell *g_shell)
 {
 	t_cli	cli;
 	char	*cmd;
@@ -45,15 +45,15 @@ void	main_loop(t_shell *shell)
 		cmd = get_cmd();
 		if (!cmd)
 		{
-			free_all_mem(&shell->memory);
-			exit(shell->status);
+			free_all_mem(&g_shell->memory);
+			exit(g_shell->status);
 		}
 		if (isatty(STDIN_FILENO))
 			add_history(cmd);
 		cli.buffer = cmd;
 		cli.buff_size = ft_strlen(cmd);
 		cli.cur_pos = INIT_SRC_POS;
-		shell->status = parse_and_execute(&cli);
+		g_shell->status = parse_and_execute(g_shell, &cli);
 		dup2(original_stdout, STDOUT_FILENO);
 		dup2(original_stdin, STDIN_FILENO);
 	}
@@ -62,35 +62,35 @@ void	main_loop(t_shell *shell)
 int	main(int argc, char **argv, char **env)
 {
 	struct termios	mirror_termios;
-	t_shell			*shell;
+	t_shell			*g_shell;
+	void			*mem;
 
-	shell = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_shell));
-	shell->memory = NULL;
+	g_shell = my_malloc(&mem, sizeof(t_shell));
+	g_shell->memory = mem;
 	(void)argc;
 	(void)argv;
-	init_symtab(env);
-	shell->status = 0;
+	init_symtab(g_shell, env);
+	g_shell->status = 0;
 	signals(&mirror_termios);
-	main_loop(shell);
+	main_loop(g_shell);
 	rl_clear_history();
-	free_all_mem(&shell->memory);
-	exit(shell->status);
+	free_all_mem(&g_shell->memory);
+	exit(g_shell->status);
 }
 
-int	parse_and_execute(t_cli *cli)
+int	parse_and_execute(t_shell *g_shell, t_cli *cli)
 {
 	t_node		*ast_cmd;
 	t_token		*tok;
 	t_curr_tok	*curr;
 
-	curr = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_curr_tok));
+	curr = my_malloc(&(g_shell->memory), sizeof(t_curr_tok));
 	skip_whitespaces(cli);
-	tok = get_token(cli, curr);
-	ast_cmd = parse_cmd(tok, curr);
-	// print_ast(ast_cmd, 0);
+	tok = get_token(g_shell, cli, curr);
+	ast_cmd = parse_cmd(g_shell, tok, curr);
 	if (!ast_cmd)
 		return (1);
-	return (execc(ast_cmd));
+	return (execc(g_shell, ast_cmd));
 }
 
 void	print_ast(t_node *node, int indent)

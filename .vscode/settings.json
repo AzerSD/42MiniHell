@@ -4,6 +4,7 @@
 		"sstream": "c",
 		"libft.h": "c",
 		"bitset": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"lexer.h": "c"
 	}
 }

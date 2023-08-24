@@ -23,7 +23,7 @@ struct s_glob_info
 	glob_t			glob;
 };
 
-void	save_matches(struct s_glob_info *glob_info)
+void	save_matches(t_shell *g_shell, struct s_glob_info *glob_info)
 {
 	size_t	j;
 
@@ -36,12 +36,12 @@ void	save_matches(struct s_glob_info *glob_info)
 		{
 			if (!glob_info->head)
 			{
-				glob_info->head = make_word(glob_info->matches[j]);
+				glob_info->head = make_word(g_shell, glob_info->matches[j]);
 				glob_info->tail = glob_info->head;
 			}
 			else
 			{
-				glob_info->tail->next = make_word(glob_info->matches[j]);
+				glob_info->tail->next = make_word(g_shell, glob_info->matches[j]);
 				if (glob_info->tail->next)
 				{
 					glob_info->tail = glob_info->tail->next;
@@ -77,7 +77,7 @@ struct s_glob_info	init_glob_info(struct s_word *words)
 	return (glob_info);
 }
 
-struct s_word	*pathnames_expand(struct s_word *words)
+struct s_word	*pathnames_expand(t_shell *g_shell, struct s_word *words)
 {
 	struct s_glob_info	glob_info;
 
@@ -92,9 +92,9 @@ struct s_word	*pathnames_expand(struct s_word *words)
 			{
 				glob_info.head = NULL;
 				glob_info.tail = NULL;
-				save_matches(&glob_info);
+				save_matches(g_shell, &glob_info);
 				link_to_existing_list(&glob_info);
-				free_all_words(glob_info.w);
+				free_all_words(g_shell, glob_info.w);
 				glob_info.w = glob_info.tail;
 				globfree(&glob_info.glob);
 			}

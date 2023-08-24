@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:09:50 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:20:55 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	process_word(struct s_word *word, int *in_double_quotes)
 	word->len = ft_strlen(word->data);
 }
 
-void	substitute_norm(char **tmp, char **tmp2, char *(func)(char *), \
+void	substitute_norm(t_shell *g_shell, char **tmp, char **tmp2, char *(func)(t_shell *, char *), \
 	size_t *len, char **p)
 {
 	*tmp = malloc(*len + 1);
@@ -37,7 +37,7 @@ void	substitute_norm(char **tmp, char **tmp2, char *(func)(char *), \
 	(*tmp)[(*len)--] = '\0';
 	if (func)
 	{
-		*tmp2 = func(*tmp);
+		*tmp2 = func(g_shell, *tmp);
 		if (*tmp2 == INVALID_VAR)
 			*tmp2 = NULL;
 		if (*tmp2)
@@ -47,22 +47,22 @@ void	substitute_norm(char **tmp, char **tmp2, char *(func)(char *), \
 		*tmp2 = *tmp;
 }
 
-int	substitute_word(char **pstart, char **p, size_t len, \
-	char *(func)(char *), int add_quotes)
+int	substitute_word(t_shell *g_shell, char **pstart, char **p, size_t len, \
+	char *(func)(t_shell *, char *), int add_quotes)
 {
 	char	*tmp;
 	char	*tmp2;
 	size_t	i;
 
-	substitute_norm(&tmp, &tmp2, func, &len, p);
+	substitute_norm(g_shell, &tmp, &tmp2, func, &len, p);
 	if (!tmp2)
 		return (0);
 	i = (*p) - (*pstart);
-	tmp = quote_val(tmp2, add_quotes);
+	tmp = quote_val(g_shell, tmp2, add_quotes);
 	free(tmp2);
 	if (tmp)
 	{
-		tmp2 = substitute_str(*pstart, tmp, i, i + len);
+		tmp2 = substitute_str(g_shell, *pstart, tmp, i, i + len);
 		if (tmp2)
 		{
 			(*pstart) = tmp2;
@@ -73,30 +73,30 @@ int	substitute_word(char **pstart, char **p, size_t len, \
 	return (1);
 }
 
-char	*word_expand_to_str(char *word)
+char	*word_expand_to_str(t_shell *g_shell, char *word)
 {
 	struct s_word	*w;
 	char			*res;
 
-	w = expand(word);
+	w = expand(g_shell, word);
 	if (!w)
 		return (NULL);
-	res = wordlist_to_str(w);
-	free_all_words(w);
+	res = wordlist_to_str(g_shell, w);
+	free_all_words(g_shell, w);
 	return (res);
 }
 
-struct s_word	*make_word(char *str)
+struct s_word	*make_word(t_shell *g_shell, char *str)
 {
 	struct s_word	*word;
 	size_t			len;
 	char			*data;
 
-	word = my_malloc(&SHELL_INSTANCE.memory, sizeof(struct s_word));
+	word = my_malloc(&g_shell->memory, sizeof(struct s_word));
 	if (!word)
 		return (NULL);
 	len = ft_strlen(str);
-	data = my_malloc(&SHELL_INSTANCE.memory, len + 1);
+	data = my_malloc(&g_shell->memory, len + 1);
 	if (!data)
 	{
 		free(word);

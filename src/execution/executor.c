@@ -6,13 +6,13 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:12:28 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_cmd(int argc, char **argv)
+int	exec_cmd(t_shell *g_shell, int argc, char **argv)
 {
 	char	*path;
 
@@ -21,7 +21,7 @@ int	exec_cmd(int argc, char **argv)
 		execv(argv[0], argv);
 	else
 	{
-		path = search_path(argv[0]);
+		path = search_path(g_shell, argv[0]);
 		if (!path)
 			return (1);
 		execv(path, argv);
@@ -29,14 +29,14 @@ int	exec_cmd(int argc, char **argv)
 	return (0);
 }
 
-pid_t	fork_command(int argc, char **argv)
+pid_t	fork_command(t_shell *g_shell, int argc, char **argv)
 {
 	pid_t	child_pid;
 
 	child_pid = fork();
 	if (child_pid == 0)
 	{
-		exec_cmd(argc, argv);
+		exec_cmd(g_shell, argc, argv);
 		ft_printf_fd(STDERR_FILENO, "minishell: %s: No such file or directory\n", \
 			argv[0]);
 		if (errno == ENOEXEC)
@@ -49,13 +49,13 @@ pid_t	fork_command(int argc, char **argv)
 	return (child_pid);
 }
 
-int	exec_child_process(int argc, char **argv)
+int	exec_child_process(t_shell *g_shell, int argc, char **argv)
 {
 	int		status;
 	pid_t	child_pid;
 
 	status = 0;
-	child_pid = fork_command(argc, argv);
+	child_pid = fork_command(g_shell, argc, argv);
 	if (child_pid == -1)
 	{
 		ft_printf_fd(STDERR_FILENO, "error: failed to fork command: %s\n", \
@@ -64,7 +64,7 @@ int	exec_child_process(int argc, char **argv)
 	}
 	waitpid(child_pid, &status, 0);
 	status = WEXITSTATUS(status);
-	SHELL_INSTANCE.status = status;
+	g_shell->status = status;
 	return (status);
 }
 
@@ -76,7 +76,7 @@ void	init_vars(int *argc, int *targc, char ***argv, int *ret)
 	*ret = 0;
 }
 
-int	execc(t_node *node)
+int	execc(t_shell *g_shell, t_node *node)
 {
 	char	**argv;
 	int		argc;
@@ -86,21 +86,21 @@ int	execc(t_node *node)
 
 	init_vars(&argc, &targc, &argv, &ret);
 	if (node->type == NODE_ASSIGNMENT)
-		return (string_to_symtab(node->first_child->val.str), 0);
+		return (string_to_symtab(g_shell, node->first_child->val.str), 0);
 	if (node->type == NODE_PIPE)
 	{
 		ret = dup(STDIN_FILENO);
-		pipeline_status = execute_pipeline(node);
+		pipeline_status = execute_pipeline(g_shell, node);
 		dup2(ret, STDIN_FILENO);
 		close(ret);
-		SHELL_INSTANCE.status = pipeline_status;
+		g_shell->status = pipeline_status;
 		return (pipeline_status);
 	}
-	parse_ast(node, &argc, &targc, &argv);
-	if (setup_redirections(node))
+	parse_ast(g_shell, node, &argc, &targc, &argv);
+	if (setup_redirections(g_shell, node))
 		return (1);
-	ret = exec_builtin(argc, argv);
+	ret = exec_builtin(g_shell, argc, argv);
 	if (ret >= 0)
-		return (SHELL_INSTANCE.status = ret, ret);
-	return (exec_child_process(argc, argv));
+		return (g_shell->status = ret, ret);
+	return (exec_child_process(g_shell, argc, argv));
 }

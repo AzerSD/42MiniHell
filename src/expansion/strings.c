@@ -85,14 +85,14 @@ size_t	calculate_length(char *val, int add_quotes)
 	return (len);
 }
 
-char	*quote_val(char *val, int add_quotes)
+char	*quote_val(t_shell *g_shell, char *val, int add_quotes)
 {
 	char	*res;
 	size_t	len;
 	char	*p;
 
 	len = calculate_length(val, add_quotes);
-	res = my_malloc(&SHELL_INSTANCE.memory, len + 1);
+	res = my_malloc(&g_shell->memory, len + 1);
 	if (!val || !*val)
 	{
 		if (add_quotes)

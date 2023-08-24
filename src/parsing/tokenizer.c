@@ -6,25 +6,25 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:05:01 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		*init_curr_tok_buff(t_cli *cli, t_curr_tok *curr);
+static void		*init_curr_tok_buff(t_shell *g_shell, t_cli *cli, t_curr_tok *curr);
 
-static t_token	*create_token(char *str)
+static t_token	*create_token(t_shell *g_shell, char *str)
 {
 	t_token	*tok;
 	char	*nstr;
 
-	tok = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_token));
+	tok = my_malloc(&(g_shell->memory), sizeof(t_token));
 	if (!tok)
 		return (NULL);
 	ft_memset(tok, 0, sizeof(t_token));
 	tok->text_len = ft_strlen(str);
-	nstr = my_malloc(&SHELL_INSTANCE.memory, tok->text_len + 1);
+	nstr = my_malloc(&(g_shell->memory), tok->text_len + 1);
 	if (!nstr)
 	{
 		free(tok);
@@ -57,7 +57,7 @@ void	handle_token(t_cli *cli, t_curr_tok *curr, char nc, int *endloop)
 		add_to_buf(nc, curr);
 }
 
-t_token	*get_token(t_cli *cli, t_curr_tok *curr)
+t_token	*get_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 {
 	char	nc;
 	int		endloop;
@@ -66,7 +66,7 @@ t_token	*get_token(t_cli *cli, t_curr_tok *curr)
 	endloop = 0;
 	init_curr_tok(curr);
 	nc = get_next_char(cli);
-	if (nc == ERRCHAR || nc == EOF || init_curr_tok_buff(cli, curr) != 0)
+	if (nc == ERRCHAR || nc == EOF || init_curr_tok_buff(g_shell, cli, curr) != 0)
 		return (EOF_TOKEN);
 	while (nc != EOF)
 	{
@@ -80,7 +80,7 @@ t_token	*get_token(t_cli *cli, t_curr_tok *curr)
 	if (curr->tok_buff_index >= curr->tok_buff_size)
 		curr->tok_buff_index--;
 	curr->tok_buff[curr->tok_buff_index] = '\0';
-	tok = create_token(curr->tok_buff);
+	tok = create_token(g_shell, curr->tok_buff);
 	tok->cli = cli;
 	return (tok);
 }
@@ -93,7 +93,7 @@ void	init_curr_tok(t_curr_tok *curr)
 	curr->tok_type = PARSE_DEFAULT;
 }
 
-static void	*init_curr_tok_buff(t_cli *cli, t_curr_tok *curr)
+static void	*init_curr_tok_buff(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 {
 	if (!cli || !cli->buffer || !cli->buff_size)
 	{
@@ -103,7 +103,7 @@ static void	*init_curr_tok_buff(t_cli *cli, t_curr_tok *curr)
 	if (!curr->tok_buff)
 	{
 		curr->tok_buff_size = 1024;
-		curr->tok_buff = my_malloc(&SHELL_INSTANCE.memory, curr->tok_buff_size);
+		curr->tok_buff = my_malloc(&(g_shell->memory), curr->tok_buff_size);
 		if (!curr->tok_buff)
 		{
 			errno = ENOMEM;
