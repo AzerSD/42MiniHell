@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:15:26 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 01:53:44 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*prepare_for_pipe(int *pipe_fd, t_token *tok, int expanding, char *line)
 		free(w);
 		w = NULL;
 	}
-	line = get_next_line(fileno(stdin));
+	line = get_next_line(STDIN_FILENO);
 	{
 		if (ft_strchr(line, '$') && expanding)
 			w = expand(line);
@@ -51,7 +51,7 @@ void	write_to_pipe_and_cleanup(int *pipe_fd, t_token *tok,
 				- 1) != 0))
 	{
 		write(pipe_fd[1], content, ft_strlen(content));
-		line = get_next_line(fileno(stdin));
+		line = get_next_line(STDIN_FILENO);
 		if (ft_strchr(line, '$'))
 			w = expand(line);
 		if (w)

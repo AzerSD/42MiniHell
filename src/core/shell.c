@@ -6,26 +6,28 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:06:07 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 01:52:13 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell *get_shell_instance() {
-    static t_shell g_shell_instance;
-    return &g_shell_instance;
+t_shell	*get_shell_instance(void)
+{
+	static t_shell	g_shell_instance;
+
+	return (&g_shell_instance);
 }
 
 char	*get_cmd(void)
 {
 	char	*cmd;
 
-	if (isatty(fileno(stdin)))
+	if (isatty(STDIN_FILENO))
 		cmd = readline(MAG "minishell> " RESET);
 	else
 	{
-		cmd = get_next_line(fileno(stdin));
+		cmd = get_next_line(STDIN_FILENO);
 		cmd = ft_strtrim(cmd, "\n");
 	}
 	return (cmd);
@@ -87,34 +89,28 @@ int	parse_and_execute(t_cli *cli)
 	skip_whitespaces(cli);
 	tok = get_token(cli, curr);
 	ast_cmd = parse_cmd(tok, curr);
-	// print_ast(ast_cmd, 0);
 	if (!ast_cmd)
 		return (1);
 	return (execc(ast_cmd));
 }
 
-void	print_ast(t_node *node, int indent)
-{
-	t_node	*child;
-	if (node == NULL)
-		return ;
-	for (int i = 0; i < indent - 1; i++)
-		printf("%s  │%s", BLU, RESET);
-	if (indent > 0)
-		printf("%s  ├─%s", CYN, RESET);
-	printf("%sValue: %s%s,%s	%slevel: %s%u%s\n",
-			GRN,
-			YEL,
-			node->val.str,
-			RESET,
-			RED,
-			YEL,
-			node->type,
-			RESET);
-	child = node->first_child;
-	while (child != NULL)
-	{
-		print_ast(child, indent + 1);
-		child = child->next_sibling;
-	}
-}
+	// print_ast(ast_cmd, 0);
+// void	print_ast(t_node *node, int indent)
+// {
+// 	t_node	*child;
+
+// 	if (node == NULL)
+// 		return ;
+// 	for (int i = 0; i < indent - 1; i++)
+// 		printf("%s  │%s", BLU, RESET);
+// 	if (indent > 0)
+// 		printf("%s  ├─%s", CYN, RESET);
+// 	printf("%sValue: %s%s,%s	%slevel: %s%u%s\n", GRN, YEL, node->val.str, RESET,
+// 			RED, YEL, node->type, RESET);
+// 	child = node->first_child;
+// 	while (child != NULL)
+// 	{
+// 		print_ast(child, indent + 1);
+// 		child = child->next_sibling;
+// 	}
+// }
