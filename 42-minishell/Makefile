@@ -6,14 +6,14 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/27 22:03:08 by tjensen           #+#    #+#              #
-#    Updated: 2023/08/20 21:25:03 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/25 01:26:43 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        := minishell
 
 CC          := gcc
-CFLAGS      := -Wall -Wextra -Werror -O3 -g
+CFLAGS      := -Wall -Wextra -Werror -O2
 
 CPPFLAGS    := -I./inc -I./lib/libft/inc
 DEPFLAGS     = -MT $@ -MMD -MP -MF $(DDIR)/$*.d

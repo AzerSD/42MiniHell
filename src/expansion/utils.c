@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 19:45:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:57:28 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/24 22:35:57 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_buffer_bounds(int *count, int *len, char ***buf)
 		else
 		{
 			newlen = (*len) * 2;
-			hn2 = realloc(*buf, newlen * sizeof(char **));
+			hn2 = ft_realloc(*buf, newlen * sizeof(char **));
 			if (!hn2)
 				return (0);
 			*buf = hn2;

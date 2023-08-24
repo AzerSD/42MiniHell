@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_randstring.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:52:59 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 19:14:04 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 22:28:23 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
+#include <unistd.h>
 
 char	*ft_randstring(size_t length)
 {
-	char		*random_string;
-	int			key;
-	static char	*charset;
-	size_t		n;
+	char	*random_string;
+	int		key;
+	size_t	n;
+	int		seed;
 
-	charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHI\
+	static char *charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHI\
 		JKLMNOPQRSTUVWXYZ0123456789,.-#'?!";
+	seed = 0;
 	random_string = NULL;
 	if (length)
 	{
@@ -30,8 +32,10 @@ char	*ft_randstring(size_t length)
 			n = 0;
 			while (n < length)
 			{
-				key = rand() % (int)(sizeof(charset) - 1);
+				key = (seed * 1103515245 + 12345) & 0x7FFF;
+				key = key % (int)(sizeof(charset) - 1);
 				random_string[n] = charset[key];
+				seed += n + 1;
 				n++;
 			}
 			random_string[length] = '\0';

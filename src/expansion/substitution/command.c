@@ -2,9 +2,12 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   command_substitution.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+
+	+:+     */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+
+	+#+        */
+/*                                                +#+#+#+#+#+
+	+#+           */
 /*   Created: 2023/03/30 17:17:07 by asioud            #+#    #+#             */
 /*   Updated: 2023/03/30 17:17:07 by asioud           ###   ########.fr       */
 /*                                                                            */
@@ -12,95 +15,105 @@
 
 #include "minishell.h"
 
-FILE	*pipe_command(char *cmd)
+int	pipe_command(char *cmd)
 {
-	FILE	*fp;
+	int fd[2];
+	int ret;
 
-	fp = popen(cmd, "r");
-	return (fp);
-}
-
-char	*read_from_pipe(FILE *fp, char *b, size_t *bufsz, char **p)
-{
-	int		i;
-	char	*buf;
-
-	i = fread(b, 1, 1024, fp);
-	while (i)
+	ret = pipe(fd);
+	if (ret == -1)
 	{
-		if (!buf)
-		{
-			buf = my_malloc(&shell_instance.memory, i + 1);
-			if (!buf)
-				return (buf);
-			*p = buf;
-		}
-		else
-		{
-			buf = extend_buffer(buf, *bufsz, i);
-			*p = buf + *bufsz;
-		}
-		*bufsz += i;
-		ft_memcpy(*p, b, i);
-		(*p)[i] = '\0';
-		i = fread(b, 1, 1024, fp);
+		perror("pipe");
+		return (-1);
 	}
-	return (buf);
-}
-
-FILE	*prepare_command_and_open_pipe(char *orig_cmd, char **cmd_ptr)
-{
-	char	*cmd;
-	size_t	cmdlen;
-	FILE	*fp;
-
-	fp = NULL;
-	cmd = fix_cmd(orig_cmd, *orig_cmd == '`');
-	if (!cmd)
-		return (NULL);
-	cmdlen = ft_strlen(cmd);
-	if (*orig_cmd == '`')
-		fix_backquoted_cmd(cmd, cmdlen);
+	pid_t pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		close(fd[0]);
+		close(fd[1]);
+		return (-1);
+	}
+	if (pid == 0)
+	{
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[1]);
+		execl("/bin/sh", "sh", "-c", cmd, NULL);
+		_exit(127);
+	}
 	else
-		remove_closing_brace(cmd, cmdlen);
-	fp = pipe_command(cmd);
-	*cmd_ptr = cmd;
-	return (fp);
+	{
+		close(fd[1]);
+		return (fd[0]);
+	}
 }
 
-char	*read_and_cleanup_pipe(FILE *fp, char *cmd)
+ssize_t	read_from_pipe(int fd, char *buf, size_t count)
 {
-	char	b[1024];
-	size_t	bufsz;
-	char	*buf;
-	char	*p;
+	return (read(fd, buf, count));
+}
+
+int	prepare_command_and_open_pipe(char *orig_cmd, char **cmd_ptr)
+{
+	char *cmd;
+	int cmdlen;
+	int fd;
+
+	fd = -1;
+	cmd = orig_cmd; // No need to "fix" the command here
+	cmdlen = ft_strlen(cmd);
+	fd = pipe_command(cmd);
+	*cmd_ptr = cmd;
+	return (fd);
+}
+
+char	*read_and_cleanup_pipe(int fd, char *cmd)
+{
+	char b[1024];
+	size_t bufsz = 0;
+	char *buf = NULL;
+	char *p;
 
 	buf = NULL;
-	if (!fp)
+	if (fd == -1)
 	{
-		ft_printf_fd(STDERR_FILENO, "error: %s: %s\n", "failed to open pipe",
+		fprintf(stderr, "error: %s: %s\n", "failed to open pipe",
 			strerror(errno));
 		return (NULL);
 	}
-	buf = read_from_pipe(fp, b, &bufsz, &p);
-	if (!bufsz)
+	ssize_t bytes_read = read_from_pipe(fd, b, sizeof(b));
+	while (bytes_read > 0)
 	{
-		free(cmd);
-		return (NULL);
+		if (!buf)
+		{
+			buf = malloc(bytes_read + 1);
+			if (!buf)
+				return (buf);
+			p = buf;
+		}
+		else
+		{
+			buf = ft_realloc(buf, bufsz + bytes_read);
+			p = buf + bufsz;
+		}
+		ft_memcpy(p, b, bytes_read);
+		bufsz += bytes_read;
+		bytes_read = read_from_pipe(fd, b, sizeof(b));
 	}
-	remove_trailing_newlines(buf, bufsz);
-	pclose(fp);
+	close(fd);
 	free(cmd);
 	if (!buf)
-		ft_printf_fd(STDERR_FILENO, "error: %s: %s\n", \
-		"insufficient memory to perform command substitution", strerror(errno));
+		fprintf(stderr, "error: %s: %s\n",
+			"insufficient memory to perform command substitution",
+			strerror(errno));
 	return (buf);
 }
 
 char	*command_substitute(char *orig_cmd)
 {
-	char	*cmd;
-	FILE	*fp;
+	char *cmd;
+	int fp;
 
 	cmd = NULL;
 	fp = prepare_command_and_open_pipe(orig_cmd, &cmd);

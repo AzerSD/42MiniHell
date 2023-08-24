@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:49 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 20:00:56 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 01:30:41 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_too_many_args(int argc)
 void	exit_shell(int exit_code)
 {
 	shell_instance.status = exit_code;
-	if (isatty(fileno(stdin)))
+	if (isatty(STDIN_FILENO))
 		ft_printf_fd(STDOUT_FILENO, "exit\n");
 	free_all_mem(&shell_instance.memory);
 	exit(exit_code);
@@ -75,9 +75,7 @@ int	ft_exit(int argc, ...)
 		exit_code = (int)num;
 	}
 	else
-	{
 		exit_code = 0;
-	}
 	exit_shell(exit_code);
 	return (0);
 }

@@ -14,30 +14,30 @@
 - Replace functions from external libraries used in minishell
 # 	# 	# 	#
 
-_time
+_ DONE - time
 # in		srand(time(NULL));  #in p_heredoc.c
 
-_srand
+_ DONE - srand
 # in		srand(time(NULL));  #in p_heredoc.c
 
-_pclose
+_ DONE - pclose
 # in		pclose(fp); #in command_substitution.c
 
 
-_popen
+_ DONE - popen
 # in	FILE	*pipe_command(char *cmd) # in command_substitution.c
 
 	fp = popen(cmd, "r");
 
 
-_rand
+_ DONE - rand
 # in		key = rand() % (int)(sizeof(charset) - 1); #ft_randstring.c
 
 
-_realloc
+_ DONE - realloc
 # in				hn2 = realloc(*buf, newlen * sizeof(char **)); in utils.c
 
-_execv
+_ DONE - execv
 
 # in	int	exec_cmd(int argc, char **argv)
 
@@ -45,17 +45,17 @@ _execv
 
 		execv(path, argv);
 
-_fileno
+_ DONE - fileno
 
+if (isatty(fileno(stdin)))
 # in	void	exit_shell(int exit_code)
 
-_snprintf
+_DONE - snprintf
 
-_sprintf
+_DONE - sprintf
 
-	if (isatty(fileno(stdin)))
 
-_fnmatch
+_DONE - fnmatch
 
 # in	int	is_match_found(char *pattern, int longest, t_match *m)
 
@@ -88,7 +88,7 @@ _globfree
 # in			globfree(matches); # in pattern.c
 
 
-_setenv
+_DONE setenv
 # in		setenv(name, new_value, 1); #in export.c
 
 _DONE - strcpy
