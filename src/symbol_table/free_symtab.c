@@ -23,26 +23,26 @@ void	free_symtab(t_shell *g_shell, struct s_symtab *symtab)
 	while (entry)
 	{
 		if (entry->name)
-			my_free(&(g_shell->memory), entry->name);
+			my_free(&g_shell->memory, entry->name);
 		if (entry->val)
-			my_free(&(g_shell->memory), entry->val);
+			my_free(&g_shell->memory, entry->val);
 		if (entry->func_body)
 			free_node_tree(entry->func_body);
 		next = entry->next;
-		my_free(&(g_shell->memory), entry);
+		my_free(&g_shell->memory, entry);
 		entry = next;
 	}
-	my_free(&(g_shell->memory), symtab);
+	my_free(&g_shell->memory, symtab);
 }
 
 void	free_symtab_entry(t_shell *g_shell, struct s_symtab_entry *entry)
 {
 	if (entry->val)
-		my_free(&(g_shell->memory), entry->val);
+		my_free(&g_shell->memory, entry->val);
 	if (entry->func_body)
 		free_node_tree(entry->func_body);
-	my_free(&(g_shell->memory), entry->name);
-	my_free(&(g_shell->memory), entry);
+	my_free(&g_shell->memory, entry->name);
+	my_free(&g_shell->memory, entry);
 }
 
 struct s_symtab_entry	*add_to_symtab(t_shell *g_shell, const char *symbol)

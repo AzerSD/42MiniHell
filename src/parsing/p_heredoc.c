@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:12:36 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:09:53 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:09:54 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ t_node	*new_redirection_node(t_shell *g_shell, t_token *tok, t_node *ptr)
 	if (!redirection_node)
 	{
 		free_node_tree(ptr);
-		free_token(tok);
+		free_token(g_shell, tok);
 		return (NULL);
 	}
-	free_token(tok);
+	free_token(g_shell, tok);
 	return (redirection_node);
 }
 
@@ -41,7 +41,7 @@ t_token	*check_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr, t_node *ptr
 	return (tok);
 }
 
-int	create_temp_file(t_token *tok, t_node *ptr, char **tmp_file)
+int	create_temp_file(t_shell *g_shell, t_token *tok, t_node *ptr, char **tmp_file)
 {
 	int	tmp_fd;
 
@@ -50,7 +50,7 @@ int	create_temp_file(t_token *tok, t_node *ptr, char **tmp_file)
 	if (tmp_fd == -1)
 	{
 		free_node_tree(ptr);
-		free_token(tok);
+		free_token(g_shell, tok);
 		return (-1);
 	}
 	return (tmp_fd);
@@ -71,11 +71,11 @@ t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, t_cu
 	data->tok = check_token(g_shell, cli, curr, ptr);
 	if (!data->tok)
 		return (NULL);
-	data->tmp_fd = create_temp_file(data->tok, ptr, &(data->tmp_file));
+	data->tmp_fd = create_temp_file(g_shell, data->tok, ptr, &(data->tmp_file));
 	if (data->tmp_fd == -1)
 	{
 		free_node_tree(ptr);
-		free_token(data->tok);
+		free_token(g_shell, data->tok);
 		free(data->tmp_file);
 		return (NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:16 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:07:36 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:08:46 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_node	*p_word(t_shell *g_shell, t_token *tok, t_node *ptr, enum e_node_type typ
 	if (!word)
 	{
 		free_node_tree(ptr);
-		free_token(tok);
+		free_token(g_shell, tok);
 		return (NULL);
 	}
 	add_child_node(ptr, word);
@@ -63,9 +63,9 @@ t_node	*p_redirection(t_shell *g_shell,t_node *ptr, t_parser *parser, enum e_nod
 	if (!redirection_node)
 	{
 		free_node_tree(ptr);
-		return (free_token(parser->tok), NULL);
+		return (free_token(g_shell, parser->tok), NULL);
 	}
-	free_token(parser->tok);
+	free_token(g_shell, parser->tok);
 	parser->tok = get_token(g_shell, parser->cli, parser->curr);
 	if (parser->tok == EOF_TOKEN)
 		return (free_node_tree(ptr), NULL);
@@ -74,7 +74,7 @@ t_node	*p_redirection(t_shell *g_shell,t_node *ptr, t_parser *parser, enum e_nod
 	if (!file_node)
 	{
 		free_node_tree(ptr);
-		return (free_token(parser->tok), NULL);
+		return (free_token(g_shell, parser->tok), NULL);
 	}
 	add_child_node(redirection_node, file_node);
 	add_child_node(ptr, redirection_node);
@@ -125,7 +125,7 @@ t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
 	{
 		if (parser.tok->text[0] == '\n')
 		{
-			free_token(parser.tok);
+			free_token(g_shell, parser.tok);
 			break ;
 		}
 		ptr = parse_token(g_shell, ptr, &parent, &parser);

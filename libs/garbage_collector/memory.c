@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 03:33:04 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 17:38:11 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 20:42:59 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	free_all_mem(void **p_head)
 	while (node != NULL && node->adresse)
 	{
 		next = node->next;
-		free(node->adresse);
+		if (node->adresse != ((void *) 0))
+			free(node->adresse);
 		node->adresse = ((void *) 0);
 		free(node);
 		node = ((void *) 0);

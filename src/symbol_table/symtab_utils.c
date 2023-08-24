@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 00:26:03 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 17:53:34 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:06:42 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	symtab_entry_setval(t_shell *g_shell, struct s_symtab_entry *entry, \
 
 	if (entry->val)
 	{
-		my_free(&(g_shell->memory), entry->val);
+		my_free(&g_shell->memory, entry->val);
 	}
 	if (!val)
 	{

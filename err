@@ -1,0 +1,18 @@
+src/core/shell.c:66:11: runtime error: member access within null pointer of type 't_shell' (aka 'struct g_shell')
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior src/core/shell.c:66:11 in 
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==54508==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x000107e53390 bp 0x7ffee7db0770 sp 0x7ffee7db05e0 T0)
+==54508==The signal is caused by a WRITE memory access.
+==54508==Hint: address points to the zero page.
+    #0 0x107e53390 in main shell.c:66
+    #1 0x7fff684e6cc8 in start+0x0 (libdyld.dylib:x86_64+0x1acc8)
+
+==54508==Register values:
+rax = 0x0000000000000008  rbx = 0x00007ffee7db0680  rcx = 0x00006030000016f0  rdx = 0x0000000000000000  
+rdi = 0x0000000000000000  rsi = 0x0000000108c2fd01  rbp = 0x00007ffee7db0770  rsp = 0x00007ffee7db05e0  
+ r8 = 0x000000010813d640   r9 = 0x00007ffee7daf8b0  r10 = 0x0000000000000000  r11 = 0x0000000000000202  
+r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x0000000000000000  r15 = 0x0000000000000000  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV shell.c:66 in main
+==54508==ABORTING

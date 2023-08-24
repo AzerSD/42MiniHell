@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 13:03:57 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:11:23 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:09:06 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void	add_to_buf(char c, t_curr_tok *curr)
 	}
 }
 
-void	free_token(t_token *tok)
+void	free_token(t_shell *g_shell, t_token *tok)
 {
 	if (tok->text)
-		free(tok->text);
-	free(tok);
+		my_free(&g_shell->memory, tok->text);
+	my_free(&g_shell->memory, tok);
 }
 
 enum e_node_type	get_node_type(t_token_type state)

@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:05:23 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:03:10 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,18 @@ int	main(int argc, char **argv, char **env)
 {
 	struct termios	mirror_termios;
 	t_shell			*g_shell;
-	void			*mem;
-
-	g_shell = my_malloc(&mem, sizeof(t_shell));
-	g_shell->memory = mem;
+	g_shell = malloc(sizeof(t_shell));
+	g_shell->memory = NULL;
+	g_shell->status = 0;
 	(void)argc;
 	(void)argv;
 	init_symtab(g_shell, env);
-	g_shell->status = 0;
 	signals(&mirror_termios);
 	main_loop(g_shell);
 	rl_clear_history();
 	free_all_mem(&g_shell->memory);
-	exit(g_shell->status);
+	printf("exit1 %d\n", g_shell->status);
+	return (g_shell->status);
 }
 
 int	parse_and_execute(t_shell *g_shell, t_cli *cli)

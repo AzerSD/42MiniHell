@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:31 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:07:25 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:08:57 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void				init_curr_tok(t_curr_tok *curr);
 /**
  * @brief free the memory used by a token structure
 */
-void				free_token(t_token *tok);
+void				free_token(t_shell *g_shell, t_token *tok);
 
 void				add_to_buf(char c, t_curr_tok *curr);
 void				handle_pipe(t_cli *cli, t_curr_tok *curr, int *endloop);

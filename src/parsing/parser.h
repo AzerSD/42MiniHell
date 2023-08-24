@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:21 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:09:41 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:09:42 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ char			*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok, int expan
 					char *line);
 t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, t_curr_tok *curr,
 					t_node *ptr);
-int				create_temp_file(t_token *tok, t_node *ptr, char **tmp_file);
+int				create_temp_file(t_shell *g_shell, t_token *tok, t_node *ptr, char **tmp_file);
 
 #endif
