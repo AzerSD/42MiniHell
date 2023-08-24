@@ -6,11 +6,30 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 03:33:04 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 20:42:59 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 21:16:55 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "memory.h"
+
+void	*my_realloc(void **phead, void *ptr, size_t size)
+{
+	size_t	i;
+	char	*out;
+
+	i = 0;
+	if (!ptr)
+		return (NULL);
+	out = my_malloc(phead, size);
+	if (!out)
+		return (NULL);
+	while (size-- > 0)
+	{
+		out[i] = ((uint8_t *)ptr)[i];
+		i++;
+	}
+	return (out);
+}
 
 void	*add_mem_block(void **p_head, size_t size)
 {
