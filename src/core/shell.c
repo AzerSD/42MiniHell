@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 21:06:07 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **env)
 	struct termios	mirror_termios;
 	t_shell			*shell;
 
-	shell = my_malloc(&shell_instance.memory, sizeof(t_shell));
+	shell = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_shell));
 	shell->memory = NULL;
 	(void)argc;
 	(void)argv;
@@ -83,7 +83,7 @@ int	parse_and_execute(t_cli *cli)
 	t_token		*tok;
 	t_curr_tok	*curr;
 
-	curr = my_malloc(&shell_instance.memory, sizeof(t_curr_tok));
+	curr = my_malloc(&SHELL_INSTANCE.memory, sizeof(t_curr_tok));
 	skip_whitespaces(cli);
 	tok = get_token(cli, curr);
 	ast_cmd = parse_cmd(tok, curr);

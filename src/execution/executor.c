@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	exec_child_process(int argc, char **argv)
 	}
 	waitpid(child_pid, &status, 0);
 	status = WEXITSTATUS(status);
-	shell_instance.status = status;
+	SHELL_INSTANCE.status = status;
 	return (status);
 }
 
@@ -93,7 +93,7 @@ int	execc(t_node *node)
 		pipeline_status = execute_pipeline(node);
 		dup2(ret, STDIN_FILENO);
 		close(ret);
-		shell_instance.status = pipeline_status;
+		SHELL_INSTANCE.status = pipeline_status;
 		return (pipeline_status);
 	}
 	parse_ast(node, &argc, &targc, &argv);
@@ -101,6 +101,6 @@ int	execc(t_node *node)
 		return (1);
 	ret = exec_builtin(argc, argv);
 	if (ret >= 0)
-		return (shell_instance.status = ret, ret);
+		return (SHELL_INSTANCE.status = ret, ret);
 	return (exec_child_process(argc, argv));
 }

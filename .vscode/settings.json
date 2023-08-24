@@ -3,6 +3,7 @@
 		"iterator": "c",
 		"sstream": "c",
 		"libft.h": "c",
-		"bitset": "c"
+		"bitset": "c",
+		"__locale": "c"
 	}
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtoll_helpers.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:14:02 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/22 22:24:13 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/24 15:50:15 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRTOLL_HELPERS_H
-# define STRTOLL_HELPERS_H
+#ifndef FT_STRTOLL_HELPERS_H
+# define FT_STRTOLL_HELPERS_H
 
 # include "../includes/libft.h"
 

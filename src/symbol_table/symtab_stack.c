@@ -14,9 +14,9 @@
 
 static void	symtab_stack_add(struct s_symtab *symtab)
 {
-	shell_instance.s_symtab_stack.symtab_list \
-	[shell_instance.s_symtab_stack.symtab_count++] = symtab;
-	shell_instance.s_symtab_stack.local_symtab = symtab;
+	SHELL_INSTANCE.s_symtab_stack.symtab_list \
+	[SHELL_INSTANCE.s_symtab_stack.symtab_count++] = symtab;
+	SHELL_INSTANCE.s_symtab_stack.local_symtab = symtab;
 }
 
 struct s_symtab	*symtab_stack_push(void)
@@ -32,30 +32,30 @@ struct s_symtab	*symtab_stack_pop(void)
 {
 	struct s_symtab	*st;
 
-	if (shell_instance.s_symtab_stack.symtab_count == 0)
+	if (SHELL_INSTANCE.s_symtab_stack.symtab_count == 0)
 		return (NULL);
-	st = shell_instance.s_symtab_stack.symtab_list \
-		[shell_instance.s_symtab_stack.symtab_count - 1];
-	shell_instance.s_symtab_stack.symtab_list \
-	[--shell_instance.s_symtab_stack.symtab_count] = NULL;
-	if (shell_instance.s_symtab_stack.symtab_count == 0)
+	st = SHELL_INSTANCE.s_symtab_stack.symtab_list \
+		[SHELL_INSTANCE.s_symtab_stack.symtab_count - 1];
+	SHELL_INSTANCE.s_symtab_stack.symtab_list \
+	[--SHELL_INSTANCE.s_symtab_stack.symtab_count] = NULL;
+	if (SHELL_INSTANCE.s_symtab_stack.symtab_count == 0)
 	{
-		shell_instance.s_symtab_stack.local_symtab = NULL;
-		shell_instance.s_symtab_stack.global_symtab = NULL;
+		SHELL_INSTANCE.s_symtab_stack.local_symtab = NULL;
+		SHELL_INSTANCE.s_symtab_stack.global_symtab = NULL;
 	}
 	else
-		shell_instance.s_symtab_stack.local_symtab = \
-		shell_instance.s_symtab_stack.symtab_list
-		[shell_instance.s_symtab_stack.symtab_count - 1];
+		SHELL_INSTANCE.s_symtab_stack.local_symtab = \
+		SHELL_INSTANCE.s_symtab_stack.symtab_list
+		[SHELL_INSTANCE.s_symtab_stack.symtab_count - 1];
 	return (st);
 }
 
 struct s_symtab	*get_local_symtab(void)
 {
-	return (shell_instance.s_symtab_stack.local_symtab);
+	return (SHELL_INSTANCE.s_symtab_stack.local_symtab);
 }
 
 struct s_symtab	*get_global_symtab(void)
 {
-	return (shell_instance.s_symtab_stack.global_symtab);
+	return (SHELL_INSTANCE.s_symtab_stack.global_symtab);
 }

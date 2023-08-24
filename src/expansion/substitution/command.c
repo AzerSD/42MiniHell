@@ -30,7 +30,7 @@ char	*read_from_pipe(FILE *fp, char *b, size_t *bufsz, char **p)
 	{
 		if (!buf)
 		{
-			buf = my_malloc(&shell_instance.memory, i + 1);
+			buf = my_malloc(&SHELL_INSTANCE.memory, i + 1);
 			if (!buf)
 				return (buf);
 			*p = buf;

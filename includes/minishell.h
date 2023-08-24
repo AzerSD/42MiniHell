@@ -21,7 +21,7 @@
 # define MAG "\001\033[35m\002" // Magenta
 # define CYN "\001\033[36m\002" // Cyan
 # define WHT "\001\033[37m\002" // White
-# define shell_instance (*(get_shell_instance()))
+# define SHELL_INSTANCE (*(get_shell_instance()))
 
 # include <unistd.h>
 # include <limits.h>
@@ -69,6 +69,6 @@ typedef struct g_shell
 	struct s_symtab_stack	s_symtab_stack;
 }	t_shell;
 
-t_shell *get_shell_instance();
+t_shell	*get_shell_instance(void);
 
 #endif

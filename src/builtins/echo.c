@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:25 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 15:54:56 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	echo_argv(char **argv, int i)
 	while (argv[i])
 	{
 		ft_putstr_fd(argv[i], STDOUT_FILENO);
-		// if (argv[i + 1] && argv[i][0] != '\0')
 		if (argv[i + 1])
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
@@ -72,6 +71,6 @@ int	ft_echo(int argc, ...)
 	}
 	check_newline(n_option);
 	va_end(args);
-	shell_instance.status = 0;
+	SHELL_INSTANCE.status = 0;
 	return (0);
 }

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtoll_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 21:50:21 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/22 22:25:39 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/24 15:50:04 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/ft_strtoll_helpers.h"
 #include "../includes/libft.h"

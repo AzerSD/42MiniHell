@@ -134,7 +134,7 @@ int process_plus_equal(char *name, struct s_symtab *symtab, char **argv) {
     entry = do_lookup(name, symtab);
     if (entry)
         old_value = entry->val;
-    new_value = my_malloc(&shell_instance.memory, ft_strlen(old_value) + ft_strlen(value) + 1);
+    new_value = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(old_value) + ft_strlen(value) + 1);
     ft_strcpy(new_value, old_value);
     ft_strcat(new_value, value);
 

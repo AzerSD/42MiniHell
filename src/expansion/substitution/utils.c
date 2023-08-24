@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 14:48:37 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*fix_cmd(char *orig_cmd, int backquoted)
 	char	*cmd;
 	int		b;
 
-	cmd = my_malloc(&shell_instance.memory, ft_strlen(orig_cmd + 1));
+	cmd = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(orig_cmd + 1));
 	if (!cmd)
 	{
 		ft_printf_fd(STDERR_FILENO,

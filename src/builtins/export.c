@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:15:17 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/24 15:54:16 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	process_plus_equal(char *name, struct s_symtab *symtab, char **argv)
 	entry = do_lookup(name, symtab);
 	if (entry)
 		old_value = entry->val;
-	new_value = my_malloc(&shell_instance.memory, ft_strlen(old_value) \
+	new_value = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(old_value) \
 	+ ft_strlen(value) + 1);
 	ft_strcpy(new_value, old_value);
 	ft_strcat(new_value, value);
@@ -71,7 +71,9 @@ int	check_input_arguments(char **argv, struct s_symtab *symtab, char *name)
 	struct s_symtab_entry	*entry;
 
 	if (argv[1][0] == '-')
-		return (ft_printf_fd(STDERR_FILENO, EXPORT), 2);
+		return (ft_printf_fd(STDERR_FILENO, \
+		"bash: export: --: invalid option\nexport: \
+        usage: export [-nf] [name[=value] ...] or export -p\n"), 2);
 	name = get_varname(argv[1]);
 	if (!name)
 		name = argv[1];
@@ -105,7 +107,7 @@ int	ft_export(int argc, ...)
 
 	entry = NULL;
 	name = NULL;
-	symtab = shell_instance.s_symtab_stack.local_symtab;
+	symtab = SHELL_INSTANCE.s_symtab_stack.local_symtab;
 	va_start(args, argc);
 	argv = va_arg(args, char **);
 	entry = symtab->first;

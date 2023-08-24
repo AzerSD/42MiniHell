@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 21:51:37 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/24 15:50:41 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*var_is_set_with_percent(struct s_var_expand *v)
 	v->len = match_suffix(v->sub, v->p, v->longest);
 	if (v->len == 0)
 		return (v->p);
-	v->p2 = my_malloc(&shell_instance.memory, v->len + 1);
+	v->p2 = my_malloc(&SHELL_INSTANCE.memory, v->len + 1);
 	if (v->p2)
 	{
 		ft_strncpy(v->p2, v->p, v->len);
@@ -77,7 +77,7 @@ char	*var_is_set_with_hash(struct s_var_expand *v)
 	v->len = match_prefix(v->sub, v->p, v->longest);
 	if (v->len == 0)
 		return (v->p);
-	v->p2 = my_malloc(&shell_instance.memory, ft_strlen(v->p) - v->len + 1);
+	v->p2 = my_malloc(&SHELL_INSTANCE.memory, ft_strlen(v->p) - v->len + 1);
 	if (v->p2)
 		ft_strcpy(v->p2, v->p + v->len);
 	free(v->p);
