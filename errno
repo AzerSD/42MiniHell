@@ -23,3 +23,5 @@ after replacing snprintf
 418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31
 after replacing sprintf
 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31
+after deviding ft randstring
+418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31

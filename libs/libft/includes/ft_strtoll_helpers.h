@@ -6,12 +6,12 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 22:14:02 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/22 22:24:13 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 12:18:20 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRTOLL_HELPERS_H
-# define STRTOLL_HELPERS_H
+#ifndef FT_STRTOLL_HELPERS_H
+# define FT_STRTOLL_HELPERS_H
 
 # include "../includes/libft.h"
 
