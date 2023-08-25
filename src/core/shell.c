@@ -6,18 +6,12 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/25 15:23:07 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 17:02:03 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell	*get_shell_instance(void)
-{
-	static t_shell	g_shell_instance;
-
-	return (&g_shell_instance);
-}
 
 char	*get_cmd(void)
 {
@@ -66,7 +60,8 @@ int	main(int argc, char **argv, char **env)
 	struct termios	mirror_termios;
 	t_shell			*shell;
 
-	shell = my_malloc(&shell_instance.memory, sizeof(t_shell));
+	shell = NULL;
+	shell = my_malloc(&shell->memory, sizeof(t_shell));
 	shell->memory = NULL;
 	(void)argc;
 	(void)argv;
@@ -84,8 +79,9 @@ int	parse_and_execute(t_cli *cli)
 	t_node		*ast_cmd;
 	t_token		*tok;
 	t_curr_tok	*curr;
+	t_shell		shell;
 
-	curr = my_malloc(&shell_instance.memory, sizeof(t_curr_tok));
+	curr = my_malloc(&shell.memory, sizeof(t_curr_tok));
 	skip_whitespaces(cli);
 	tok = get_token(cli, curr);
 	ast_cmd = parse_cmd(tok, curr);
@@ -114,4 +110,10 @@ int	parse_and_execute(t_cli *cli)
 // 		print_ast(child, indent + 1);
 // 		child = child->next_sibling;
 // 	}
+// }
+// t_shell	*get_shell_instance(void)
+// {
+// 	static t_shell	g_shell_instance;
+
+// 	return (&g_shell_instance);
 // }

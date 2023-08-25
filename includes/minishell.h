@@ -14,14 +14,13 @@
 # define MINISHELL_H
 
 # define RESET "\001\033[0m\002"
-# define RED "\001\033[31m\002" // Red
-# define GRN "\001\033[32m\002" // Green
-# define YEL "\001\033[33m\002" // Yellow
-# define BLU "\001\033[34m\002" // Blue
-# define MAG "\001\033[35m\002" // Magenta
-# define CYN "\001\033[36m\002" // Cyan
-# define WHT "\001\033[37m\002" // White
-# define shell_instance (*(get_shell_instance()))
+# define RED "\001\033[31m\002"
+# define GRN "\001\033[32m\002"
+# define YEL "\001\033[33m\002"
+# define BLU "\001\033[34m\002"
+# define MAG "\001\033[35m\002"
+# define CYN "\001\033[36m\002"
+# define WHT "\001\033[37m\002"
 
 # include <unistd.h>
 # include <limits.h>
@@ -69,6 +68,7 @@ typedef struct g_shell
 	struct s_symtab_stack	s_symtab_stack;
 }	t_shell;
 
-t_shell *get_shell_instance();
+// # define shell_instance (*(get_shell_instance()))
+// t_shell *get_shell_instance();
 
 #endif

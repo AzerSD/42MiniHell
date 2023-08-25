@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 22:03:26 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/25 15:40:00 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 16:57:33 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_export_error(void)
 	const char	*export_err_msg;
 
 	export_err_msg = "bash: export: --: invalid option\nexport: "
-						"usage: export [-nf] [name[=value] ...] \
-						or export -p\n ";
+		"usage: export [-nf] [name[=value] ...] \
+			or export -p\n ";
 	ft_printf_fd(STDERR_FILENO, export_err_msg);
 }
