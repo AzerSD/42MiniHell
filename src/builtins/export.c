@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:15:17 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 15:40:57 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	check_input_arguments(char **argv, struct s_symtab *symtab, char *name)
 	struct s_symtab_entry	*entry;
 
 	if (argv[1][0] == '-')
-		return (ft_printf_fd(STDERR_FILENO, EXPORT), 2);
+		return (print_export_error(), 2);
 	name = get_varname(argv[1]);
 	if (!name)
 		name = argv[1];

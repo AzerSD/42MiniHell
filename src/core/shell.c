@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/25 01:52:13 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 15:23:07 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ int	parse_and_execute(t_cli *cli)
 // 		printf("%s  │%s", BLU, RESET);
 // 	if (indent > 0)
 // 		printf("%s  ├─%s", CYN, RESET);
-// 	printf("%sValue: %s%s,%s	%slevel: %s%u%s\n", GRN, YEL, node->val.str, RESET,
+// 	printf("%sValue: %s%s,%s	%slevel: %s%u%s\n",
+			// GRN, YEL, node->val.str, RESET,
 // 			RED, YEL, node->type, RESET);
 // 	child = node->first_child;
 // 	while (child != NULL)

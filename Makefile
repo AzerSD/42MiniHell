@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/25 12:41:00 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/25 14:27:10 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC	=	core/shell \
 		\
 		execution/executor \
 		execution/path \
+		execution/path_utils \
 		execution/pipeline \
 		execution/redirections \
 		execution/exec_utils \

@@ -6,15 +6,12 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 11:22:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 22:16:39 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 15:40:29 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
-# define EXPORT \
-	"bash: export: --: invalid option\nexport: \
-        usage: export [-nf] [name[=value] ...] or export -p\n"
 
 typedef struct s_env
 {
@@ -41,8 +38,8 @@ int						ft_env(int argc, ...);
 int						ft_pwd(int argc, ...);
 int						ft_cd(int argc, ...);
 int						ft_export(int argc, ...) __attribute__((unused));
-
 t_builtin_info			*get_bt(void);
+void					print_export_error(void);
 int						ft_setenv(const char *name, const char *value,
 							int overwrite);
 

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:48 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 21:31:46 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/25 15:25:55 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	change_to_oldpwd(void)
 	char					*newpwd;
 	int						result;
 
-	oldpwd_entry = do_lookup("OLDPWD", shell_instance.s_symtab_stack.local_symtab);
+	oldpwd_entry = do_lookup("OLDPWD", \
+		shell_instance.s_symtab_stack.local_symtab);
 	if (oldpwd_entry == NULL)
 	{
 		ft_printf_fd(STDERR_FILENO, "minishell: cd: OLDPWD not set\n");
