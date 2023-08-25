@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/22 03:07:51 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/25 13:33:16 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ pid_t	fork_command(int argc, char **argv)
 	if (child_pid == 0)
 	{
 		exec_cmd(argc, argv);
-		ft_printf_fd(STDERR_FILENO, "minishell: %s: No such file or directory\n", \
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: \
+			No such file or directory\n", \
 			argv[0]);
 		if (errno == ENOEXEC)
 			exit(126);
