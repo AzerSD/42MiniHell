@@ -16,6 +16,7 @@ Thumbs.db
 
 # directory of tests
 42-minishell
+tests
 
 # Object files
 *.o

@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/23 22:17:12 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/25 12:41:00 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC	=	core/shell \
 		\
 		expansion/expansion \
 		expansion/substitution/command \
+		expansion/substitution/command_utils \
 		expansion/substitution/utils \
 		expansion/substitution/word \
 		expansion/substitution/quote_removal \

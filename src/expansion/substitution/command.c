@@ -15,92 +15,51 @@
 
 #include "minishell.h"
 
-int	pipe_command(char *cmd)
-{
-	int fd[2];
-	int ret;
-
-	ret = pipe(fd);
-	if (ret == -1)
-	{
-		perror("pipe");
-		return (-1);
-	}
-	pid_t pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		close(fd[0]);
-		close(fd[1]);
-		return (-1);
-	}
-	if (pid == 0)
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-		execl("/bin/sh", "sh", "-c", cmd, NULL);
-		_exit(127);
-	}
-	else
-	{
-		close(fd[1]);
-		return (fd[0]);
-	}
-}
-
-ssize_t	read_from_pipe(int fd, char *buf, size_t count)
-{
-	return (read(fd, buf, count));
-}
-
 int	prepare_command_and_open_pipe(char *orig_cmd, char **cmd_ptr)
 {
-	char *cmd;
-	int cmdlen;
-	int fd;
+	char	*cmd;
+	int		cmdlen;
+	int		fd;
 
 	fd = -1;
-	cmd = orig_cmd; // No need to "fix" the command here
+	cmd = orig_cmd;
 	cmdlen = ft_strlen(cmd);
 	fd = pipe_command(cmd);
 	*cmd_ptr = cmd;
 	return (fd);
 }
 
-char	*read_and_cleanup_pipe(int fd, char *cmd)
+char	*read_from_fd(int fd, char *b, char **buf, size_t *bufsz)
 {
-	char b[1024];
-	size_t bufsz = 0;
-	char *buf = NULL;
-	char *p;
+	ssize_t	bytes_read;
+	char	*p;
 
-	buf = NULL;
-	if (fd == -1)
-	{
-		fprintf(stderr, "error: %s: %s\n", "failed to open pipe",
-			strerror(errno));
-		return (NULL);
-	}
-	ssize_t bytes_read = read_from_pipe(fd, b, sizeof(b));
+	*buf = NULL;
+	*bufsz = 0;
+	bytes_read = read_from_pipe(fd, b, sizeof(b));
 	while (bytes_read > 0)
 	{
-		if (!buf)
+		if (!*buf)
 		{
-			buf = malloc(bytes_read + 1);
-			if (!buf)
-				return (buf);
-			p = buf;
+			*buf = malloc(bytes_read + 1);
+			if (!*buf)
+				return (*buf);
+			p = *buf;
 		}
 		else
 		{
-			buf = ft_realloc(buf, bufsz + bytes_read);
-			p = buf + bufsz;
+			*buf = ft_realloc(*buf, *bufsz + bytes_read);
+			p = *buf + *bufsz;
 		}
 		ft_memcpy(p, b, bytes_read);
-		bufsz += bytes_read;
+		*bufsz += bytes_read;
 		bytes_read = read_from_pipe(fd, b, sizeof(b));
 	}
+	return (*buf);
+}
+
+char	*cleanup_and_return(int fd, char *cmd, char *buf)
+{
 	close(fd);
 	free(cmd);
 	if (!buf)
@@ -110,12 +69,106 @@ char	*read_and_cleanup_pipe(int fd, char *cmd)
 	return (buf);
 }
 
+char	*read_and_cleanup_pipe(int fd, char *cmd)
+{
+	char	b[1024];
+	size_t	bufsz;
+	char	*buf;
+
+	if (fd == -1)
+	{
+		fprintf(stderr, "error: %s: %s\n", "failed to open pipe",
+			strerror(errno));
+		return (NULL);
+	}
+	buf = read_from_fd(fd, b, &buf, &bufsz);
+	return (cleanup_and_return(fd, cmd, buf));
+}
+
 char	*command_substitute(char *orig_cmd)
 {
-	char *cmd;
-	int fp;
+	char	*cmd;
+	int		fp;
 
 	cmd = NULL;
 	fp = prepare_command_and_open_pipe(orig_cmd, &cmd);
 	return (read_and_cleanup_pipe(fp, cmd));
 }
+
+// char	*read_and_cleanup_pipe(int fd, char *cmd)
+// {
+// 	char	b[1024];
+// 	size_t	bufsz;
+// 	ssize_t	bytes_read;
+// 	char	*buf;
+// 	char	*p;
+
+// 	buf = NULL;
+// 	bufsz = 0;
+// 	if (fd == -1)
+// 	{
+// 		fprintf(stderr, "error: %s: %s\n", "failed to open pipe",
+// 			strerror(errno));
+// 		return (NULL);
+// 	}
+// 	bytes_read = read_from_pipe(fd, b, sizeof(b));
+// 	while (bytes_read > 0)
+// 	{
+// 		if (!buf)
+// 		{
+// 			buf = malloc(bytes_read + 1);
+// 			if (!buf)
+// 				return (buf);
+// 			p = buf;
+// 		}
+// 		else
+// 		{
+// 			buf = ft_realloc(buf, bufsz + bytes_read);
+// 			p = buf + bufsz;
+// 		}
+// 		ft_memcpy(p, b, bytes_read);
+// 		bufsz += bytes_read;
+// 		bytes_read = read_from_pipe(fd, b, sizeof(b));
+// 	}
+// 	close(fd);
+// 	free(cmd);
+// 	if (!buf)
+// 		fprintf(stderr, "error: %s: %s\n",
+// 			"insufficient memory to perform command substitution",
+// 			strerror(errno));
+// 	return (buf);
+// }
+// int	pipe_command(char *cmd)
+// {
+// 	int		fd[2];
+// 	int		ret;
+// 	pid_t	pid;
+
+// 	ret = pipe(fd);
+// 	if (ret == -1)
+// 	{
+// 		perror("pipe");
+// 		return (-1);
+// 	}
+// 	pid = fork();
+// 	if (pid == -1)
+// 	{
+// 		perror("fork");
+// 		close(fd[0]);
+// 		close(fd[1]);
+// 		return (-1);
+// 	}
+// 	if (pid == 0)
+// 	{
+// 		close(fd[0]);
+// 		dup2(fd[1], STDOUT_FILENO);
+// 		close(fd[1]);
+// 		execl("/bin/sh", "sh", "-c", cmd, NULL);
+// 		_exit(127);
+// 	}
+// 	else
+// 	{
+// 		close(fd[1]);
+// 		return (fd[0]);
+// 	}
+// }
