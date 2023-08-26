@@ -114,9 +114,9 @@ Here are remaining minishell external functions names by the starting letter.
 - DONE _execv
 
 #### F
-- _fileno
-- _fnmatch
-- _fread
+- DONE_fileno
+- DONE_fnmatch
+- DONE_fread 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31  
 
 #### G
 - _getpwnam
