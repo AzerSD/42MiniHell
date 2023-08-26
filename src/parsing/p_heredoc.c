@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_heredoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:12:36 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 21:09:54 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 16:52:00 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, t_cu
 {
 	t_heredoc_data	*data;
 
-	srand(time(NULL));
 	data = my_malloc(g_shell->memory, sizeof(t_heredoc_data));
 	if (!data)
 		return (NULL);
