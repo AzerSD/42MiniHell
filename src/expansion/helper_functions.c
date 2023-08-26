@@ -12,6 +12,34 @@
 
 #include "minishell.h"
 
+// char	*wordlist_to_str(t_shell *g_shell, struct s_word *word)
+// {
+// 	size_t			len;
+// 	struct s_word	*w;
+// 	char			*str;
+// 	char			*str2;
+
+// 	if (!word)
+// 		return (NULL);
+// 	len = 0;
+// 	w = word;
+// 	while (w)
+// 	{
+// 		len += w->len + 1;
+// 		w = w->next;
+// 	}
+// 	str = my_malloc(&g_shell->memory, len + 1);
+// 	str2 = str;
+// 	w = word;
+// 	while (w)
+// 	{
+// 		sprintf(str2, "%s ", w->data);
+// 		str2 += w->len + 1;
+// 		w = w->next;
+// 	}
+// 	str2[-1] = '\0';
+// 	return (str);
+// }
 char	*wordlist_to_str(t_shell *g_shell, struct s_word *word)
 {
 	size_t			len;
@@ -33,8 +61,10 @@ char	*wordlist_to_str(t_shell *g_shell, struct s_word *word)
 	w = word;
 	while (w)
 	{
-		sprintf(str2, "%s ", w->data);
-		str2 += w->len + 1;
+		ft_strcpy(str2, w->data);
+		str2 += w->len;
+		ft_strcpy(str2, " ");
+		str2 += 1;
 		w = w->next;
 	}
 	str2[-1] = '\0';
