@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 21:51:37 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:23:26 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 21:46:35 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,7 @@ char	*var_is_set(t_shell *g_shell, struct s_var_expand *v)
 char	*var_expand(t_shell *g_shell, char *orig_var_name)
 {
 	struct s_var_expand	var;
-	char				*tmp;
 
-	tmp = NULL;
 	init_svar_expand(&var);
 	orig_var_name = setup_var(orig_var_name, &var);
 	if (!*orig_var_name)

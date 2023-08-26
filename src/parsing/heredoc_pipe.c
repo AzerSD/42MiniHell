@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 21:18:07 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 21:44:50 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok, int expanding, char *line)
+char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok, char *line)
 {
 	struct s_word	*w;
 	// char			*content;
@@ -23,7 +23,6 @@ char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok, int expandi
 	if (getncount(tok->text, '\'') >= 2 || getncount(tok->text, '\"') >= 2)
 	{
 		w = make_word(g_shell, tok->text);
-		expanding = 0;
 		remove_quotes(w);
 		tok->text = w->data;
 		my_free(&g_shell->memory, w);
@@ -60,13 +59,11 @@ void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
 
 void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok, int tmp_fd)
 {
-	int		expanding;
 	char	*line;
 	char	*content;
 
-	expanding = 0;
 	line = NULL;
-	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding, line); 
+	content = prepare_for_pipe(g_shell, pipe_fd, tok, line);
 	(void) tmp_fd;
 	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, content);
 }

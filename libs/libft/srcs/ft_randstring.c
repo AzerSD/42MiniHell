@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:52:59 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 13:11:33 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/26 21:51:55 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*ft_randstring(size_t length)
 // 	static char	*charset;
 // 	size_t		n;
 
-// 	charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHI\
+// 	charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHI
 // 		JKLMNOPQRSTUVWXYZ0123456789,.-#'?!";
 // 	random_string = NULL;
 // 	if (length)

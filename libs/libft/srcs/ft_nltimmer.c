@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 15:43:03 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/26 15:44:36 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/26 22:57:38 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 
 void	remove_trailing_newlines(char *str, size_t bufsz)
 {
+	ssize_t	i;
+
+	i = bufsz - 1;
 	if (!str || bufsz == 0)
 		return ;
-	for (ssize_t i = bufsz - 1; i >= 0; --i)
+	while (i >= 0)
 	{
 		if (str[i] == '\n')
 			str[i] = '\0';
 		else if (str[i] != '\0')
 			break ;
+		i--;
 	}
 }

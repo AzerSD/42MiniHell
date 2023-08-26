@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   memory_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 04:31:14 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 21:51:38 by lhasmi           ###   ########.fr       */
+/*   Created: 2023/08/26 22:59:06 by lhasmi            #+#    #+#             */
+/*   Updated: 2023/08/26 23:00:22 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "memory.h"
 
-char	*ft_strncpy(char *dst, const char *src, size_t len)
+void	free_all_mem(void **p_head)
 {
-	size_t	n;
+	int				i;
+	t_memory_block	*node;
+	t_memory_block	*next;
 
-	n = 0;
-	while (n < len && src[n] != '\0')
+	i = 1;
+	if (p_head == NULL)
+		return ;
+	next = NULL;
+	node = *p_head;
+	while (node != NULL && node->adresse)
 	{
-		dst[n] = src[n];
-		n++;
+		next = node->next;
+		if (node->adresse != ((void *)0))
+			free(node->adresse);
+		node->adresse = ((void *)0);
+		free(node);
+		node = ((void *)0);
+		node = next;
+		i++;
 	}
-	while (n < len)
-		dst[n++] = '\0';
-	return (dst);
+	*p_head = NULL;
 }

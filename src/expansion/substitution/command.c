@@ -209,7 +209,7 @@ char	*command_substitute(t_shell *g_shell, char *orig_cmd)
 // 	pclose(fp);
 // 	free(cmd);
 // 	if (!buf)
-// 		ft_printf_fd(STDERR_FILENO, "error: %s: %s\n", \
+// 		ft_printf_fd(STDERR_FILENO, "error: %s: %s\n",
 // 		"insufficient memory to perform command substitution",
 			// strerror(errno));
 // 	return (buf);

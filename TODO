@@ -134,9 +134,9 @@ Here are remaining minishell external functions names by the starting letter.
 
 #### S
 - DONE_snprintf
-- DONE _sprintf  last one 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31 
+- DONE _sprintf  last one 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31
 - DONE_srand
-
+418:STD_OUT: 37  STD_ERR: 7  EXIT_CODE: 26
 #### T
 - DONE_time
 
@@ -230,4 +230,6 @@ Here's "subject list" sorted by the starting letter of each name:
 - _waitpid
 - _write
 
-I hope this helps!
+redirection error fixed
+
+418:STD_OUT: 37  STD_ERR: 7  EXIT_CODE: 26

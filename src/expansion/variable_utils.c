@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 23:27:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 17:38:56 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/26 21:47:53 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ char	*exit_code_expansion(t_shell *g_shell, char *orig_var_name)
 	exit_code_copy = ft_strdup(exit_code_str);
 	if (exit_code_copy == NULL)
 	{
-		ft_printf_fd(STDERR_FILENO,
+		ft_printf_fd(STDERR_FILENO, \
 			"error: failed to allocate memory for exit code\n");
 		return (INVALID_VAR);
 	}

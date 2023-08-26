@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 20:16:42 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 22:10:27 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void	main_loop(t_shell *g_shell)
 	}
 }
 
+void myleaks(void)
+{
+	system("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	struct termios	mirror_termios;
@@ -64,6 +69,7 @@ int	main(int argc, char **argv, char **env)
 	g_shell->status = 0;
 	(void)argc;
 	(void)argv;
+	atexit(myleaks);
 	init_symtab(g_shell, env);
 	signals(&mirror_termios);
 	main_loop(g_shell);
@@ -82,7 +88,7 @@ int	parse_and_execute(t_shell *g_shell, t_cli *cli)
 	skip_whitespaces(cli);
 	tok = get_token(g_shell, cli, curr);
 	ast_cmd = parse_cmd(g_shell, tok, curr);
-	// print_ast(ast_cmd, 0);
+	print_ast(ast_cmd, 0);
 	if (!ast_cmd)
 		return (1);
 	return (execc(g_shell, ast_cmd));
