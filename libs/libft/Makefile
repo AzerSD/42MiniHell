@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/20 13:12:26 by asioud            #+#    #+#              #
-#    Updated: 2023/08/23 20:51:08 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/26 15:46:16 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,8 @@ SRCS = 			\
 				./srcs/ft_strtok.c \
 				./srcs/ft_strncpy.c \
 				./srcs/ft_randstring.c \
+				./srcs/ft_nltimmer.c \
+
 
 BONUS_SRCS = 	./bonus/ft_lstadd_back.c \
 				./bonus/ft_lstdelone.c \

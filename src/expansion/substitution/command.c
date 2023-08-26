@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 int	pipe_command(char *cmd)
 {
 	int fd[2];

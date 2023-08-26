@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:59:15 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 20:49:20 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/26 15:45:45 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,6 +263,11 @@ char					*ft_strrchr(const char *str, int32_t c);
  */
 int32_t					ft_strcmp(const char *str1, const char *str2);
 long long				ft_strtoll(const char *nptr, char **endptr, int base);
+
+// iterates through the string from end to start, replacing any trailing newline
+//  characters with null terminators.The loop stops as soon as it encounters a
+//  character that is not a newline or null terminator.
+void					remove_trailing_newlines(char *str, size_t bufsz);
 
 /**
  * Compares str1 and str2 up to n bytes.

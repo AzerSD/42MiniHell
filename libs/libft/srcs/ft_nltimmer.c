@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_nltimmer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 13:10:08 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 16:28:34 by lhasmi           ###   ########.fr       */
+/*   Created: 2023/08/26 15:43:03 by lhasmi            #+#    #+#             */
+/*   Updated: 2023/08/26 15:44:36 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/types.h>
 #include "../includes/libft.h"
 
-char	*ft_strdup(const char *str)
+void	remove_trailing_newlines(char *str, size_t bufsz)
 {
-	size_t	len;
-	char	*out;
-
-	len = ft_strlen((char *)str) + 1;
-	out = ft_calloc(len + 1, sizeof(char));
-	if (!out)
-		return (NULL);
-	ft_memcpy(out, str, len);
-	return (out);
+	if (!str || bufsz == 0)
+		return ;
+	for (ssize_t i = bufsz - 1; i >= 0; --i)
+	{
+		if (str[i] == '\n')
+			str[i] = '\0';
+		else if (str[i] != '\0')
+			break ;
+	}
 }
-
-
-// #include <stdio.h>
-
-// int	main(void)
-// {
-// 	char name[] = "test";
-// 	char *dst;
-// 	dst = ft_strdup(name);
-// 	printf("%s", dst);
-// }

@@ -25,13 +25,13 @@
 typedef unsigned char		t_status;
 typedef struct g_shell 	t_shell;
 
+# include <sys/types.h>
 # include <unistd.h>
 # include <limits.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <signal.h>
