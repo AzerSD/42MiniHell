@@ -119,9 +119,9 @@ Here are remaining minishell external functions names by the starting letter.
 - DONE_fread 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31
 
 #### G
-- DONE_getpwnam 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31 
+- DONE_getpwnam 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31
 - DONE_getpwuid
-- _getuid
+- DONE_getuid
 - _globfree
 
 #### P
