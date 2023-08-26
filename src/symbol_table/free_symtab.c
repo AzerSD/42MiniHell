@@ -27,7 +27,7 @@ void	free_symtab(t_shell *g_shell, struct s_symtab *symtab)
 		if (entry->val)
 			my_free(&g_shell->memory, entry->val);
 		if (entry->func_body)
-			free_node_tree(entry->func_body);
+			free_node_tree(g_shell, entry->func_body);
 		next = entry->next;
 		my_free(&g_shell->memory, entry);
 		entry = next;
@@ -40,7 +40,7 @@ void	free_symtab_entry(t_shell *g_shell, struct s_symtab_entry *entry)
 	if (entry->val)
 		my_free(&g_shell->memory, entry->val);
 	if (entry->func_body)
-		free_node_tree(entry->func_body);
+		free_node_tree(g_shell, entry->func_body);
 	my_free(&g_shell->memory, entry->name);
 	my_free(&g_shell->memory, entry);
 }

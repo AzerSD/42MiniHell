@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 00:48:44 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:22:16 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 00:05:46 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void	parse_ast(t_shell *g_shell, t_node *node, int *argc,\
 		}
 		child = child->next_sibling;
 	}
-	(*argv)[(*argc)] = NULL;
+	if (check_buffer_bounds(g_shell, argc, targc, argv))
+		(*argv)[(*argc)] = NULL;
 }

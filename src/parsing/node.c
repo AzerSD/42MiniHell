@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:58:07 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:01:01 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 23:37:47 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	set_node_val_str(t_shell *g_shell, t_node *node, char *val)
 	}
 }
 
-void	free_node_tree(t_node *node)
+void	free_node_tree(t_shell *g_shell, t_node *node)
 {
 	t_node	*child;
 	t_node	*next;
@@ -83,11 +83,11 @@ void	free_node_tree(t_node *node)
 	while (child)
 	{
 		next = child->next_sibling;
-		free_node_tree(child);
+		free_node_tree(g_shell, child);
 		child = next;
 	}
 	if (node->val_type == VAL_STR)
 		if (node->val.str)
-			free(node->val.str);
-	free(node);
+			my_free(&g_shell->memory, node->val.str);
+	my_free(&g_shell->memory, node);
 }

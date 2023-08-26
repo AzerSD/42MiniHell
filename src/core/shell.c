@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 20:16:42 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 23:27:33 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	parse_and_execute(t_shell *g_shell, t_cli *cli)
 	skip_whitespaces(cli);
 	tok = get_token(g_shell, cli, curr);
 	ast_cmd = parse_cmd(g_shell, tok, curr);
+	
 	// print_ast(ast_cmd, 0);
 	if (!ast_cmd)
 		return (1);

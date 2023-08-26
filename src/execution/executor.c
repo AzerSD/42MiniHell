@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 15:47:32 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 00:09:22 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	execc(t_shell *g_shell, t_node *node)
 	int		pipeline_status;
 
 	init_vars(&argc, &targc, &argv, &ret);
+	if (!node)  // modif: safety check
+		return (1);
 	if (node->type == NODE_ASSIGNMENT)
 		return (string_to_symtab(g_shell, node->first_child->val.str), 0);
 	if (node->type == NODE_PIPE)
@@ -102,5 +104,7 @@ int	execc(t_shell *g_shell, t_node *node)
 	ret = exec_builtin(g_shell, argc, argv);
 	if (ret >= 0)
 		return (g_shell->status = ret, ret);
+	if (!argv[0])
+		return (1);
 	return (exec_child_process(g_shell, argc, argv));
 }

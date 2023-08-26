@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:05:01 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 23:33:27 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ static void	*init_curr_tok_buff(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 	}
 	curr->tok_buff_index = 0;
 	curr->tok_buff[0] = '\0';
+	curr->tok_type = PARSE_DEFAULT;  // modif: type added for first node
 	return (0);
 }

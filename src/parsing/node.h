@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:58:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:01:24 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 23:38:10 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void					add_parent_node(t_node *child, t_node *parent);
  * child and its siblings before finally freeing the parent node. 
  * @param node Our node structure to free.
  */
-void					free_node_tree(t_node *node);
+void					free_node_tree(t_shell *g_shell, t_node *node);
 
 /**
  * @brief This function sets the val_type of the node to VAL_STR and 
