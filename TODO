@@ -122,11 +122,11 @@ Here are remaining minishell external functions names by the starting letter.
 - DONE_getpwnam 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31
 - DONE_getpwuid
 - DONE_getuid
-- _globfree
+- DONE_globfree
 
 #### P
-- _pclose
-- _popen
+- DONE_pclose
+- DONE_popen
 
 
 #### R
@@ -138,7 +138,7 @@ Here are remaining minishell external functions names by the starting letter.
 - _srand
 
 #### T
-- _time
+- DONE_time
 
 
 Here's "subject list" sorted by the starting letter of each name:
