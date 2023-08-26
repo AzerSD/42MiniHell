@@ -39,7 +39,7 @@ _rand
 _realloc
 # in				hn2 = realloc(*buf, newlen * sizeof(char **)); in utils.c
 
-_execv
+_DDONEEE   execv
 
 # in	int	exec_cmd(int argc, char **argv)
 
@@ -111,7 +111,7 @@ Here are remaining minishell external functions names by the starting letter.
 
 
 #### E
-- _execv
+- DONE _execv
 
 #### F
 - _fileno
