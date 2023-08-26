@@ -1,6 +1,6 @@
 - DONE ----- > the exit builtin needs some work, check testcases in tester
 
-- the export builtin needs some work, check testcases in tester
+- DONE ----- > the export builtin needs some work, check testcases in tester
 
 - shoud be able to execute commands inside /bin even if the PATH is unset
 
@@ -10,6 +10,8 @@
 
 - DONE ----- > make ft_strtoll in the exit function norm conform
 
+- start state before norm in bh_minus_1 :
+418:STD_OUT: 39  STD_ERR: 12  EXIT_CODE: 31
 # 	# 	# 	#
 - Replace functions from external libraries used in minishell
 # 	# 	# 	#
@@ -105,60 +107,127 @@ _DONE - strstr
 
 
 
-here is the reply by gpt4
-The `setenv` function is used to set an environment variable in a process's environment. Since you are not allowed to use this function, you can instead use the `getenv` and `execve` functions to manipulate the environment variables manually.
+Here are remaining minishell external functions names by the starting letter.
 
-Here's how you could replace the `setenv` call in the `process_plus_equal` function:
 
-1. First, get the current environment using `getenv`.
-2. Then, create a new environment array, copying all the existing variables and adding or modifying the one you want to change.
-3. Finally, use `execve` with the new environment when launching new processes.
+#### E
+- _execv
 
-Here's an example of how you might modify the `process_plus_equal` function:
+#### F
+- _fileno
+- _fnmatch
+- _fread
 
-```c
-int process_plus_equal(char *name, struct s_symtab *symtab, char **argv) {
-    char *value;
-    char *old_value;
-    struct s_symtab_entry *entry;
-    char *new_value;
-    extern char **environ; // Global variable containing the environment
-    int env_len;
+#### G
+- _getpwnam
+- _getpwuid
+- _getuid
+- _globfree
 
-    old_value = "";
-    if (!name || !is_valid_variable_name(argv[1])) {
-        ft_printf_fd(STDERR_FILENO, "minishell: export: `%s': not a valid identifier\n", argv[1]);
-        return (1);
-    }
-    value = ft_strtok(NULL, "+=");
-    entry = do_lookup(name, symtab);
-    if (entry)
-        old_value = entry->val;
-    new_value = my_malloc(&(g_shell->memory), ft_strlen(old_value) + ft_strlen(value) + 1);
-    ft_strcpy(new_value, old_value);
-    ft_strcat(new_value, value);
+#### P
+- _pclose
+- _popen
 
-    // Create new environment array with the modified variable
-    for (env_len = 0; environ[env_len]; env_len++);
-    char **new_environ = malloc((env_len + 2) * sizeof(char *));
-    for (int i = 0; i < env_len; i++) {
-        if (ft_strncmp(environ[i], name, ft_strlen(name)) == 0 && environ[i][ft_strlen(name)] == '=') {
-            new_environ[i] = malloc(ft_strlen(name) + ft_strlen(new_value) + 2);
-            sprintf(new_environ[i], "%s=%s", name, new_value);
-        } else {
-            new_environ[i] = strdup(environ[i]);
-        }
-    }
-    new_environ[env_len] = NULL;
 
-    // Update the global environ variable
-    environ = new_environ;
+#### R
+- _rand
 
-    free(new_value);
-    return (0);
-}
-```
+#### S
+- _snprintf
+- _sprintf
+- _srand
 
-This code snippet manually creates a new environment array, copying all the existing variables, and modifying the one you want to change. The new environment is then assigned to the global `environ` variable.
+#### T
+- _time
 
-Note: The code assumes that the global `environ` variable is available. This might require including specific headers or declaring `extern char **environ;` in the file. Also, please review the memory management, especially regarding the allocation and deallocation of the `new_environ` array. You might want to free the old environment array if it was dynamically allocated.
+
+Here's "subject list" sorted by the starting letter of each name:
+
+#### A
+- _access
+- _add_history
+
+#### C
+- _chdir
+- _closedir
+- _close
+
+#### D
+- _dup
+- _dup2
+
+#### E
+- _execve
+- _exit
+
+#### F
+- _fork
+- _free
+- _fstat
+
+#### G
+- _getcwd
+- _getenv
+
+#### I
+- _ioctl
+- _isatty
+
+#### K
+- _kill
+
+#### L
+- _lstat
+
+#### M
+- _malloc
+
+#### O
+- _open
+- _opendir
+
+#### P
+- _perror
+- _pipe
+- _printf
+
+#### R
+- _read
+- _readdir
+- _readline
+- _rl_clear_history
+- _rl_on_new_line
+- _rl_redisplay
+- _rl_replace_line
+
+#### S
+- _sigaction
+- _sigaddset
+- _sigemptyset
+- _signal
+- _stat
+- _strerror
+
+#### T
+- _tgetent
+- _tgetflag
+- _tgetnum
+- _tgetstr
+- _tgoto
+- _tcgetattr
+- _tcsetattr
+- _ttyslot
+- _tputs
+- _ttyname
+
+#### U
+- _unlink
+
+#### W
+- _wait
+- _wait3
+- _wait4
+- _waitpid
+- _write
+
+I hope this helps!
