@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:49 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 21:02:14 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 13:55:17 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_too_many_args(int argc)
 void	exit_shell(t_shell *g_shell, int exit_code)
 {
 	g_shell->status = exit_code;
-	if (isatty(fileno(stdin)))
+	if (isatty(STDIN_FILENO))
 		ft_printf_fd(STDOUT_FILENO, "exit\n");
 	free_all_mem(&g_shell->memory);
 	exit(exit_code);
