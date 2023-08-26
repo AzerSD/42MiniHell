@@ -18,6 +18,36 @@ void	init_match(t_match *match)
 	match->lmatch = NULL;
 }
 
+bool	match(const char *pattern, const char *string)
+{
+	while (*pattern != '\0' && *string != '\0')
+	{
+		if (*pattern == '?')
+		{
+			pattern++;
+			string++;
+		}
+		else if (*pattern == '*')
+		{
+			pattern++;
+			while (*string != '\0')
+			{
+				if (match(pattern, string))
+					return (true);
+				string++;
+			}
+			return (match(pattern, string));
+		}
+		else
+		{
+			if (*pattern != *string)
+				return (false);
+			pattern++;
+			string++;
+		}
+	}
+	return (*pattern == '\0' && *string == '\0');
+}
 int	has_glob_chars(char *p, size_t len)
 {
 	char	*p2;
@@ -52,7 +82,7 @@ int	is_match_found(char *pattern, int longest, t_match *m)
 	while (c)
 	{
 		*s = '\0';
-		if (fnmatch(pattern, m->str, 0) == 0)
+		if (match(pattern, m->str) == 0)
 		{
 			if (!m->smatch)
 			{
@@ -75,7 +105,7 @@ void	check_pattern(char *pattern, int longest, t_match *m, char **s)
 {
 	while (*s > m->str)
 	{
-		if (fnmatch(pattern, m->str, 0) == 0)
+		if (match(pattern, m->str) == 0)
 		{
 			if (!m->smatch)
 			{
