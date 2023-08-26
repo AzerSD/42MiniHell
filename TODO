@@ -135,7 +135,7 @@ Here are remaining minishell external functions names by the starting letter.
 #### S
 - _snprintf
 - _sprintf
-- _srand
+- DONE_srand
 
 #### T
 - DONE_time
