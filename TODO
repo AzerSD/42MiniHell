@@ -116,11 +116,11 @@ Here are remaining minishell external functions names by the starting letter.
 #### F
 - DONE_fileno
 - DONE_fnmatch
-- DONE_fread 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31  
+- DONE_fread 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31
 
 #### G
-- _getpwnam
-- _getpwuid
+- DONE_getpwnam 418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31 
+- DONE_getpwuid
 - _getuid
 - _globfree
 
