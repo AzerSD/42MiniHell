@@ -113,7 +113,7 @@ char	*substitute_str(t_shell *g_shell, char *s1, \
 	ft_strncpy(before, s1, start);
 	before[start] = '\0';
 	afterlen = ft_strlen(s1) - end + 1;
-	after = (char *)my_malloc(g_shell->memory, afterlen * sizeof(char));
+	after = (char *)my_malloc(&g_shell->memory, afterlen * sizeof(char));
 	if (!after)
 		return (NULL);
 	ft_strcpy(after, s1 + end + 1);

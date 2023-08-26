@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:18:17 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 19:31:29 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ struct s_word	*expand(t_shell *g_shell, char *orig_word)
 	struct s_word	*words;
 	struct s_word	*w;
 
-	m = (t_m *)my_malloc(g_shell->memory, sizeof(t_m));
+	m = (t_m *)my_malloc(&g_shell->memory, sizeof(t_m));
 	if (!init_expand(g_shell, m, orig_word))
 	{
 		w = make_word(g_shell, orig_word);
-		return (free(m), w);
+		return (my_free(&g_shell->memory, m), w);
 	}
 	while (*(m->p))
 	{

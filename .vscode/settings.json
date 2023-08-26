@@ -5,6 +5,10 @@
 		"libft.h": "c",
 		"bitset": "c",
 		"__locale": "c",
-		"lexer.h": "c"
+		"lexer.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	}
 }

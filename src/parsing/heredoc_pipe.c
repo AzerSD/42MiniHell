@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 13:20:58 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/26 21:18:07 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok, int expanding, char *line)
 {
 	struct s_word	*w;
-	char			*content;
+	// char			*content;
+	(void) line;
 
 	w = NULL;
 	close(pipe_fd[0]);
@@ -25,19 +26,10 @@ char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok, int expandi
 		expanding = 0;
 		remove_quotes(w);
 		tok->text = w->data;
-		free(w);
+		my_free(&g_shell->memory, w);
 		w = NULL;
 	}
-	line = get_next_line(STDIN_FILENO);
-	{
-		if (ft_strchr(line, '$') && expanding)
-			w = expand(g_shell, line);
-		if (w)
-			content = w->data;
-		else
-			content = line;
-	}
-	return (content);
+	return ("");
 }
 
 void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
@@ -48,11 +40,12 @@ void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
 
 	w = NULL;
 	while (content && (ft_strncmp(content, tok->text, ft_strlen(content)
-				- 1) != 0))
+				- 1) != 0 || content[0] == '\n'))
 	{
 		write(pipe_fd[1], content, ft_strlen(content));
 		line = get_next_line(STDIN_FILENO);
-		if (ft_strchr(line, '$'))
+		if (ft_strchr(line, '$') && ft_strncmp(line, tok->text,
+					ft_strlen(content) - 1) != 0)
 			w = expand(g_shell, line);
 		if (w)
 			content = w->data;
@@ -73,7 +66,8 @@ void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok, int tmp
 
 	expanding = 0;
 	line = NULL;
-	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding, line);
+	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding, line); 
+	(void) tmp_fd;
 	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, content);
 }
 
@@ -104,6 +98,6 @@ t_node	*p_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, t_curr_tok *curr, 
 	if (!data)
 		return (NULL);
 	ptr = execute_heredoc(g_shell, data, ptr);
-	free(data);
+	my_free(&g_shell->memory, data);
 	return (ptr);
 }
