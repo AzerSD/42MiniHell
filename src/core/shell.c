@@ -6,16 +6,11 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 21:03:10 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/26 03:37:06 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_shell *get_shell_instance() {
-    static t_shell g_shell_instance;
-    return &g_shell_instance;
-}
 
 char	*get_cmd(void)
 {

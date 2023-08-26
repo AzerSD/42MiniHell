@@ -6,7 +6,7 @@
 #    By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/24 21:11:42 by asioud           ###   ########.fr        #
+#    Updated: 2023/08/26 03:39:11 by asioud           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,7 +104,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	$(CC) $(HEADER_FILES) $(INCL_RDL_HEADER) $(CFLAGS) -c $< -o $@
 
 clean:
-	# @cd libs/libft && make fclean
+	@cd libs/libft && make fclean
 	@cd libs/garbage_collector && make fclean
 	@$(RM) $(OBJ_DIR)
 
