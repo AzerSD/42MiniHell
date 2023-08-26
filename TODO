@@ -130,7 +130,7 @@ Here are remaining minishell external functions names by the starting letter.
 
 
 #### R
-- _rand
+- DONE _rand   418:STD_OUT: 40  STD_ERR: 12  EXIT_CODE: 31
 
 #### S
 - _snprintf
