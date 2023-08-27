@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:12:36 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 18:45:55 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 01:17:03 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,10 @@ t_node	*execute_heredoc(t_shell *g_shell, t_heredoc_data *data, t_node *ptr)
 	t_node	*file_node;
 
 	if (pipe(pipe_fd) < 0)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
-	}
+		exit_with_error("pipe");
 	pid = fork();
 	if (pid < 0)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
+		exit_with_error("fork");
 	else if (pid == 0)
 		handle_child_process(data->tmp_fd, pipe_fd);
 	else
@@ -111,3 +105,35 @@ t_node	*execute_heredoc(t_shell *g_shell, t_heredoc_data *data, t_node *ptr)
 	add_child_node(data->redirection_node, file_node);
 	return (add_child_node(ptr, data->redirection_node), ptr);
 }
+
+// t_node	*execute_heredoc(t_shell *g_shell,
+// t_heredoc_data *data, t_node *ptr)
+// {
+// 	int		pipe_fd[2];
+// 	pid_t	pid;
+// 	t_node	*file_node;
+
+// 	if (pipe(pipe_fd) < 0)
+// 	{
+// 		perror("pipe");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	pid = fork();
+// 	if (pid < 0)
+// 	{
+// 		perror("fork");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	else if (pid == 0)
+// 		handle_child_process(data->tmp_fd, pipe_fd);
+// 	else
+// 		handle_parent_process(g_shell, pipe_fd,
+// data->tok, data->tmp_fd);
+// 	file_node = new_node(g_shell, NODE_FILE);
+// 	set_node_val_str(g_shell, file_node, data->tmp_file);
+// 	if (!file_node)
+// 		return (free_node_tree(g_shell, ptr),
+// 			free_node_tree(g_shell, ptr), NULL);
+// 	add_child_node(data->redirection_node, file_node);
+// 	return (add_child_node(ptr, data->redirection_node), ptr);
+// }

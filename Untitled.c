@@ -6,13 +6,14 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/28 01:23:37 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 23:18:45 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		*it_tk_bf(t_shell *g_shell, t_cli *cli, t_curr_tok *curr);
+static void		*init_curr_tok_buff(t_shell *g_shell, t_cli *cli,
+					t_curr_tok *curr);
 
 static t_token	*create_token(t_shell *g_shell, char *str)
 {
@@ -35,24 +36,71 @@ static t_token	*create_token(t_shell *g_shell, char *str)
 	return (tok);
 }
 
+void	handle_token(t_cli *cli, t_curr_tok *curr, char nc, int *endloop)
+{
+	if (nc == '"' || nc == '\'' || nc == '`')
+		handle_quotes(cli, curr, nc);
+	else if (nc == '\\')
+		handle_backslash(cli, curr);
+	else if (nc == '$')
+		handle_dollar_sign(cli, curr);
+	else if (nc == ' ' || nc == '\t')
+		handle_whitespace(curr, endloop);
+	else if (nc == '\n')
+		handle_newline(cli, curr, endloop);
+	else if (nc == '=')
+		handle_equals_sign(curr);
+	else if (nc == '|')
+		handle_pipe(cli, curr, endloop);
+	else if (nc == '>' || nc == '<')
+		handle_redirection(cli, curr, endloop, nc);
+	else
+		add_to_buf(nc, curr);
+}
+
+int	helper(t_cli *cli, t_curr_tok *curr, char *nc, int *endloop)
+{
+	handle_token(cli, curr, *nc, endloop);
+	if (*endloop == 1)
+	{
+		if (ft_strchr("|<>", *nc))
+		{
+			*nc = peek_char(cli);
+			if (ft_strchr("|<>", *nc))
+				return (1);
+		}
+		return (-1);
+	}
+	*nc = get_next_char(cli);
+	return (0);
+}
+
+void	another_helper(t_curr_tok *curr)
+{
+	if (curr->tok_buff_index >= curr->tok_buff_size)
+		curr->tok_buff_index--;
+}
+
 t_token	*get_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 {
-	t_token			*tok;
-	t_local_vars	lv;
+	char	nc;
+	int		endloop;
+	int		out;
+	t_token	*tok;
 
-	lv = init_local_vars();
+	endloop = 0;
 	init_curr_tok(curr);
-	lv.nc = get_next_char(cli);
-	if (lv.nc == ERRCHAR || lv.nc == EOF || it_tk_bf(g_shell, cli,
+	nc = get_next_char(cli);
+	if (nc == ERRCHAR || nc == EOF || init_curr_tok_buff(g_shell, cli,
 			curr) != 0)
 		return (EOF_TOKEN);
-	while (lv.nc != EOF)
+	while (nc != EOF)
 	{
-		lv.out = helper(cli, curr, &(lv.nc), &(lv.endloop));
-		if (lv.out == 1)
+		out = helper(cli, curr, &nc, &endloop);
+		if (out == 1)
 			return (EOF_TOKEN);
-		else if (lv.out == -1)
-			break ;
+		else if (out == -1)
+			break;
 	}
 	if (curr->tok_buff_index == 0)
 		return (EOF_TOKEN);
@@ -63,25 +111,30 @@ t_token	*get_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 	return (tok);
 }
 
-static void	*set_error_and_return(int flag)
+void	init_curr_tok(t_curr_tok *curr)
 {
-	if (flag == ENODATA)
-		errno = ENODATA;
-	else if (flag == ENOMEM)
-		errno = ENOMEM;
-	return (EOF_TOKEN);
+	curr->tok_buff = NULL;
+	curr->tok_buff_size = 0;
+	curr->tok_buff_index = -1;
+	curr->tok_type = PARSE_DEFAULT;
 }
 
-static void	*it_tk_bf(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
+static void	*init_curr_tok_buff(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 {
 	if (!cli || !cli->buffer || !cli->buff_size)
-		return (set_error_and_return(ENODATA));
+	{
+		errno = ENODATA;
+		return (EOF_TOKEN);
+	}
 	if (!curr->tok_buff)
 	{
 		curr->tok_buff_size = 1024;
 		curr->tok_buff = my_malloc(&(g_shell->memory), curr->tok_buff_size);
 		if (!curr->tok_buff)
-			return (set_error_and_return(ENOMEM));
+		{
+			errno = ENOMEM;
+			return (EOF_TOKEN);
+		}
 	}
 	curr->tok_buff_index = 0;
 	curr->tok_buff[0] = '\0';

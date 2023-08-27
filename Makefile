@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/27 16:10:45 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/28 01:05:07 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,10 +56,12 @@ SRC	=	core/shell \
 		parsing/lexer \
 		parsing/node \
 		parsing/parser \
+		parsing/parser_utils\
 		parsing/ast_parser \
 		parsing/tokenizer \
 		parsing/token_handlers \
 		parsing/tokenizer_utils \
+		parsing/tokenizer_utils2 \
 		parsing/token_handlers2 \
 		parsing/heredoc_pipe \
 		parsing/p_heredoc \

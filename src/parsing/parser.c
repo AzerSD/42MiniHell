@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:16 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/28 00:09:03 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 01:04:38 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,6 @@ t_node	*parse_token(t_shell *g_shell, t_node *ptr, t_node **parent_ptr,
 	return (ptr);
 }
 
-void t_parser_init( t_parser *parser, t_token *tok, t_curr_tok *curr)
-{
-	parser->first_pipe = 0;
-	parser->cli = tok->cli;
-	parser->tok = tok;
-	parser->curr = curr;
-}
-
 t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
 {
 	t_node				*ptr;
@@ -128,9 +120,3 @@ t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
 	}
 	return (parent);
 }
-
-		// struct s_smth {
-		// 	t_cli	*cli;
-		// 	t_curr_tok	*curr;
-		// };
-		// struct s_smth smth = (struct s_smth){parser->cli, parser->curr};

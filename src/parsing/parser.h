@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:21 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 23:16:49 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 01:23:50 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ typedef struct s_cli		t_cli;
 typedef struct s_node		t_node;
 typedef struct s_token		t_token;
 typedef struct s_curr_tok	t_curr_tok;
+
+typedef struct s_local_vars
+{
+	char		nc;
+	int			endloop;
+	int			out;
+}				t_local_vars;
 
 typedef struct s_parser
 {
@@ -43,13 +50,16 @@ t_node						*parse_pipeline(t_token *tok, t_curr_tok *curr);
 void						handle_child_process(int tmp_fd, int *pipe_fd);
 void						handle_parent_process(t_shell *g_shell,
 								int *pipe_fd, t_token *tok, int tmp_fd);
-void						write_to_pipe_and_cleanup(t_shell *g_shell, \
+void						write_to_pipe_and_cleanup(t_shell *g_shell,
 								int *pipe_fd, t_token *tok, int *fdex);
-char						*prepare_for_pipe(t_shell *g_shell, \
-								int *pipe_fd, t_token *tok, int expanding);
+char						*prepare_for_pipe(t_shell *g_shell, int *pipe_fd,
+								t_token *tok, int expanding);
 t_heredoc_data				*prepare_heredoc(t_shell *g_shell, t_parser *prs,
 								t_node *ptr);
 int							create_temp_file(t_shell *g_shell, t_token *tok,
 								t_node *ptr, char **tmp_file);
+void						t_parser_init(t_parser *parser, t_token *tok,
+								t_curr_tok *curr);
+void						exit_with_error(char *str);
 
 #endif

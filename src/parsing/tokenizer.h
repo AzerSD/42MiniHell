@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:31 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 18:46:25 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 01:02:24 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,16 @@ t_node							*p_heredoc(t_shell *g_shell, t_parser *prs, \
 									t_node *ptr);
 enum e_node_type				get_node_type(t_token_type state);
 
+void							handle_token(t_cli *cli, t_curr_tok *curr, \
+									char nc, \
+									int *endloop);
+
+void							init_curr_tok(t_curr_tok *curr);
+
+void							another_helper(t_curr_tok *curr);
+
+int								helper(t_cli *cli, t_curr_tok *curr, \
+									char *nc, \
+									int *endloop);
+t_local_vars					init_local_vars(void);
 #endif
