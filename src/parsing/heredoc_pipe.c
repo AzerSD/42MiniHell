@@ -6,37 +6,18 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 21:18:07 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 17:43:34 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok, int expanding, char *line)
-{
-	struct s_word	*w;
-	// char			*content;
-	(void) line;
-
-	w = NULL;
-	close(pipe_fd[0]);
-	if (getncount(tok->text, '\'') >= 2 || getncount(tok->text, '\"') >= 2)
-	{
-		w = make_word(g_shell, tok->text);
-		expanding = 0;
-		remove_quotes(w);
-		tok->text = w->data;
-		my_free(&g_shell->memory, w);
-		w = NULL;
-	}
-	return ("");
-}
-
 void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
-		int tmp_fd, char *content)
+		int tmp_fd, int expanding)
 {
 	struct s_word	*w;
 	char			*line;
+	char			*content = "";
 
 	w = NULL;
 	while (content && (ft_strncmp(content, tok->text, ft_strlen(content)
@@ -45,7 +26,7 @@ void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
 		write(pipe_fd[1], content, ft_strlen(content));
 		line = get_next_line(STDIN_FILENO);
 		if (ft_strchr(line, '$') && ft_strncmp(line, tok->text,
-					ft_strlen(content) - 1) != 0)
+				ft_strlen(content) - 1) != 0 && expanding)
 			w = expand(g_shell, line);
 		if (w)
 			content = w->data;
@@ -62,13 +43,21 @@ void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok, int tmp
 {
 	int		expanding;
 	char	*line;
-	char	*content;
+	struct s_word	*w;
 
-	expanding = 0;
+	expanding = 1;
 	line = NULL;
-	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding, line); 
-	(void) tmp_fd;
-	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, content);
+	close(pipe_fd[0]);
+	if (getncount(tok->text, '\'') >= 2 || getncount(tok->text, '\"') >= 2)
+	{
+		w = make_word(g_shell, tok->text);
+		expanding = 0;
+		remove_quotes(w);
+		tok->text = w->data;
+		my_free(&g_shell->memory, w);
+		w = NULL;
+	} 
+	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, expanding);
 }
 
 void	handle_child_process(int tmp_fd, int *pipe_fd)
