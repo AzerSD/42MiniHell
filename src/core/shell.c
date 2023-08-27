@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:55:29 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 13:45:23 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ int	parse_and_execute(t_shell *g_shell, t_cli *cli)
 	tok = get_token(g_shell, cli, curr);
 	ast_cmd = parse_cmd(g_shell, tok, curr);
 	if (!ast_cmd)
-		return (1);
+	{
+		ft_printf_fd(STDERR_FILENO, "error: syntax error near unexpected \
+			token\n");
+		return (2);
+	}
 	return (execc(g_shell, ast_cmd));
 }
