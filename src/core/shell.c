@@ -6,7 +6,7 @@
 /*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 23:27:33 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 17:20:53 by asioud           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ void	main_loop(t_shell *g_shell)
 	char	*cmd;
 	int		original_stdout;
 	int		original_stdin;
+	int		original_stderr;
 
 	original_stdout = dup(STDOUT_FILENO);
 	original_stdin = dup(STDIN_FILENO);
+	original_stderr = dup(STDERR_FILENO);
 	while (true)
 	{
 		cmd = get_cmd();
@@ -51,6 +53,7 @@ void	main_loop(t_shell *g_shell)
 		g_shell->status = parse_and_execute(g_shell, &cli);
 		dup2(original_stdout, STDOUT_FILENO);
 		dup2(original_stdin, STDIN_FILENO);
+		dup2(original_stderr, STDERR_FILENO);
 		unlink("/tmp/heredoc");
 	}
 }
@@ -82,10 +85,12 @@ int	parse_and_execute(t_shell *g_shell, t_cli *cli)
 	skip_whitespaces(cli);
 	tok = get_token(g_shell, cli, curr);
 	ast_cmd = parse_cmd(g_shell, tok, curr);
-	
 	// print_ast(ast_cmd, 0);
-	if (!ast_cmd)
-		return (1);
+	if (ast_cmd == NULL)
+	{
+		ft_printf_fd(2, "syntax error\n");
+		return (2);
+	}
 	return (execc(g_shell, ast_cmd));
 }
 
