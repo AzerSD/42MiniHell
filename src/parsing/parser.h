@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:21 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 16:58:26 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 18:55:30 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ typedef struct s_cli		t_cli;
 typedef struct s_node		t_node;
 typedef struct s_token		t_token;
 typedef struct s_curr_tok	t_curr_tok;
+
+typedef struct s_parser
+{
+	t_token		*tok;
+	t_cli		*cli;
+	t_curr_tok	*curr;
+	int			first_pipe;
+}				t_parser;
 
 typedef struct s_heredoc_data
 {
@@ -37,10 +45,16 @@ void						handle_parent_process(t_shell *g_shell,
 void						write_to_pipe_and_cleanup(t_shell *g_shell,
 								int *pipe_fd, t_token *tok, int tmp_fd,
 								char *content);
+							// write_to_pipe_and_cleanup(t_shell *g_shell,
+							// 	int **n, t_token *tok, char *content);
+
+							// (int *[]){pipe_fd, &tmp_fd}
+							// n[0] =
+							// n[1][0] =
 char						*prepare_for_pipe(t_shell *g_shell, int *pipe_fd,
-								t_token *tok, int expanding, char *line);
-t_heredoc_data				*prepare_heredoc(t_shell *g_shell, t_token *tok,
-								t_cli *cli, t_curr_tok *curr, t_node *ptr);
+								t_token *tok, int expanding);
+t_heredoc_data				*prepare_heredoc(t_shell *g_shell, t_parser *prs, \
+								t_node *ptr);
 int							create_temp_file(t_shell *g_shell, t_token *tok,
 								t_node *ptr, char **tmp_file);
 

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:12:36 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 17:04:05 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 18:45:55 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,17 @@ int	create_temp_file(t_shell *g_shell, t_token *tok, t_node *ptr,
 	return (tmp_fd);
 }
 
-t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli,
-		t_curr_tok *curr, t_node *ptr)
+t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_parser *prs, t_node *ptr)
 {
 	t_heredoc_data	*data;
 
 	data = my_malloc(&g_shell->memory, sizeof(t_heredoc_data));
 	if (!data)
 		return (NULL);
-	data->redirection_node = new_redirection_node(g_shell, tok, ptr);
+	data->redirection_node = new_redirection_node(g_shell, prs->tok, ptr);
 	if (!data->redirection_node)
 		return (NULL);
-	data->tok = check_token(g_shell, cli, curr, ptr);
+	data->tok = check_token(g_shell, prs->cli, prs->curr, ptr);
 	if (!data->tok)
 		return (NULL);
 	data->tmp_fd = create_temp_file(g_shell, data->tok, ptr, &(data->tmp_file));

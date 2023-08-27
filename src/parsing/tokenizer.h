@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:31 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 16:58:21 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 18:46:25 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_cli			t_cli;
 typedef struct s_node			t_node;
 typedef struct s_token			t_token;
 typedef struct s_curr_tok		t_curr_tok;
+typedef struct s_parser			t_parser;
 typedef struct s_heredoc_data	t_heredoc_data;
 
 typedef enum e_token_type
@@ -97,8 +98,8 @@ void							*handle_quotes(t_cli *cli, t_curr_tok *curr,
 void							handle_redirection(t_cli *cli, t_curr_tok *curr,
 									int *endloop, char nc);
 int								is_valid_variable_name(const char *str);
-t_node							*p_heredoc(t_shell *g_shell, t_token *tok,
-									t_cli *cli, t_curr_tok *curr, t_node *ptr);
+t_node							*p_heredoc(t_shell *g_shell, t_parser *prs, \
+									t_node *ptr);
 enum e_node_type				get_node_type(t_token_type state);
 
 #endif

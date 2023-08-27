@@ -6,19 +6,11 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:16 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 14:07:31 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 19:00:10 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-typedef struct s_parser
-{
-	t_token		*tok;
-	t_cli		*cli;
-	t_curr_tok	*curr;
-	int			first_pipe;
-}				t_parser;
 
 t_node	*p_pipe(t_shell *g_shell, t_node **ptr, t_node **parent,
 		int *first_pipe)
@@ -91,21 +83,13 @@ t_node	*parse_token(t_shell *g_shell, t_node *ptr, t_node **parent_ptr,
 
 	type = get_node_type(parser->curr->tok_type);
 	if (type == NODE_PIPE)
-	{
 		ptr = p_pipe(g_shell, &ptr, parent_ptr, &parser->first_pipe);
-	}
 	else if (type == NODE_INPUT || type == NODE_OUTPUT || type == NODE_APPEND)
-	{
 		ptr = p_redirection(g_shell, ptr, parser, type);
-	}
 	else if (type == NODE_HEREDOC)
-	{
-		ptr = p_heredoc(g_shell, parser->tok, parser->cli, parser->curr, ptr);
-	}
+		ptr = p_heredoc(g_shell, parser, ptr);
 	else
-	{
 		ptr = p_word(g_shell, parser->tok, ptr, type);
-	}
 	return (ptr);
 }
 
@@ -139,3 +123,9 @@ t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
 	}
 	return (parent);
 }
+
+		// struct s_smth {
+		// 	t_cli	*cli;
+		// 	t_curr_tok	*curr;
+		// };
+		// struct s_smth smth = (struct s_smth){parser->cli, parser->curr};

@@ -6,18 +6,17 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:16:21 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 18:59:09 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok,
-		int expanding, char *line)
+		int expanding)
 {
 	struct s_word	*w;
 
-	(void)line;
 	w = NULL;
 	close(pipe_fd[0]);
 	if (getncount(tok->text, '\'') >= 2 || getncount(tok->text, '\"') >= 2)
@@ -62,13 +61,11 @@ void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
 		int tmp_fd)
 {
 	int		expanding;
-	char	*line;
 	char	*content;
 
 	expanding = 0;
-	line = NULL;
-	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding, line);
-	(void)tmp_fd;
+
+	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding);
 	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, content);
 }
 
@@ -91,12 +88,12 @@ void	handle_child_process(int tmp_fd, int *pipe_fd)
 	exit(EXIT_SUCCESS);
 }
 
-t_node	*p_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, t_curr_tok *curr,
+t_node	*p_heredoc(t_shell *g_shell, t_parser *prs,
 		t_node *ptr)
 {
 	t_heredoc_data	*data;
 
-	data = prepare_heredoc(g_shell, tok, cli, curr, ptr);
+	data = prepare_heredoc(g_shell, prs, ptr);
 	if (!data)
 		return (NULL);
 	ptr = execute_heredoc(g_shell, data, ptr);
