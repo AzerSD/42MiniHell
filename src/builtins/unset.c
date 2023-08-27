@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:34:08 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 18:14:08 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:57:38 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	validate_and_remove_var(t_shell *g_shell, char **var_name, struct s_symtab *symtab)
+int	validate_and_remove_var(t_shell *g_shell, char **var_name,
+		struct s_symtab *symtab)
 {
 	struct s_symtab_entry	*s;
 
@@ -20,13 +21,14 @@ int	validate_and_remove_var(t_shell *g_shell, char **var_name, struct s_symtab *
 	{
 		if ((*var_name)[0] == '-')
 		{
-			ft_printf_fd(STDERR_FILENO, \
-			"minishell: unset: `%s': not a valid identifier\n", *var_name);
+			ft_printf_fd(STDERR_FILENO,
+				"minishell: unset: `%s': not a valid identifier\n", *var_name);
 			return (2);
 		}
 		else if (!is_valid_variable_name(*var_name))
-			return (ft_printf_fd(STDERR_FILENO, \
-			"minishell: unset: `%s': not a valid identifier\n", *var_name), 1);
+			return (ft_printf_fd(STDERR_FILENO,
+					"minishell: unset: `%s': not a valid identifier\n",
+					*var_name), 1);
 		else
 		{
 			s = do_lookup(*var_name, symtab);

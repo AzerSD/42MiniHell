@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 15:47:32 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:57:11 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ pid_t	fork_command(t_shell *g_shell, int argc, char **argv)
 	if (child_pid == 0)
 	{
 		exec_cmd(g_shell, argc, argv);
-		ft_printf_fd(STDERR_FILENO, "minishell: %s: No such file or directory\n", \
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: \
+			No such file or directory\n", \
 			argv[0]);
 		if (errno == ENOEXEC)
 			exit(126);

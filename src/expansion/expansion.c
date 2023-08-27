@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 19:31:29 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:52:50 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	norm_tilde(char **p2, int *tilde_quoted)
 	return (0);
 }
 
-void	check_tilde(t_shell *g_shell, char **pstart, char **p, int in_double_quotes)
+void	check_tilde(t_shell *g_shell, char **pstart, char **p,
+		int in_double_quotes)
 {
 	char	*p2;
 	int		tilde_quoted;
@@ -57,7 +58,8 @@ void	check_tilde(t_shell *g_shell, char **pstart, char **p, int in_double_quotes
 			return ;
 		}
 		len = p2 - *p;
-		substitute_word(g_shell, pstart, p, len, tilde_expansion, !in_double_quotes);
+		substitute_word(g_shell, pstart, p, len, tilde_expansion,
+			!in_double_quotes);
 	}
 }
 
@@ -96,11 +98,14 @@ struct s_word	*expand(t_shell *g_shell, char *orig_word)
 		m->escaped = 0;
 		check_tilde(g_shell, &(m->pstart), &(m->p), m->in_dquotes);
 		check_double_quotes(&(m->p), &(m->in_dquotes), (m->in_squotes));
-		if (!*(m->p)) break ;
+		if (!*(m->p))
+			break ;
 		check_single_quotes(&(m->p), &(m->in_dquotes), &(m->in_squotes));
-		if (!*(m->p)) break ;
+		if (!*(m->p))
+			break ;
 		check_backslash(&(m->p), &(m->escaped));
-		check_dollar_sign(g_shell, &(m->pstart), &(m->p), m->in_squotes, &m->escaped);
+		check_dollar_sign(g_shell, &(m->pstart), &(m->p), m->in_squotes,
+			&m->escaped);
 		(m->p)++;
 	}
 	words = make_word(g_shell, m->pstart);

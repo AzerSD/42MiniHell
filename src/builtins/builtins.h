@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 11:22:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 18:55:11 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:59:30 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define BUILTINS_H
 
 # include "minishell.h"
+
 typedef struct s_env
 {
 	char				*value;
@@ -38,10 +39,11 @@ int						ft_echo(t_shell *g_shell, int argc, ...);
 int						ft_env(t_shell *g_shell, int argc, ...);
 int						ft_pwd(t_shell *g_shell, int argc, ...);
 int						ft_cd(t_shell *g_shell, int argc, ...);
-int						ft_export(t_shell *g_shell, int argc, ...) __attribute__((unused));
+int						ft_export(t_shell *g_shell, int argc,
+							...) __attribute__((unused));
 
 t_builtin_info			*get_bt(t_shell *g_shell);
-int						ft_setenv(t_shell *g_shell, const char *name, const char *value,
-							int overwrite);
+int						ft_setenv(t_shell *g_shell, const char *name,
+							const char *value, int overwrite);
 
 #endif

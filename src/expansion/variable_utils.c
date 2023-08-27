@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 23:27:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 17:38:56 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:26:39 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_svar_expand(struct s_var_expand *v)
 // }
 void	check_result(t_shell *g_shell, struct s_var_expand *var)
 {
-	char *tmp_str;
+	char	*tmp_str;
 
 	if (var->setme)
 	{

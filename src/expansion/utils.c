@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 19:45:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 21:18:29 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:26:13 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	free_buffer(int len, char **buf)
 	free(buf);
 }
 
-void	search_colon(t_shell *g_shell, char *orig_var_name, struct s_var_expand *var)
+void	search_colon(t_shell *g_shell, char *orig_var_name,
+		struct s_var_expand *var)
 {
 	var->sub = ft_strchr(orig_var_name, ':');
 	if (!var->sub)

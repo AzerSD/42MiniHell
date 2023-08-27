@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 01:55:24 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/23 19:56:24 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:27:28 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ bool	match(const char *pattern, const char *string)
 	}
 	return (*pattern == '\0' && *string == '\0');
 }
+
 int	has_glob_chars(char *p, size_t len)
 {
 	char	*p2;

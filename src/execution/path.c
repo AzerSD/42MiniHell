@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 05:03:22 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 18:57:33 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:54:28 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	file_exists(char *path)
 	}
 }
 
-static char	*build_path(t_shell *g_shell, char *start, \
-	char *end, char *file, int plen)
+static char	*build_path(t_shell *g_shell, char *start, char *end, char *file,
+		int plen)
 {
 	char	*path;
 
@@ -41,8 +41,8 @@ static char	*build_path(t_shell *g_shell, char *start, \
 	return (path);
 }
 
-char	*build_path_and_check_existence(t_shell *g_shell, char *p, char *p2,\
-	char *file, int plen)
+char	*build_path_and_check_existence(t_shell *g_shell, char *p, char *p2,
+		char *file, int plen)
 {
 	char	*path;
 
@@ -58,12 +58,12 @@ char	*build_path_and_check_existence(t_shell *g_shell, char *p, char *p2,\
 
 char	*search_path(t_shell *g_shell, char *file)
 {
-	char	*path;
-	char	*p;
-	char	*p2;
-	int		plen;
-	char	*valid_path;
-	struct s_symtab_entry			*symtab;
+	char					*path;
+	char					*p;
+	char					*p2;
+	int						plen;
+	char					*valid_path;
+	struct s_symtab_entry	*symtab;
 
 	symtab = get_symtab_entry(g_shell, "PATH");
 	if (!symtab)

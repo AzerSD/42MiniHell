@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:41:31 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 20:11:38 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:58:47 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	exec_builtin(t_shell *g_shell, int argc, char **argv)
 		if (ft_strcmp(argv[0], bt->builtins[i].name) == 0)
 		{
 			k = bt->builtins[i].func(g_shell, argc, argv);
-			return k;
+			return (k);
 		}
 		i++;
 	}

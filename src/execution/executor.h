@@ -3,25 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:59 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:12:19 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:57:31 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
-/**
- * @brief Searches for a file in the system's `PATH` environment variable.
- * If an error occurs, it sets the `errno` variable and returns NULL.
- * @param file The name of the file to search for.
- * @return The full path to the file if found, or NULL if not found.
-*/
 char	*search_path(t_shell *g_shell, char *file);
-
-
 
 /**
  * @brief Frees the memory allocated for the given arguments.
@@ -52,7 +44,8 @@ int		execc(t_shell *g_shell, t_node *node);
  * @param argv A null-terminated strings that will store the arguments.
  * @return 0 on success, or a non-zero value if an error occurs.
 */
-void	parse_ast(t_shell *g_shell, t_node *node, int *argc, int *targc, char ***argv);
+void	parse_ast(t_shell *g_shell, t_node *node, int *argc, \
+		int *targc, char ***argv);
 
 /**
  * @brief Executes a command with the given arguments.
@@ -61,7 +54,6 @@ void	parse_ast(t_shell *g_shell, t_node *node, int *argc, int *targc, char ***ar
  * @return 0 on success, or 1 if an error occurs.
 */
 int		exec_cmd(t_shell *g_shell, int argc, char **argv);
-
 
 ////////////////////////////////////////////////////////////////////
 //                          Redirections                          //

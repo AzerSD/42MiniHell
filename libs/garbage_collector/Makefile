@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/23 03:36:39 by asioud            #+#    #+#              #
-#    Updated: 2023/08/23 20:50:59 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/27 03:06:12 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -g -Wall -Werror -Wextra
 LIB_NAME = garbage_collector.a
 
 
-SRC_FILES = memory.c
+SRC_FILES = memory.c memory_utils.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 all: $(LIB_NAME)

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:10:08 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 16:28:34 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:59:53 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*ft_strdup(const char *str)
 	ft_memcpy(out, str, len);
 	return (out);
 }
-
 
 // #include <stdio.h>
 

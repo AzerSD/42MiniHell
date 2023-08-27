@@ -6,13 +6,13 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:49:41 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:19:44 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:56:32 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_single_quotes(char **p, int *in_double_quotes, \
+void	check_single_quotes(char **p, int *in_double_quotes,
 		int *in_single_quotes)
 {
 	if (**p == '\'' && !*in_double_quotes)
@@ -22,8 +22,8 @@ void	check_single_quotes(char **p, int *in_double_quotes, \
 	}
 }
 
-void	check_double_quotes(char **p, int *in_double_quotes, \
-	int in_single_quotes)
+void	check_double_quotes(char **p, int *in_double_quotes,
+		int in_single_quotes)
 {
 	if (**p == '"' && !in_single_quotes)
 	{
@@ -40,8 +40,9 @@ void	check_backslash(char **p, int *escaped)
 	}
 }
 
-void	check_dollar_sign(t_shell *g_shell, char **pstart, char **p, int in_single_quotes,
-	int *escaped)
+void	check_dollar_sign(t_shell *g_shell, char **pstart, \
+		char **p,
+		int in_single_quotes, int *escaped)
 {
 	char	c;
 	char	*p2;

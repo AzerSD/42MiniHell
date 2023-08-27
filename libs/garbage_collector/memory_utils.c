@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nltimmer.c                                      :+:      :+:    :+:   */
+/*   memory_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/26 15:43:03 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/27 03:01:26 by lhasmi           ###   ########.fr       */
+/*   Created: 2023/08/26 22:59:06 by lhasmi            #+#    #+#             */
+/*   Updated: 2023/08/27 03:05:29 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include "../includes/libft.h"
+#include "memory.h"
 
-void	remove_trailing_newlines(char *str, size_t bufsz)
+void	free_all_mem(void **p_head)
 {
-	ssize_t	i;
+	int				i;
+	t_memory_block	*node;
+	t_memory_block	*next;
 
-	i = bufsz - 1;
-	if (!str || bufsz == 0)
+	i = 1;
+	if (p_head == NULL)
 		return ;
-	while (i >= 0)
+	next = NULL;
+	node = *p_head;
+	while (node != NULL && node->adresse)
 	{
-		if (str[i] == '\n')
-			str[i] = '\0';
-		else if (str[i] != '\0')
-			break ;
-		i--;
+		next = node->next;
+		if (node->adresse != ((void *)0))
+			free(node->adresse);
+		node->adresse = ((void *)0);
+		free(node);
+		node = ((void *)0);
+		node = next;
+		i++;
 	}
+	*p_head = NULL;
 }

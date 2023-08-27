@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 22:03:26 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/24 18:16:25 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:58:10 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_setenv(t_shell *g_shell, const char *name, \
-	const char *value, int overwrite)
+int	ft_setenv(t_shell *g_shell, const char *name, const char *value,
+		int overwrite)
 {
 	struct s_symtab_entry	*entry;
-	struct s_symtab *symtab;
+	struct s_symtab			*symtab;
 
 	symtab = get_local_symtab(g_shell);
 	entry = do_lookup(name, symtab);

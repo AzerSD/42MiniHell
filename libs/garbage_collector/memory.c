@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 03:33:04 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 21:16:55 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 03:05:38 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,29 +81,4 @@ void	my_free(void **p_head, void *adresse)
 	remove_mem_block(p_head, adresse);
 	free(adresse);
 	adresse = ((void *) 0);
-}
-
-void	free_all_mem(void **p_head)
-{
-	int					i;
-	t_memory_block		*node;
-	t_memory_block		*next;
-
-	i = 1;
-	if (p_head == NULL)
-		return ;
-	next = NULL;
-	node = *p_head;
-	while (node != NULL && node->adresse)
-	{
-		next = node->next;
-		if (node->adresse != ((void *) 0))
-			free(node->adresse);
-		node->adresse = ((void *) 0);
-		free(node);
-		node = ((void *) 0);
-		node = next;
-		i++;
-	}
-	*p_head = NULL;
 }

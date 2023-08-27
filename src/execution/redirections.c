@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:04:09 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/24 19:12:10 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:53:09 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	handle_node_types(t_node *child, int *flags, int *std_fd,
 	}
 }
 
-int	open_and_redirect(t_shell *g_shell, t_node *child, int flags, int std_fd, int std_fd_err)
+int	open_and_redirect(t_shell *g_shell, t_node *child, int flags, \
+		int std_fd, int std_fd_err)
 {
 	int				fd;
 	struct s_word	*w;

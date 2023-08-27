@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 18:16:04 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:59:13 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	process_equal(t_shell *g_shell, char *name, char **argv)
 	}
 }
 
-int	check_input_arguments(t_shell *g_shell, char **argv, struct s_symtab *symtab, char *name)
+int	check_input_arguments(t_shell *g_shell, char **argv, \
+		struct s_symtab *symtab, char *name)
 {
 	struct s_symtab_entry	*entry;
 
