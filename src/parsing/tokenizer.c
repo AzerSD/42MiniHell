@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 19:02:01 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 19:13:21 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_token	*get_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 	{
 		handle_token(cli, curr, nc, &endloop);
 		if (endloop == 1)
-			break;
+			break ;
 		nc = get_next_char(cli);
 	}
 	if (curr->tok_buff_index == 0)
