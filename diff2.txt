@@ -183,22 +183,32 @@
 22: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/1_redirs.sh:70
 23: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/1_redirs.sh:72
 24: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/1_redirs.sh:74
-25: STD_OUT: KO  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/1_redirs.sh:77
-26: STD_OUT: KO  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/1_redirs.sh:86
-27: STD_OUT: KO  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/1_redirs.sh:95
-28: STD_OUT: KO  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/1_redirs.sh:99
-29: STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(127)  bash(0) ]  cmds/mand/1_redirs.sh:108
-30: tester.sh: line 86: 91371 Done                    echo -n "$INPUT"
-     91372 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+25: tester.sh: line 86: 23883 Done                    echo -n "$INPUT"
+     23884 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:77
+26: tester.sh: line 86: 23905 Done                    echo -n "$INPUT"
+     23906 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:86
+27: tester.sh: line 86: 23919 Done                    echo -n "$INPUT"
+     23920 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:95
+28: tester.sh: line 86: 23933 Done                    echo -n "$INPUT"
+     23934 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:99
+29: tester.sh: line 86: 23948 Done                    echo -n "$INPUT"
+     23949 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:108
+30: tester.sh: line 86: 23962 Done                    echo -n "$INPUT"
+     23963 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:114
-31: tester.sh: line 86: 91391 Done                    echo -n "$INPUT"
-     91392 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+31: tester.sh: line 86: 23976 Done                    echo -n "$INPUT"
+     23977 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:120
-32: tester.sh: line 86: 91413 Done                    echo -n "$INPUT"
-     91414 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+32: tester.sh: line 86: 23991 Done                    echo -n "$INPUT"
+     23992 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:126
-33: tester.sh: line 86: 91432 Done                    echo -n "$INPUT"
-     91433 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+33: tester.sh: line 86: 24005 Done                    echo -n "$INPUT"
+     24006 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1_redirs.sh:132
 # **************************************************************************** #
 #   SCMD                                                                       #
@@ -406,51 +416,51 @@ STD_OUT: KO  STD_ERR: KO  EXIT_CODE: KO [ minishell(134)  bash(0) ]  cmds/mand/1
 # **************************************************************************** #
 #   SYNTAX ERRORS                                                              #
 # **************************************************************************** #
-1:  tester.sh: line 86: 92946 Done                    echo -n "$INPUT"
-     92947 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+1:  tester.sh: line 86: 25558 Done                    echo -n "$INPUT"
+     25559 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:5
-2:  tester.sh: line 86: 92958 Done                    echo -n "$INPUT"
-     92959 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+2:  tester.sh: line 86: 25568 Done                    echo -n "$INPUT"
+     25569 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:7
-3:  tester.sh: line 86: 92968 Done                    echo -n "$INPUT"
-     92969 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+3:  tester.sh: line 86: 25577 Done                    echo -n "$INPUT"
+     25578 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:9
-4:  tester.sh: line 86: 92977 Done                    echo -n "$INPUT"
-     92978 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+4:  tester.sh: line 86: 25586 Done                    echo -n "$INPUT"
+     25587 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:11
-5:  tester.sh: line 86: 92988 Done                    echo -n "$INPUT"
-     92989 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+5:  tester.sh: line 86: 25595 Done                    echo -n "$INPUT"
+     25596 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:13
-6:  tester.sh: line 86: 92997 Done                    echo -n "$INPUT"
-     92998 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+6:  tester.sh: line 86: 25605 Done                    echo -n "$INPUT"
+     25606 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:15
-7:  tester.sh: line 86: 93007 Done                    echo -n "$INPUT"
-     93008 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+7:  tester.sh: line 86: 25614 Done                    echo -n "$INPUT"
+     25615 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:17
-8:  tester.sh: line 86: 93017 Done                    echo -n "$INPUT"
-     93018 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+8:  tester.sh: line 86: 25623 Done                    echo -n "$INPUT"
+     25624 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:19
 9:  STD_OUT: OK  STD_ERR: KO  EXIT_CODE: KO [ minishell(0)  bash(2) ]  cmds/mand/8_syntax_errors.sh:21
-10: tester.sh: line 86: 93038 Done                    echo -n "$INPUT"
-     93039 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+10: tester.sh: line 86: 25642 Done                    echo -n "$INPUT"
+     25643 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:23
 11: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/8_syntax_errors.sh:25
-12: tester.sh: line 86: 93054 Done                    echo -n "$INPUT"
-     93055 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+12: tester.sh: line 86: 25659 Done                    echo -n "$INPUT"
+     25660 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:27
 13: STD_OUT: OK  STD_ERR: KO  EXIT_CODE: KO [ minishell(0)  bash(2) ]  cmds/mand/8_syntax_errors.sh:29
 14: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/8_syntax_errors.sh:31
 15: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/8_syntax_errors.sh:33
 16: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/8_syntax_errors.sh:35
 17: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/8_syntax_errors.sh:37
-18: tester.sh: line 86: 93101 Done                    echo -n "$INPUT"
-     93102 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+18: tester.sh: line 86: 25705 Done                    echo -n "$INPUT"
+     25706 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:39
-19: tester.sh: line 86: 93112 Done                    echo -n "$INPUT"
-     93113 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+19: tester.sh: line 86: 25714 Done                    echo -n "$INPUT"
+     25715 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:41
-20: tester.sh: line 86: 93121 Done                    echo -n "$INPUT"
-     93122 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
+20: tester.sh: line 86: 25726 Done                    echo -n "$INPUT"
+     25727 Abort trap: 6           | $MINISHELL_PATH/$EXECUTABLE 2> tmp_err_minishell > tmp_out_minishell
 STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(134)  bash(2) ]  cmds/mand/8_syntax_errors.sh:43
 21: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: KO [ minishell(0)  bash(2) ]  cmds/mand/8_syntax_errors.sh:45
 22: STD_OUT: OK  STD_ERR: OK  EXIT_CODE: OK  cmds/mand/8_syntax_errors.sh:47
@@ -487,4 +497,5 @@ tester.sh: line 32: test_bonus: command not found
 # ============================================================================ #
 #   RESULT                                                                     #
 # ============================================================================ #
-418:STD_OUT: 41  STD_ERR: 12  EXIT_CODE: 31
+418:STD_OUT: 41  STD_ERR: 16  EXIT_CODE: 35
+lhasmi@2-I-7 42-minishell %

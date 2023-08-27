@@ -13,6 +13,38 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <ctype.h>
+# include <dirent.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <fnmatch.h>
+# include <glob.h>
+# include <limits.h>
+# include <locale.h>
+# include <pwd.h>
+# include <regex.h>
+# include <signal.h>
+# include <stdarg.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include <unistd.h>
+
+typedef struct g_shell		t_shell;
+typedef struct s_cli		t_cli;
+typedef struct s_node		t_node;
+typedef struct s_token		t_token;
+typedef struct s_curr_tok	t_curr_tok;
+typedef struct s_parsing	t_parsing;
+typedef struct s_heredoc_data	t_heredoc_data;
+
 # include "../libs/garbage_collector/memory.h"
 # include "../src/builtins/builtins.h"
 # include "../src/core/shell.h"
@@ -25,29 +57,7 @@
 # include "../src/signals/signals.h"
 # include "../src/symbol_table/symtab.h"
 # include "libft.h"
-# include <ctype.h>
-# include <dirent.h>
-# include <errno.h>
-# include <fcntl.h>
-# include <fnmatch.h>
-# include <glob.h>
-# include <limits.h>
-# include <locale.h>
-# include <pwd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <regex.h>
-# include <signal.h>
-# include <stdarg.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <termios.h>
-# include <unistd.h>
+
 
 # define RESET "\001\033[0m\002"
 # define RED "\001\033[31m\002"
@@ -59,7 +69,6 @@
 # define WHT "\001\033[37m\002"
 
 typedef unsigned char		t_status;
-typedef struct g_shell		t_shell;
 typedef struct g_shell
 {
 	t_status				status;
