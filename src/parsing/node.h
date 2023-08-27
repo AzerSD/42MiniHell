@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:58:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:16:04 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 14:01:10 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_node					*new_node(t_shell *g_shell, enum e_node_type type);
 void					add_child_node(t_node *parent, t_node *child);
 void					add_parent_node(t_node *child, t_node *parent);
 
-void					free_node_tree(t_node *node);
+void					free_node_tree(t_shell *g_shell, t_node *node);
 
 void					set_node_val_str(t_shell *g_shell, t_node *node, \
 		char *val);

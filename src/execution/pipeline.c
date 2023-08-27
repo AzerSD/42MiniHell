@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 02:34:11 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:00:29 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 13:54:41 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ pid_t	create_second_child_process(t_shell *g_shell, int *pipefd, t_node *node)
 		close(pipefd[1]);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
+		if (!node->first_child)
+			return 1;
 		g_shell->status = execc(g_shell, node->first_child->next_sibling);
 		exit(g_shell->status);
 	}

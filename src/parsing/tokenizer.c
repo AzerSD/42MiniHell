@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:13:37 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 14:04:58 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ static void	*init_curr_tok_buff(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 	}
 	curr->tok_buff_index = 0;
 	curr->tok_buff[0] = '\0';
+	curr->tok_type = PARSE_DEFAULT;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 00:48:44 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:16:38 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 13:58:21 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void	parse_ast(t_shell *g_shell, t_node *node, int *argc, int *targc,
 		}
 		child = child->next_sibling;
 	}
-	(*argv)[(*argc)] = NULL;
+	if (check_buffer_bounds(g_shell, argc, targc, argv))
+		(*argv)[(*argc)] = NULL;
 }
