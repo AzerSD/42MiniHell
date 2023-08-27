@@ -6,27 +6,28 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 19:53:21 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 23:18:58 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
-		int tmp_fd, int expanding)
+		int *fdex)
 {
 	struct s_word	*w;
 	char			*line;
-	char			*content = "";
+	char			*content;
 
+	content = "";
 	w = NULL;
 	while (content && (ft_strncmp(content, tok->text, ft_strlen(content)
 				- 1) != 0 || content[0] == '\n'))
 	{
-		write(n[0][1], content, ft_strlen(content));
+		write(pipe_fd[1], content, ft_strlen(content));
 		line = get_next_line(STDIN_FILENO);
 		if (ft_strchr(line, '$') && ft_strncmp(line, tok->text,
-				ft_strlen(content) - 1) != 0 && expanding)
+				ft_strlen(content) - 1) != 0 && fdex[1])
 			w = expand(g_shell, line);
 		if (w)
 			content = w->data;
@@ -34,16 +35,16 @@ void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
 			content = line;
 		w = NULL;
 	}
-	close(n[0][1]);
+	close(pipe_fd[1]);
 	wait(NULL);
-	close(n[1][0]);
+	close(fdex[0]);
 }
 
 void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
 		int tmp_fd)
 {
-	int		expanding;
-	char	*line;
+	int				expanding;
+	char			*line;
 	struct s_word	*w;
 
 	expanding = 1;
@@ -57,8 +58,9 @@ void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
 		tok->text = w->data;
 		my_free(&g_shell->memory, w);
 		w = NULL;
-	} 
-	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, expanding);
+	}
+	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, (int[]){tmp_fd,
+		expanding});
 }
 
 void	handle_child_process(int tmp_fd, int *pipe_fd)
@@ -80,8 +82,7 @@ void	handle_child_process(int tmp_fd, int *pipe_fd)
 	exit(EXIT_SUCCESS);
 }
 
-t_node	*p_heredoc(t_shell *g_shell, t_parser *prs,
-		t_node *ptr)
+t_node	*p_heredoc(t_shell *g_shell, t_parser *prs, t_node *ptr)
 {
 	t_heredoc_data	*data;
 
