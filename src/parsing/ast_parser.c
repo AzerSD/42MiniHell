@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 00:48:44 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 13:58:21 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 19:52:39 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ struct s_word	*get_node_content(t_shell *g_shell, t_node **child)
 	return (w);
 }
 
-void	parse_ast(t_shell *g_shell, t_node *node, int *argc, int *targc,
+// void	parse_ast(t_shell *g_shell, t_node *node, int *argc, int *targc,
+// 		char ***argv)
+void	parse_ast(t_shell *g_shell, t_node *node, int **args,
 		char ***argv)
 {
 	struct s_word	*w;
@@ -47,19 +49,19 @@ void	parse_ast(t_shell *g_shell, t_node *node, int *argc, int *targc,
 			continue ;
 		while (w)
 		{
-			if (check_buffer_bounds(g_shell, argc, targc, argv))
+			if (check_buffer_bounds(g_shell, args[0], args[1], argv))
 			{
 				arg = my_malloc(&g_shell->memory, ft_strlen(w->data) + 1);
 				if (arg)
 				{
 					ft_strcpy(arg, w->data);
-					(*argv)[(*argc)++] = arg;
+					(*argv)[(*args[0])++] = arg;
 				}
 			}
 			w = w->next;
 		}
 		child = child->next_sibling;
 	}
-	if (check_buffer_bounds(g_shell, argc, targc, argv))
-		(*argv)[(*argc)] = NULL;
+	if (check_buffer_bounds(g_shell, args[0], args[1], argv))
+		(*argv)[(*args[0])] = NULL;
 }

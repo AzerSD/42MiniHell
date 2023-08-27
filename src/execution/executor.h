@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:59 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 17:00:14 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 19:51:12 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int								execc(t_shell *g_shell, t_node *node);
  * @param argv A null-terminated strings that will store the arguments.
  * @return 0 on success, or a non-zero value if an error occurs.
  */
-void							parse_ast(t_shell *g_shell, t_node *node,
-									int *argc, int *targc, char ***argv);
+void							parse_ast(t_shell *g_shell, t_node *node, \
+									int **args, char ***argv);
 
 /**
  * @brief Executes a command with the given arguments.

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 19:46:11 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 19:53:21 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	write_to_pipe_and_cleanup(t_shell *g_shell, int **n, t_token *tok, \
 {
 	struct s_word	*w;
 	char			*line;
-	int				tmp_fd;
-	int				*pipe_fd;
 
 	w = NULL;
 	while (content && (ft_strncmp(content, tok->text, ft_strlen(content)
