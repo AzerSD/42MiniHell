@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 05:02:48 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 05:20:56 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	main_loop(t_parsing *prs)
 		cmd = get_cmd();
 		if (!cmd)
 		{
-			free_all_mem(&(prs->g_shell)->memory);
+			free_all_mem(&(prs->g_shell->memory));
 			exit(prs->g_shell->status);
 		}
 		if (isatty(STDIN_FILENO))
@@ -61,6 +61,7 @@ int	main(int argc, char **argv, char **env)
 	t_shell			*g_shell;
 	t_parsing		*prs;
 
+	prs = NULL;
 	prs = malloc(sizeof(t_parsing));
 	if (prs == NULL)
 	{
@@ -78,7 +79,9 @@ int	main(int argc, char **argv, char **env)
 	signals(&mirror_termios);
 	main_loop(prs);
 	rl_clear_history();
-	free_all_mem(&g_shell->memory);
+	free_all_mem(&(prs->g_shell->memory));
+	if (prs)
+		free(prs);
 	return (g_shell->status);
 }
 

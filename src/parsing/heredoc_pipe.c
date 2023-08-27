@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 04:45:40 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 05:17:54 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*prepare_for_pipe(t_parsing *prs, int *pipe_fd, \
 		expanding = 0;
 		remove_quotes(w);
 		prs->tok->text = w->data;
-		my_free(&(prs->g_shell)->memory, w);
+		my_free(&(prs->g_shell->memory), w);
 		w = NULL;
 	}
 	return ("");
@@ -101,6 +101,6 @@ t_node	*p_heredoc(t_parsing *prs, t_cli *cli, t_curr_tok *curr,
 	if (!data)
 		return (NULL);
 	ptr = execute_heredoc(prs, data, ptr);
-	my_free(&(prs->g_shell)->memory, data);
+	my_free(&(prs->g_shell->memory), data);
 	return (ptr);
 }

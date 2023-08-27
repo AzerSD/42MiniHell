@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:41:31 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:58:47 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 05:16:49 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ t_builtin_info	*get_bt(t_shell *g_shell)
 
 	bt = my_malloc(&(g_shell->memory), sizeof(t_builtin_info));
 	if (bt == NULL)
-	{
 		return (NULL);
-	}
 	bt->builtins = init_builtins();
 	bt->count = 7;
 	return (bt);

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:12:36 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 04:19:10 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 05:18:06 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_heredoc_data	*prepare_heredoc(t_parsing *prs, t_cli *cli, t_curr_tok *curr, \
 	{
 		free_node_tree(ptr);
 		free_token(prs->g_shell, data->tok);
-		my_free(&(prs->g_shell)->memory, data->tmp_file);
+		my_free(&(prs->g_shell->memory), data->tmp_file);
 		return (NULL);
 	}
 	return (data);
