@@ -32,9 +32,11 @@ void	main_loop(t_shell *g_shell)
 	char	*cmd;
 	int		original_stdout;
 	int		original_stdin;
+	int		original_stderr;
 
 	original_stdout = dup(STDOUT_FILENO);
 	original_stdin = dup(STDIN_FILENO);
+	original_stderr = dup(STDERR_FILENO);
 	while (true)
 	{
 		cmd = get_cmd();
@@ -51,6 +53,7 @@ void	main_loop(t_shell *g_shell)
 		g_shell->status = parse_and_execute(g_shell, &cli);
 		dup2(original_stdout, STDOUT_FILENO);
 		dup2(original_stdin, STDIN_FILENO);
+		dup2(original_stderr, STDERR_FILENO);
 		unlink("/tmp/heredoc");
 	}
 }

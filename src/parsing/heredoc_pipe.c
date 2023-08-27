@@ -12,30 +12,12 @@
 
 #include "minishell.h"
 
-char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok,
-		int expanding)
-{
-	struct s_word	*w;
-
-	w = NULL;
-	close(pipe_fd[0]);
-	if (getncount(tok->text, '\'') >= 2 || getncount(tok->text, '\"') >= 2)
-	{
-		w = make_word(g_shell, tok->text);
-		expanding = 0;
-		remove_quotes(w);
-		tok->text = w->data;
-		my_free(&g_shell->memory, w);
-		w = NULL;
-	}
-	return ("");
-}
-
-void	write_to_pipe_and_cleanup(t_shell *g_shell, int **n, t_token *tok, \
-		char *content)
+void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
+		int tmp_fd, int expanding)
 {
 	struct s_word	*w;
 	char			*line;
+	char			*content = "";
 
 	w = NULL;
 	while (content && (ft_strncmp(content, tok->text, ft_strlen(content)
@@ -44,7 +26,7 @@ void	write_to_pipe_and_cleanup(t_shell *g_shell, int **n, t_token *tok, \
 		write(n[0][1], content, ft_strlen(content));
 		line = get_next_line(STDIN_FILENO);
 		if (ft_strchr(line, '$') && ft_strncmp(line, tok->text,
-				ft_strlen(content) - 1) != 0)
+				ft_strlen(content) - 1) != 0 && expanding)
 			w = expand(g_shell, line);
 		if (w)
 			content = w->data;
@@ -61,12 +43,22 @@ void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
 		int tmp_fd)
 {
 	int		expanding;
-	char	*content;
+	char	*line;
+	struct s_word	*w;
 
-	expanding = 0;
-	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding);
-	write_to_pipe_and_cleanup(g_shell, (int *[]){pipe_fd, &tmp_fd}, \
-		tok, content);
+	expanding = 1;
+	line = NULL;
+	close(pipe_fd[0]);
+	if (getncount(tok->text, '\'') >= 2 || getncount(tok->text, '\"') >= 2)
+	{
+		w = make_word(g_shell, tok->text);
+		expanding = 0;
+		remove_quotes(w);
+		tok->text = w->data;
+		my_free(&g_shell->memory, w);
+		w = NULL;
+	} 
+	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, expanding);
 }
 
 void	handle_child_process(int tmp_fd, int *pipe_fd)

@@ -74,10 +74,18 @@ t_token	*get_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 	{
 		handle_token(cli, curr, nc, &endloop);
 		if (endloop == 1)
+		{
+			if (ft_strchr("|<>", nc))
+			{
+				nc = peek_char(cli);
+				if (ft_strchr("|<>", nc))
+					return (EOF_TOKEN);
+			}
 			break ;
+		}
 		nc = get_next_char(cli);
 	}
-	if (curr->tok_buff_index == 0)
+	if (curr->tok_buff_index == 0 )
 		return (EOF_TOKEN);
 	if (curr->tok_buff_index >= curr->tok_buff_size)
 		curr->tok_buff_index--;
