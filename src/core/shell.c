@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 19:28:51 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 19:18:06 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	parse_and_execute(t_shell *g_shell, t_cli *cli)
 	curr = my_malloc(&(g_shell->memory), sizeof(t_curr_tok));
 	skip_whitespaces(cli);
 	tok = get_token(g_shell, cli, curr);
-	if (curr->tok_buff_index == -1)
+	if(curr->tok_buff_index == -1)
 		return (0);
 	ast_cmd = parse_cmd(g_shell, tok, curr);
 	if (!ast_cmd)
