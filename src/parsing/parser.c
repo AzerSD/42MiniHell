@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:16 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 19:00:10 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 00:09:03 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,14 @@ t_node	*parse_token(t_shell *g_shell, t_node *ptr, t_node **parent_ptr,
 	return (ptr);
 }
 
+void t_parser_init( t_parser *parser, t_token *tok, t_curr_tok *curr)
+{
+	parser->first_pipe = 0;
+	parser->cli = tok->cli;
+	parser->tok = tok;
+	parser->curr = curr;
+}
+
 t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
 {
 	t_node				*ptr;
@@ -100,15 +108,12 @@ t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
 	t_parser			parser;
 	enum e_node_type	type;
 
-	parser.first_pipe = 0;
 	if (!tok || !curr)
 		return (NULL);
+	t_parser_init(&parser, tok, curr);
 	type = get_node_type(curr->tok_type);
 	ptr = new_node(g_shell, type);
 	parent = ptr;
-	parser.cli = tok->cli;
-	parser.tok = tok;
-	parser.curr = curr;
 	while (parser.tok != NULL && parser.tok != EOF_TOKEN)
 	{
 		if (parser.tok->text[0] == '\n')
