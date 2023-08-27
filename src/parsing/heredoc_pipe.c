@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 18:59:09 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 19:46:11 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok,
 	return ("");
 }
 
-void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
-		int tmp_fd, char *content)
+void	write_to_pipe_and_cleanup(t_shell *g_shell, int **n, t_token *tok, \
+		char *content)
 {
 	struct s_word	*w;
 	char			*line;
+	int				tmp_fd;
+	int				*pipe_fd;
 
 	w = NULL;
 	while (content && (ft_strncmp(content, tok->text, ft_strlen(content)
 				- 1) != 0 || content[0] == '\n'))
 	{
-		write(pipe_fd[1], content, ft_strlen(content));
+		write(n[0][1], content, ft_strlen(content));
 		line = get_next_line(STDIN_FILENO);
 		if (ft_strchr(line, '$') && ft_strncmp(line, tok->text,
 				ft_strlen(content) - 1) != 0)
@@ -52,9 +54,9 @@ void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
 			content = line;
 		w = NULL;
 	}
-	close(pipe_fd[1]);
+	close(n[0][1]);
 	wait(NULL);
-	close(tmp_fd);
+	close(n[1][0]);
 }
 
 void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
@@ -64,9 +66,9 @@ void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
 	char	*content;
 
 	expanding = 0;
-
 	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding);
-	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, content);
+	write_to_pipe_and_cleanup(g_shell, (int *[]){pipe_fd, &tmp_fd}, \
+		tok, content);
 }
 
 void	handle_child_process(int tmp_fd, int *pipe_fd)
