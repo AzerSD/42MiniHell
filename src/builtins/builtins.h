@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 11:22:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 16:59:21 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 23:28:47 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int						ft_echo(t_shell *g_shell, int argc, ...);
 int						ft_env(t_shell *g_shell, int argc, ...);
 int						ft_pwd(t_shell *g_shell, int argc, ...);
 int						ft_cd(t_shell *g_shell, int argc, ...);
+int32_t					is_flag(char **arg, int flag);
 int						ft_export(t_shell *g_shell, int argc,
 							...) __attribute__((unused));
 

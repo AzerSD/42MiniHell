@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 23:18:58 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 23:20:32 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
 		my_free(&g_shell->memory, w);
 		w = NULL;
 	}
-	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, (int[]){tmp_fd,
+	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, (int []){tmp_fd,
 		expanding});
 }
 

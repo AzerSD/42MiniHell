@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 10:33:58 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:59:13 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 23:29:07 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ int	print_export(struct s_symtab_entry *entry)
 {
 	while (entry)
 	{
-		ft_printf_fd(STDERR_FILENO, "declare -x %s=%s\n", \
-		entry->name, entry->val);
+		ft_printf_fd(STDERR_FILENO, "declare -x %s=%s\n", entry->name,
+			entry->val);
 		entry = entry->next;
 	}
 	return (0);
 }
 
-int	process_plus_equal(t_shell *g_shell, char *name, \
-	struct s_symtab *symtab, char **argv)
+int	process_plus_equal(t_shell *g_shell, char *name, struct s_symtab *symtab,
+		char **argv)
 {
 	char					*value;
 	char					*old_value;
@@ -34,7 +34,7 @@ int	process_plus_equal(t_shell *g_shell, char *name, \
 	old_value = "";
 	if (!name || !is_valid_variable_name(argv[1]))
 	{
-		ft_printf_fd(STDERR_FILENO, \
+		ft_printf_fd(STDERR_FILENO,
 			"minishell: export: `%s': not a valid identifier\n", argv[1]);
 		return (1);
 	}
@@ -43,7 +43,7 @@ int	process_plus_equal(t_shell *g_shell, char *name, \
 	if (entry)
 		old_value = entry->val;
 	new_value = my_malloc(&g_shell->memory, ft_strlen(old_value) \
-	+ ft_strlen(value) + 1);
+			+ ft_strlen(value) + 1);
 	ft_strcpy(new_value, old_value);
 	ft_strcat(new_value, value);
 	ft_setenv(g_shell, name, new_value, 1);
@@ -61,21 +61,18 @@ int	process_equal(t_shell *g_shell, char *name, char **argv)
 	else
 	{
 		ft_printf_fd(STDERR_FILENO,
-			"minishell: export: `%s': not a valid identifier\n",
-			name);
+			"minishell: export: `%s': not a valid identifier\n", name);
 		return (1);
 	}
 }
 
-int	check_input_arguments(t_shell *g_shell, char **argv, \
+int	check_input_arguments(t_shell *g_shell, char **argv,
 		struct s_symtab *symtab, char *name)
 {
 	struct s_symtab_entry	*entry;
 
 	if (argv[1][0] == '-')
-		return (ft_printf_fd(STDERR_FILENO, \
-		"bash: export: --: invalid option\nexport: \
-        usage: export [-nf] [name[=value] ...] or export -p\n"), 2);
+		return (is_flag(argv, 1));
 	name = get_varname(g_shell, argv[1]);
 	if (!name)
 		name = argv[1];
@@ -90,11 +87,10 @@ int	check_input_arguments(t_shell *g_shell, char **argv, \
 	{
 		entry = do_lookup(argv[1], symtab);
 		if (entry)
-			return (ft_printf_fd(STDERR_FILENO, "declare -x %s=%s\n", \
-			entry->name, entry->val), 0);
+			return (ft_printf_fd(STDERR_FILENO, "declare -x %s=%s\n",
+					entry->name, entry->val), 0);
 		else if (!is_valid_variable_name(name))
-			return (ft_printf_fd(STDERR_FILENO, \
-			"minishell: export: `%s': not a valid identifier\n", argv[1]), 1);
+			return (is_flag(argv, 2));
 		return (0);
 	}
 }
