@@ -15,6 +15,10 @@
 
 # define INVALID_VAR ((char *)-1)
 
+typedef struct g_shell		t_shell;
+typedef struct s_node		t_node;
+typedef struct s_token		t_token;
+
 struct						s_word
 {
 	char					*data;

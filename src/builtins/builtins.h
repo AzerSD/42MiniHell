@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 11:22:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:59:30 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 16:59:21 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define BUILTINS_H
 
 # include "minishell.h"
+
+typedef struct g_shell	t_shell;
+typedef struct s_node	t_node;
 
 typedef struct s_env
 {

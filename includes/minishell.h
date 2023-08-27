@@ -36,15 +36,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-
-typedef struct g_shell		t_shell;
-typedef struct s_cli		t_cli;
-typedef struct s_node		t_node;
-typedef struct s_token		t_token;
-typedef struct s_curr_tok	t_curr_tok;
-typedef struct s_parsing	t_parsing;
-typedef struct s_heredoc_data	t_heredoc_data;
-
 # include "../libs/garbage_collector/memory.h"
 # include "../src/builtins/builtins.h"
 # include "../src/core/shell.h"
@@ -57,7 +48,6 @@ typedef struct s_heredoc_data	t_heredoc_data;
 # include "../src/signals/signals.h"
 # include "../src/symbol_table/symtab.h"
 # include "libft.h"
-
 
 # define RESET "\001\033[0m\002"
 # define RED "\001\033[31m\002"

@@ -1,0 +1,9 @@
+error: syntax error near unexpected 			token
+error: syntax error near unexpected 			token
+error: syntax error near unexpected 			token
+error: syntax error near unexpected 			token
+error: syntax error near unexpected 			token
+error: syntax error near unexpected 			token
+error: syntax error near unexpected 			token
+error: syntax error near unexpected 			token
+error: syntax error near unexpected 			token

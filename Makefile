@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/27 12:02:28 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/27 16:10:45 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,5 +111,8 @@ fclean:	clean
 	@$(RM) $(NAME)
 
 re:	fclean all
+
+test :
+	git clone https://github.com/tjensen42/42-minishell.git
 
 .PHONY:	all bonus clean fclean re

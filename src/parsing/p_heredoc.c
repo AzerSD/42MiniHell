@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:12:36 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 14:02:43 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 17:04:05 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ t_node	*execute_heredoc(t_shell *g_shell, t_heredoc_data *data, t_node *ptr)
 	file_node = new_node(g_shell, NODE_FILE);
 	set_node_val_str(g_shell, file_node, data->tmp_file);
 	if (!file_node)
-		return (free_node_tree(g_shell, ptr), free_node_tree(g_shell, ptr), NULL);
+		return (free_node_tree(g_shell, ptr), \
+			free_node_tree(g_shell, ptr), NULL);
 	add_child_node(data->redirection_node, file_node);
 	return (add_child_node(ptr, data->redirection_node), ptr);
 }
