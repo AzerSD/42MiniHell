@@ -6,13 +6,13 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 18:44:12 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:16:21 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 04:45:40 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok,
+char	*prepare_for_pipe(t_parsing *prs, int *pipe_fd, \
 		int expanding, char *line)
 {
 	struct s_word	*w;
@@ -20,33 +20,34 @@ char	*prepare_for_pipe(t_shell *g_shell, int *pipe_fd, t_token *tok,
 	(void)line;
 	w = NULL;
 	close(pipe_fd[0]);
-	if (getncount(tok->text, '\'') >= 2 || getncount(tok->text, '\"') >= 2)
+	if (getncount(prs->tok->text, '\'') >= 2 || \
+		getncount(prs->tok->text, '\"') >= 2)
 	{
-		w = make_word(g_shell, tok->text);
+		w = make_word(prs->g_shell, prs->tok->text);
 		expanding = 0;
 		remove_quotes(w);
-		tok->text = w->data;
-		my_free(&g_shell->memory, w);
+		prs->tok->text = w->data;
+		my_free(&(prs->g_shell)->memory, w);
 		w = NULL;
 	}
 	return ("");
 }
 
-void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
+void	write_to_pipe_and_cleanup(t_parsing *prs, int *pipe_fd, \
 		int tmp_fd, char *content)
 {
 	struct s_word	*w;
 	char			*line;
 
 	w = NULL;
-	while (content && (ft_strncmp(content, tok->text, ft_strlen(content)
+	while (content && (ft_strncmp(content, prs->tok->text, ft_strlen(content)
 				- 1) != 0 || content[0] == '\n'))
 	{
 		write(pipe_fd[1], content, ft_strlen(content));
 		line = get_next_line(STDIN_FILENO);
-		if (ft_strchr(line, '$') && ft_strncmp(line, tok->text,
+		if (ft_strchr(line, '$') && ft_strncmp(line, prs->tok->text,
 				ft_strlen(content) - 1) != 0)
-			w = expand(g_shell, line);
+			w = expand(prs->g_shell, line);
 		if (w)
 			content = w->data;
 		else
@@ -58,7 +59,7 @@ void	write_to_pipe_and_cleanup(t_shell *g_shell, int *pipe_fd, t_token *tok,
 	close(tmp_fd);
 }
 
-void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
+void	handle_parent_process(t_parsing *prs, int *pipe_fd, \
 		int tmp_fd)
 {
 	int		expanding;
@@ -67,9 +68,9 @@ void	handle_parent_process(t_shell *g_shell, int *pipe_fd, t_token *tok,
 
 	expanding = 0;
 	line = NULL;
-	content = prepare_for_pipe(g_shell, pipe_fd, tok, expanding, line);
+	content = prepare_for_pipe(prs, pipe_fd, expanding, line);
 	(void)tmp_fd;
-	write_to_pipe_and_cleanup(g_shell, pipe_fd, tok, tmp_fd, content);
+	write_to_pipe_and_cleanup(prs, pipe_fd, tmp_fd, content);
 }
 
 void	handle_child_process(int tmp_fd, int *pipe_fd)
@@ -91,15 +92,15 @@ void	handle_child_process(int tmp_fd, int *pipe_fd)
 	exit(EXIT_SUCCESS);
 }
 
-t_node	*p_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, t_curr_tok *curr,
+t_node	*p_heredoc(t_parsing *prs, t_cli *cli, t_curr_tok *curr,
 		t_node *ptr)
 {
 	t_heredoc_data	*data;
 
-	data = prepare_heredoc(g_shell, tok, cli, curr, ptr);
+	data = prepare_heredoc(prs, cli, curr, ptr);
 	if (!data)
 		return (NULL);
-	ptr = execute_heredoc(g_shell, data, ptr);
-	my_free(&g_shell->memory, data);
+	ptr = execute_heredoc(prs, data, ptr);
+	my_free(&(prs->g_shell)->memory, data);
 	return (ptr);
 }

@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:31 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 21:08:57 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 04:25:39 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 # define EOF_TOKEN NULL
+
+typedef struct s_parsing
+{
+	t_shell			*g_shell;
+	t_token			*tok;
+}					t_parsing;
 
 typedef enum e_token_type
 {
@@ -31,10 +37,10 @@ typedef enum e_token_type
  * @brief Structure to hold the current token
  * @param tok_buff			Pointer to the token buffer
  * @param tok_buff_size		Size of the token buffer
- * @param tok_buff_index	Index of the token buffer (it tells us where to 
+ * @param tok_buff_index	Index of the token buffer (it tells us where to
  * 							add the next input character in the buffer)
  * @param t_token_type		Current parse state
-*/
+ */
 typedef struct s_curr_tok
 {
 	char			*tok_buff;
@@ -48,7 +54,7 @@ typedef struct s_curr_tok
  * @param cli		Pointer to the cli
  * @param text		Pointer to the token text
  * @param text_len	Length of token text
-*/
+ */
 typedef struct s_token
 {
 	t_cli			*cli;
@@ -61,16 +67,16 @@ typedef struct s_token
  * @brief Retrieves the next token from the given CLI input.
  * @param cli A pointer to t_cli which contains the CLI input information.
  * @param curr A pointer to t_curr_tok, to store the current token information.
- * @return A pointer to a t_token representing the next token, 
+ * @return A pointer to a t_token representing the next token,
  * 			or EOF_TOKEN if the end of input is reached or an error occurs.
-*/
+ */
 t_token				*get_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr);
 
 void				init_curr_tok(t_curr_tok *curr);
 
 /**
  * @brief free the memory used by a token structure
-*/
+ */
 void				free_token(t_shell *g_shell, t_token *tok);
 
 void				add_to_buf(char c, t_curr_tok *curr);
@@ -84,8 +90,7 @@ void				*handle_quotes(t_cli *cli, t_curr_tok *curr, char nc);
 void				handle_redirection(t_cli *cli, t_curr_tok *curr,
 						int *endloop, char nc);
 int					is_valid_variable_name(const char *str);
-t_node				*p_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, \
-	t_curr_tok *curr, t_node *ptr);
+t_node				*p_heredoc(t_parsing *prs, t_cli *cli, t_curr_tok *curr, \
+						t_node *ptr);
 enum e_node_type	get_node_type(t_token_type state);
-
 #endif

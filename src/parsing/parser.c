@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:16 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:14:00 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 04:41:52 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_node	*p_redirection(t_shell *g_shell, t_node *ptr, t_parser *parser,
 	return (ptr);
 }
 
-t_node	*parse_token(t_shell *g_shell, t_node *ptr, t_node **parent_ptr,
+t_node	*parse_token(t_parsing *prs, t_node *ptr, t_node **parent_ptr,
 		t_parser *parser)
 {
 	enum e_node_type	type;
@@ -92,24 +92,24 @@ t_node	*parse_token(t_shell *g_shell, t_node *ptr, t_node **parent_ptr,
 	type = get_node_type(parser->curr->tok_type);
 	if (type == NODE_PIPE)
 	{
-		ptr = p_pipe(g_shell, &ptr, parent_ptr, &parser->first_pipe);
+		ptr = p_pipe(prs->g_shell, &ptr, parent_ptr, &parser->first_pipe);
 	}
 	else if (type == NODE_INPUT || type == NODE_OUTPUT || type == NODE_APPEND)
 	{
-		ptr = p_redirection(g_shell, ptr, parser, type);
+		ptr = p_redirection(prs->g_shell, ptr, parser, type);
 	}
 	else if (type == NODE_HEREDOC)
 	{
-		ptr = p_heredoc(g_shell, parser->tok, parser->cli, parser->curr, ptr);
+		ptr = p_heredoc(prs, parser->cli, parser->curr, ptr);
 	}
 	else
 	{
-		ptr = p_word(g_shell, parser->tok, ptr, type);
+		ptr = p_word(prs->g_shell, parser->tok, ptr, type);
 	}
 	return (ptr);
 }
 
-t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
+t_node	*parse_cmd(t_parsing *prs, t_token *tok, t_curr_tok *curr)
 {
 	t_node				*ptr;
 	t_node				*parent;
@@ -120,7 +120,7 @@ t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
 	if (!tok || !curr)
 		return (NULL);
 	type = get_node_type(curr->tok_type);
-	ptr = new_node(g_shell, type);
+	ptr = new_node(prs->g_shell, type);
 	parent = ptr;
 	parser.cli = tok->cli;
 	parser.tok = tok;
@@ -129,11 +129,14 @@ t_node	*parse_cmd(t_shell *g_shell, t_token *tok, t_curr_tok *curr)
 	{
 		if (parser.tok->text[0] == '\n')
 		{
-			free_token(g_shell, parser.tok);
+			free_token(prs->g_shell, parser.tok);
 			break ;
 		}
-		ptr = parse_token(g_shell, ptr, &parent, &parser);
-		parser.tok = get_token(g_shell, parser.cli, parser.curr);
+		ptr = parse_token(prs, ptr, &parent, &parser);
+		parser.tok = get_token(prs->g_shell, parser.cli, parser.curr);
 	}
 	return (parent);
 }
+
+// t_node	*parse_token(t_parsing *prs, t_node *ptr, t_node **parent_ptr,
+// 		t_parser *parser)

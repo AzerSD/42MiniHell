@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:55:29 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 05:02:48 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_cmd(void)
 	return (cmd);
 }
 
-void	main_loop(t_shell *g_shell)
+void	main_loop(t_parsing *prs)
 {
 	t_cli	cli;
 	char	*cmd;
@@ -40,15 +40,15 @@ void	main_loop(t_shell *g_shell)
 		cmd = get_cmd();
 		if (!cmd)
 		{
-			free_all_mem(&g_shell->memory);
-			exit(g_shell->status);
+			free_all_mem(&(prs->g_shell)->memory);
+			exit(prs->g_shell->status);
 		}
 		if (isatty(STDIN_FILENO))
 			add_history(cmd);
 		cli.buffer = cmd;
 		cli.buff_size = ft_strlen(cmd);
 		cli.cur_pos = INIT_SRC_POS;
-		g_shell->status = parse_and_execute(g_shell, &cli);
+		prs->g_shell->status = parse_and_execute(prs, &cli);
 		dup2(original_stdout, STDOUT_FILENO);
 		dup2(original_stdin, STDIN_FILENO);
 		unlink("/tmp/heredoc");
@@ -59,31 +59,40 @@ int	main(int argc, char **argv, char **env)
 {
 	struct termios	mirror_termios;
 	t_shell			*g_shell;
+	t_parsing		*prs;
 
+	prs = malloc(sizeof(t_parsing));
+	if (prs == NULL)
+	{
+		ft_putstr_fd("minishell: malloc error\n", 2);
+		exit(1);
+	}
 	g_shell = malloc(sizeof(t_shell));
 	g_shell->memory = NULL;
 	g_shell->status = 0;
+	prs->g_shell = g_shell;
+	prs->tok = NULL;
 	(void)argc;
 	(void)argv;
 	init_symtab(g_shell, env);
 	signals(&mirror_termios);
-	main_loop(g_shell);
+	main_loop(prs);
 	rl_clear_history();
 	free_all_mem(&g_shell->memory);
 	return (g_shell->status);
 }
 
-int	parse_and_execute(t_shell *g_shell, t_cli *cli)
+int	parse_and_execute(t_parsing *prs, t_cli *cli)
 {
 	t_node		*ast_cmd;
 	t_token		*tok;
 	t_curr_tok	*curr;
 
-	curr = my_malloc(&(g_shell->memory), sizeof(t_curr_tok));
+	curr = my_malloc(&(prs->g_shell->memory), sizeof(t_curr_tok));
 	skip_whitespaces(cli);
-	tok = get_token(g_shell, cli, curr);
-	ast_cmd = parse_cmd(g_shell, tok, curr);
+	tok = get_token(prs->g_shell, cli, curr);
+	ast_cmd = parse_cmd(prs, tok, curr);
 	if (!ast_cmd)
 		return (1);
-	return (execc(g_shell, ast_cmd));
+	return (execc(prs->g_shell, ast_cmd));
 }

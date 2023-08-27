@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:12:36 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:14:15 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 04:19:10 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,33 @@ int	create_temp_file(t_shell *g_shell, t_token *tok, t_node *ptr,
 	return (tmp_fd);
 }
 
-t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli,
-		t_curr_tok *curr, t_node *ptr)
+t_heredoc_data	*prepare_heredoc(t_parsing *prs, t_cli *cli, t_curr_tok *curr, \
+		t_node *ptr)
 {
 	t_heredoc_data	*data;
 
-	data = my_malloc(&g_shell->memory, sizeof(t_heredoc_data));
+	data = my_malloc(&(prs->g_shell)->memory, sizeof(t_heredoc_data));
 	if (!data)
 		return (NULL);
-	data->redirection_node = new_redirection_node(g_shell, tok, ptr);
+	data->redirection_node = new_redirection_node(prs->g_shell, prs->tok, ptr);
 	if (!data->redirection_node)
 		return (NULL);
-	data->tok = check_token(g_shell, cli, curr, ptr);
+	data->tok = check_token(prs->g_shell, cli, curr, ptr);
 	if (!data->tok)
 		return (NULL);
-	data->tmp_fd = create_temp_file(g_shell, data->tok, ptr, &(data->tmp_file));
+	data->tmp_fd = create_temp_file(prs->g_shell, data->tok, ptr, \
+			&(data->tmp_file));
 	if (data->tmp_fd == -1)
 	{
 		free_node_tree(ptr);
-		free_token(g_shell, data->tok);
-		my_free(&g_shell->memory, data->tmp_file);
+		free_token(prs->g_shell, data->tok);
+		my_free(&(prs->g_shell)->memory, data->tmp_file);
 		return (NULL);
 	}
 	return (data);
 }
 
-t_node	*execute_heredoc(t_shell *g_shell, t_heredoc_data *data, t_node *ptr)
+t_node	*execute_heredoc(t_parsing *prs, t_heredoc_data *data, t_node *ptr)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
@@ -103,9 +104,9 @@ t_node	*execute_heredoc(t_shell *g_shell, t_heredoc_data *data, t_node *ptr)
 	else if (pid == 0)
 		handle_child_process(data->tmp_fd, pipe_fd);
 	else
-		handle_parent_process(g_shell, pipe_fd, data->tok, data->tmp_fd);
-	file_node = new_node(g_shell, NODE_FILE);
-	set_node_val_str(g_shell, file_node, data->tmp_file);
+		handle_parent_process(prs, pipe_fd, data->tmp_fd);
+	file_node = new_node(prs->g_shell, NODE_FILE);
+	set_node_val_str(prs->g_shell, file_node, data->tmp_file);
 	if (!file_node)
 		return (free_node_tree(ptr), free_node_tree(ptr), NULL);
 	add_child_node(data->redirection_node, file_node);

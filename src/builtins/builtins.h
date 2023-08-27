@@ -6,14 +6,14 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 11:22:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:59:30 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 04:27:44 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include "minishell.h"
+typedef struct g_shell		t_shell;
 
 typedef struct s_env
 {
@@ -26,6 +26,7 @@ struct					s_builtin
 	char				*name;
 	int					(*func)(t_shell *g_shell, int argc, ...);
 };
+
 typedef struct s_builtin_info
 {
 	struct s_builtin	*builtins;
