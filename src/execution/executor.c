@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 19:50:41 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 22:39:51 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	execc(t_shell *g_shell, t_node *node)
 		g_shell->status = pipeline_status;
 		return (pipeline_status);
 	}
-	// parse_ast(g_shell, node, &argc, &targc, &argv);
 	parse_ast(g_shell, node, (int *[]){&argc, &targc}, &argv);
 	if (setup_redirections(g_shell, node))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 20:55:15 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 22:46:46 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	check_tilde(t_shell *g_shell, char **pstart, char **p,
 			return ;
 		}
 		len = p2 - *p;
-		substitute_word(g_shell, pstart, p, len, tilde_expansion,
-			!in_double_quotes);
+		substitute_word(g_shell, (char **[]){pstart, p}, (size_t[]){(size_t)len,
+			0}, tilde_expansion);
 	}
 }
 
@@ -92,7 +92,7 @@ void	process_line(t_shell *g_shell, t_m *m)
 	if (!*(m->p))
 		return ;
 	check_backslash(&(m->p), &(m->escaped));
-	if ( *(m->p) == '$' && !m->in_squotes && !(m->escaped))
+	if (*(m->p) == '$' && !m->in_squotes && !(m->escaped))
 		check_dollar_sign(g_shell, &(m->pstart), &(m->p));
 	else if (m->escaped)
 		(m->p)++;
@@ -135,34 +135,3 @@ void	free_all_words(t_shell *g_shell, struct s_word *first)
 		my_free(&g_shell->memory, del);
 	}
 }
-// struct s_word	*expand(t_shell *g_shell, char *orig_word)
-// {
-// 	t_m				*m;
-// 	struct s_word	*words;
-// 	struct s_word	*w;
-
-// 	m = (t_m *)my_malloc(&g_shell->memory, sizeof(t_m));
-// 	if (!init_expand(g_shell, m, orig_word))
-// 	{
-// 		w = make_word(g_shell, orig_word);
-// 		return (my_free(&g_shell->memory, m), w);
-// 	}
-// 	while (*(m->p))
-// 	{
-// 		m->escaped = 0;
-// 		check_tilde(g_shell, &(m->pstart), &(m->p), m->in_dquotes);
-// 		check_double_quotes(&(m->p), &(m->in_dquotes), (m->in_squotes));
-// 		if (!*(m->p))
-// 			break ;
-// 		check_single_quotes(&(m->p), &(m->in_dquotes), &(m->in_squotes));
-// 		if (!*(m->p))
-// 			break ;
-// 		check_backslash(&(m->p), &(m->escaped));
-// 		check_dollar_sign(g_shell, &(m->pstart), &(m->p), m->in_squotes,
-// 			&m->escaped);
-// 		(m->p)++;
-// 	}
-// 	words = make_word(g_shell, m->pstart);
-// 	words = pathnames_expand(g_shell, words);
-// 	return (remove_quotes(words), words);
-// }

@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:49:41 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 20:47:31 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 22:43:17 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	check_backslash(char **p, int *escaped)
 		*escaped = 1;
 }
 
+// int	substitute_word(t_shell *g_shell, char ***startp, size_t *lenquot,
+// 		char *(func)(t_shell *, char *))
 void	check_dollar_sign(t_shell *g_shell, char **pstart, char **p)
 {
 	char	c;
@@ -47,7 +49,8 @@ void	check_dollar_sign(t_shell *g_shell, char **pstart, char **p)
 	if (c == '\"')
 		(*pstart)++;
 	else if (c == '?')
-		substitute_word(g_shell, pstart, p, 2, var_expand, 0);
+		substitute_word(g_shell, (char **[]){pstart, p}, \
+			(size_t []){2, 0}, var_expand);
 	else
 	{
 		if (!ft_isalpha((*p)[1]) && (*p)[1] != '_')
@@ -57,36 +60,7 @@ void	check_dollar_sign(t_shell *g_shell, char **pstart, char **p)
 			p2++;
 		if (p2 == *p + 1)
 			return ;
-		substitute_word(g_shell, pstart, p, p2 - *p, var_expand, 0);
+		substitute_word(g_shell, (char **[]){pstart, p}, \
+			(size_t []){p2 - *p, 0}, var_expand);
 	}
 }
-
-// void	check_dollar_sign(t_shell *g_shell, char **pstart, \
-// 		char **p,
-// 		int in_single_quotes, int *escaped)
-// {
-// 	char	c;
-// 	char	*p2;
-
-// 	if (**p == '$' && !in_single_quotes && !(*escaped))
-// 	{
-// 		c = (*p)[1];
-// 		if (c == '\"')
-// 			(*pstart)++;
-// 		else if (c == '?')
-// 			substitute_word(g_shell, pstart, p, 2, var_expand, 0);
-// 		else
-// 		{
-// 			if (!ft_isalpha((*p)[1]) && (*p)[1] != '_')
-// 				return ;
-// 			p2 = *p + 1;
-// 			while (ft_isalnum(*p2) || *p2 == '_')
-// 				p2++;
-// 			if (p2 == *p + 1)
-// 				return ;
-// 			substitute_word(g_shell, pstart, p, p2 - *p, var_expand, 0);
-// 		}
-// 	}
-// 	else if (*escaped)
-// 		(*p)++;
-// }

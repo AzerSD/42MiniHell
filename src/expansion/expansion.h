@@ -97,11 +97,13 @@ void						delete_char_at(char *str, size_t index);
 int							is_name(char *str);
 
 char						*substitute_str(t_shell *g_shell, char *s1,
-								char *s2, size_t start, size_t end);
+								char *s2, size_t *range);
 
-int							substitute_word(t_shell *g_shell, char **pstart,
-								char **p, size_t len, char *(func)(t_shell *,
-									char *), int add_quotes);
+int							substitute_word(t_shell *g_shell, char ***startp, \
+								size_t *lenquot, \
+								char *(func)(t_shell *, char *));
+void						substitute_norm(t_shell *g_shell, char ***poop, \
+								char *(func)(t_shell *, char *), size_t *len);
 
 int							check_buffer_bounds(t_shell *g_shell, int *count,
 								int *len, char ***buf);
@@ -129,7 +131,8 @@ void						check_single_quotes(char **p, int *in_double_quotes,
 void						check_double_quotes(char **p, int *in_double_quotes,
 								int in_single_quotes);
 void						check_backslash(char **p, int *escaped);
-void						check_dollar_sign(t_shell *g_shell, char **pstart, char **p);
+void						check_dollar_sign(t_shell *g_shell, char **pstart, \
+								char **p);
 
 void						init_match(t_match *match);
 int							is_match_found(char *pattern, int longest,
@@ -148,15 +151,14 @@ char						*exit_code_to_str(unsigned char status);
 void						search_colon(t_shell *g_shell, char *orig_var_name,
 								struct s_var_expand *var);
 
-struct s_word				*field_split(char *str);
-char						*read_from_pipe(t_shell *g_shell, int fd, char *b,
-								size_t *bufsz, char **p);
 int							prepare_command_and_open_pipe(t_shell *g_shell,
 								char *orig_cmd, char **cmd_ptr);
 char						*read_and_cleanup_pipe(t_shell *g_shell, int fd,
 								char *cmd);
 char						*command_substitute(t_shell *g_shell,
 								char *orig_cmd);
+#endif
+// char						*read_from_pipe(t_shell *g_shell, int fd, char *b,
+// 								size_t *bufsz, char **p);
 // void						check_dollar_sign(t_shell *g_shell, char **pstart,
 // 								char **p, int in_single_quotes, int *escaped);
-#endif

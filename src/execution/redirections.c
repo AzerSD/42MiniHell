@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 11:04:09 by lhasmi            #+#    #+#             */
-/*   Updated: 2023/08/27 02:53:09 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 22:47:29 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void	handle_node_types(t_node *child, int *flags, int *std_fd,
 	}
 }
 
-int	open_and_redirect(t_shell *g_shell, t_node *child, int flags, \
-		int std_fd, int std_fd_err)
+// int	open_and_redirect(t_shell *g_shell, t_node *child, int flags,
+// 		int std_fd, int std_fd_err)
+
+int	open_and_redirect(t_shell *g_shell, t_node *child, int *fd_stuff)
 {
 	int				fd;
 	struct s_word	*w;
@@ -49,14 +51,14 @@ int	open_and_redirect(t_shell *g_shell, t_node *child, int flags, \
 	{
 		w = make_word(g_shell, child->first_child->val.str);
 		remove_quotes(w);
-		fd = open(w->data, flags, 0644);
+		fd = open(w->data, fd_stuff[0], 0644);
 		if (fd == -1)
 			return (perror("open"), 1);
-		if (dup2(fd, std_fd) == -1)
+		if (dup2(fd, fd_stuff[1]) == -1)
 			return (perror("dup2"), close(fd), 1);
-		if (std_fd_err == STDERR_FILENO)
+		if (fd_stuff[2] == STDERR_FILENO)
 		{
-			if (dup2(fd, std_fd_err) == -1)
+			if (dup2(fd, fd_stuff[2]) == -1)
 				return (perror("dup2"), close(fd), 1);
 		}
 		close(fd);
@@ -82,7 +84,8 @@ int	setup_redirections(t_shell *g_shell, t_node *node)
 			std_fd = -1;
 			std_fd_err = -1;
 			handle_node_types(child, &flags, &std_fd, &std_fd_err);
-			res = open_and_redirect(g_shell, child, flags, std_fd, std_fd_err);
+			res = open_and_redirect(g_shell, child, \
+				(int []){flags, std_fd, std_fd_err});
 			if (res)
 				return (1);
 		}

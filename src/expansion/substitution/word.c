@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:09:50 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 20:53:47 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 22:41:46 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,52 +22,54 @@ void	process_word(struct s_word *word, int *in_double_quotes)
 	word->len = ft_strlen(word->data);
 }
 
-void	substitute_norm(t_shell *g_shell, char **tmp, char **tmp2,
-		char *(func)(t_shell *, char *), size_t *len, char **p)
+void	substitute_norm(t_shell *g_shell, char ***poop, \
+		char *(func)(t_shell *, char *), size_t *len)
 {
-	*tmp = malloc(*len + 1);
-	if (!*tmp)
+	*poop[0] = malloc(*len + 1);
+	if (!*poop[0])
 	{
-		(*p) += *len;
+		(*poop[2]) += *len;
 		return ;
 	}
-	ft_strncpy(*tmp, *p, *len);
-	(*tmp)[(*len)--] = '\0';
+	ft_strncpy(*poop[0], *poop[2], *len);
+	(*poop[0])[(*len)--] = '\0';
 	if (func)
 	{
-		*tmp2 = func(g_shell, *tmp);
-		if (*tmp2 == INVALID_VAR)
-			*tmp2 = NULL;
-		if (*tmp2)
-			free(*tmp);
+		*poop[1] = func(g_shell, *poop[0]);
+		if (*poop[1] == INVALID_VAR)
+			*poop[1] = NULL;
+		if (*poop[1])
+			free(*poop[0]);
 	}
 	else
-		*tmp2 = *tmp;
+		*poop[1] = *poop[0];
 }
 
-int	substitute_word(t_shell *g_shell, char **pstart, char **p, size_t len,
-		char *(func)(t_shell *, char *), int add_quotes)
+int	substitute_word(t_shell *g_shell, char ***startp, size_t *lenquot,
+		char *(func)(t_shell *, char *))
 {
 	char	*tmp;
 	char	*tmp2;
 	size_t	i;
 
-	substitute_norm(g_shell, &tmp, &tmp2, func, &len, p);
+	substitute_norm(g_shell, (char **[]){&tmp, &tmp2, startp[1]}, \
+		func, &lenquot[0]);
 	if (!tmp2)
 		return (0);
-	i = (*p) - (*pstart);
-	tmp = quote_val(g_shell, tmp2, add_quotes);
+	i = (*startp[1]) - (*startp[0]);
+	tmp = quote_val(g_shell, tmp2, lenquot[1]);
 	free(tmp2);
 	if (tmp)
 	{
-		tmp2 = substitute_str(g_shell, *pstart, tmp, i, i + len);
+		tmp2 = substitute_str(g_shell, *startp[0], tmp, \
+			(size_t[]){i, i + lenquot[0]});
 		if (tmp2)
 		{
-			(*pstart) = tmp2;
-			len = ft_strlen(tmp);
+			(*startp[0]) = tmp2;
+			lenquot[0] = ft_strlen(tmp);
 		}
 	}
-	(*p) = (*pstart) + i + len - 1;
+	(*startp[1]) = (*startp[0]) + i + lenquot[0] - 1;
 	return (1);
 }
 
