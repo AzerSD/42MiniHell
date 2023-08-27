@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 20:29:20 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 20:55:15 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,10 @@ void	process_line(t_shell *g_shell, t_m *m)
 	if (!*(m->p))
 		return ;
 	check_backslash(&(m->p), &(m->escaped));
-	check_dollar_sign(g_shell, &(m->pstart), &(m->p), m->in_squotes,
-		&m->escaped);
+	if ( *(m->p) == '$' && !m->in_squotes && !(m->escaped))
+		check_dollar_sign(g_shell, &(m->pstart), &(m->p));
+	else if (m->escaped)
+		(m->p)++;
 	(m->p)++;
 }
 

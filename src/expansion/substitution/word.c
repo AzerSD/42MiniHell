@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:09:50 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 20:17:20 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/27 20:53:47 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	process_word(struct s_word *word, int *in_double_quotes)
 
 	p = word->data;
 	while (*p)
-	{
 		handle_char(&p, in_double_quotes);
-	}
 	word->len = ft_strlen(word->data);
 }
 

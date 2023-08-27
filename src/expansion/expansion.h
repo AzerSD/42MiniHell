@@ -129,8 +129,7 @@ void						check_single_quotes(char **p, int *in_double_quotes,
 void						check_double_quotes(char **p, int *in_double_quotes,
 								int in_single_quotes);
 void						check_backslash(char **p, int *escaped);
-void						check_dollar_sign(t_shell *g_shell, char **pstart,
-								char **p, int in_single_quotes, int *escaped);
+void						check_dollar_sign(t_shell *g_shell, char **pstart, char **p);
 
 void						init_match(t_match *match);
 int							is_match_found(char *pattern, int longest,
@@ -158,4 +157,6 @@ char						*read_and_cleanup_pipe(t_shell *g_shell, int fd,
 								char *cmd);
 char						*command_substitute(t_shell *g_shell,
 								char *orig_cmd);
+// void						check_dollar_sign(t_shell *g_shell, char **pstart,
+// 								char **p, int in_single_quotes, int *escaped);
 #endif
