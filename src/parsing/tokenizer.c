@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 01:58:27 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:05:01 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:13:37 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		*init_curr_tok_buff(t_shell *g_shell, t_cli *cli, t_curr_tok *curr);
+static void		*init_curr_tok_buff(t_shell *g_shell, t_cli *cli,
+					t_curr_tok *curr);
 
 static t_token	*create_token(t_shell *g_shell, char *str)
 {
@@ -66,7 +67,8 @@ t_token	*get_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr)
 	endloop = 0;
 	init_curr_tok(curr);
 	nc = get_next_char(cli);
-	if (nc == ERRCHAR || nc == EOF || init_curr_tok_buff(g_shell, cli, curr) != 0)
+	if (nc == ERRCHAR || nc == EOF || init_curr_tok_buff(g_shell, cli,
+			curr) != 0)
 		return (EOF_TOKEN);
 	while (nc != EOF)
 	{

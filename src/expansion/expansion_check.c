@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:49:41 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:17:16 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:19:44 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,6 @@ void	check_backslash(char **p, int *escaped)
 	if (**p == '\\')
 	{
 		*escaped = 1;
-	}
-}
-
-void	check_backtick(t_shell *g_shell, char **pstart, char **p)
-{
-	size_t	len;
-
-	if (**p == '`')
-	{
-		len = find_closing_quote(*p);
-		if (len != 0)
-		{
-			substitute_word(g_shell, pstart, p, len + 1, command_substitute, 0);
-		}
 	}
 }
 

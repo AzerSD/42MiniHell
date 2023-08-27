@@ -224,7 +224,6 @@ void	check_single_quotes(char **p, int *in_double_quotes,
 void	check_double_quotes(char **p, int *in_double_quotes,
 			int in_single_quotes);
 void	check_backslash(char **p, int *escaped);
-void	check_backtick(t_shell *g_shell, char **pstart, char **p);
 void	check_dollar_sign(t_shell *g_shell, char **pstart, char **p,
 			int in_single_quotes, int *escaped);
 
@@ -241,8 +240,6 @@ void	search_colon(t_shell *g_shell, char *orig_var_name,
 			struct s_var_expand *var);
 
 struct s_word	*field_split(char *str);
-
-int	pipe_command(char *cmd);
 char	*read_from_pipe(t_shell *g_shell, int fd, char *b, size_t *bufsz,
 			char **p);
 int	prepare_command_and_open_pipe(t_shell *g_shell, char *orig_cmd,

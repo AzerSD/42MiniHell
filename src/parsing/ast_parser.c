@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 00:48:44 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:22:16 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:16:38 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ struct s_word	*get_node_content(t_shell *g_shell, t_node **child)
 	return (w);
 }
 
-void	parse_ast(t_shell *g_shell, t_node *node, int *argc,\
-	int *targc, char ***argv)
+void	parse_ast(t_shell *g_shell, t_node *node, int *argc, int *targc,
+		char ***argv)
 {
 	struct s_word	*w;
 	t_node			*child;

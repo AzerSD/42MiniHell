@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_symtab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 00:50:39 by asioud            #+#    #+#             */
-/*   Updated: 2023/07/03 00:50:39 by asioud           ###   ########.fr       */
+/*   Created: 2023/08/27 02:10:46 by lhasmi            #+#    #+#             */
+/*   Updated: 2023/08/27 02:10:46 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ struct s_symtab_entry	*add_to_symtab(t_shell *g_shell, const char *symbol)
 	return (entry);
 }
 
-struct s_symtab_entry	*create_symtab_entry(t_shell *g_shell, const char *symbol)
+struct s_symtab_entry	*create_symtab_entry(t_shell *g_shell,
+		const char *symbol)
 {
 	struct s_symtab_entry	*entry;
 
@@ -82,7 +83,7 @@ struct s_symtab_entry	*create_symtab_entry(t_shell *g_shell, const char *symbol)
 	return (entry);
 }
 
-int	remove_subsequent_entry(struct s_symtab_entry *entry, \
+int	remove_subsequent_entry(struct s_symtab_entry *entry,
 		struct s_symtab *symtab)
 {
 	struct s_symtab_entry	*e;

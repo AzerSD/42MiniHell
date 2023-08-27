@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+         #
+#    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/26 20:08:40 by asioud           ###   ########.fr        #
+#    Updated: 2023/08/27 02:19:03 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,6 @@ SRC	=	core/shell \
 		parsing/p_heredoc \
 		\
 		expansion/expansion \
-		expansion/substitution/command \
 		expansion/substitution/utils \
 		expansion/substitution/word \
 		expansion/substitution/quote_removal \

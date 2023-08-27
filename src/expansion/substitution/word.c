@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 15:09:50 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 19:20:55 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:20:57 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	process_word(struct s_word *word, int *in_double_quotes)
 	word->len = ft_strlen(word->data);
 }
 
-void	substitute_norm(t_shell *g_shell, char **tmp, char **tmp2, char *(func)(t_shell *, char *), \
-	size_t *len, char **p)
+void	substitute_norm(t_shell *g_shell, char **tmp, char **tmp2,
+		char *(func)(t_shell *, char *), size_t *len, char **p)
 {
 	*tmp = malloc(*len + 1);
 	if (!*tmp)
@@ -47,8 +47,8 @@ void	substitute_norm(t_shell *g_shell, char **tmp, char **tmp2, char *(func)(t_s
 		*tmp2 = *tmp;
 }
 
-int	substitute_word(t_shell *g_shell, char **pstart, char **p, size_t len, \
-	char *(func)(t_shell *, char *), int add_quotes)
+int	substitute_word(t_shell *g_shell, char **pstart, char **p, size_t len,
+		char *(func)(t_shell *, char *), int add_quotes)
 {
 	char	*tmp;
 	char	*tmp2;

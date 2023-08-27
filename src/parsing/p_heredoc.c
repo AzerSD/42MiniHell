@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_heredoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 01:12:36 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/26 20:12:09 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:14:15 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ t_node	*new_redirection_node(t_shell *g_shell, t_token *tok, t_node *ptr)
 	return (redirection_node);
 }
 
-t_token	*check_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr, t_node *ptr)
+t_token	*check_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr,
+		t_node *ptr)
 {
 	t_token	*tok;
 
@@ -41,9 +42,11 @@ t_token	*check_token(t_shell *g_shell, t_cli *cli, t_curr_tok *curr, t_node *ptr
 	return (tok);
 }
 
-int	create_temp_file(t_shell *g_shell, t_token *tok, t_node *ptr, char **tmp_file)
+int	create_temp_file(t_shell *g_shell, t_token *tok, t_node *ptr,
+		char **tmp_file)
 {
 	int	tmp_fd;
+
 	*tmp_file = "/tmp/heredoc";
 	tmp_fd = open(*tmp_file, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (tmp_fd == -1)
@@ -55,11 +58,11 @@ int	create_temp_file(t_shell *g_shell, t_token *tok, t_node *ptr, char **tmp_fil
 	return (tmp_fd);
 }
 
-t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, t_curr_tok *curr,
-		t_node *ptr)
+t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli,
+		t_curr_tok *curr, t_node *ptr)
 {
 	t_heredoc_data	*data;
-	
+
 	data = my_malloc(&g_shell->memory, sizeof(t_heredoc_data));
 	if (!data)
 		return (NULL);
@@ -70,7 +73,6 @@ t_heredoc_data	*prepare_heredoc(t_shell *g_shell, t_token *tok, t_cli *cli, t_cu
 	if (!data->tok)
 		return (NULL);
 	data->tmp_fd = create_temp_file(g_shell, data->tok, ptr, &(data->tmp_file));
-	
 	if (data->tmp_fd == -1)
 	{
 		free_node_tree(ptr);

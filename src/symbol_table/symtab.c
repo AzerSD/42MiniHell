@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   symtab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 07:28:23 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 17:52:35 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:10:20 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	add_entry_to_symtab(struct s_symtab *st, struct s_symtab_entry *entry)
 	}
 }
 
-int	rem_from_symtab(t_shell *g_shell, struct s_symtab_entry *entry, struct s_symtab *symtab)
+int	rem_from_symtab(t_shell *g_shell, struct s_symtab_entry *entry, \
+	struct s_symtab *symtab)
 {
 	int	res;
 

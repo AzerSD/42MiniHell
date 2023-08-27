@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:58:16 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/24 21:08:46 by asioud           ###   ########.fr       */
+/*   Updated: 2023/08/27 02:14:00 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 typedef struct s_parser
 {
-	t_token			*tok;
-	t_cli			*cli;
-	t_curr_tok		*curr;
-	int				first_pipe;
-}					t_parser;
+	t_token		*tok;
+	t_cli		*cli;
+	t_curr_tok	*curr;
+	int			first_pipe;
+}				t_parser;
 
-t_node	*p_pipe(t_shell *g_shell, t_node **ptr, t_node **parent, int *first_pipe)
+t_node	*p_pipe(t_shell *g_shell, t_node **ptr, t_node **parent,
+		int *first_pipe)
 {
 	t_node	*null_node;
 
@@ -37,7 +38,8 @@ t_node	*p_pipe(t_shell *g_shell, t_node **ptr, t_node **parent, int *first_pipe)
 	return (*ptr);
 }
 
-t_node	*p_word(t_shell *g_shell, t_token *tok, t_node *ptr, enum e_node_type type)
+t_node	*p_word(t_shell *g_shell, t_token *tok, t_node *ptr,
+		enum e_node_type type)
 {
 	t_node	*word;
 
@@ -53,7 +55,8 @@ t_node	*p_word(t_shell *g_shell, t_token *tok, t_node *ptr, enum e_node_type typ
 	return (ptr);
 }
 
-t_node	*p_redirection(t_shell *g_shell,t_node *ptr, t_parser *parser, enum e_node_type type)
+t_node	*p_redirection(t_shell *g_shell, t_node *ptr, t_parser *parser,
+		enum e_node_type type)
 {
 	t_node	*redirection_node;
 	t_node	*file_node;
@@ -81,7 +84,8 @@ t_node	*p_redirection(t_shell *g_shell,t_node *ptr, t_parser *parser, enum e_nod
 	return (ptr);
 }
 
-t_node	*parse_token(t_shell *g_shell, t_node *ptr, t_node **parent_ptr, t_parser *parser)
+t_node	*parse_token(t_shell *g_shell, t_node *ptr, t_node **parent_ptr,
+		t_parser *parser)
 {
 	enum e_node_type	type;
 
