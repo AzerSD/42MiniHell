@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/01 22:49:41 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 22:43:17 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 02:00:41 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	check_backslash(char **p, int *escaped)
 		*escaped = 1;
 }
 
-// int	substitute_word(t_shell *g_shell, char ***startp, size_t *lenquot,
-// 		char *(func)(t_shell *, char *))
 void	check_dollar_sign(t_shell *g_shell, char **pstart, char **p)
 {
 	char	c;

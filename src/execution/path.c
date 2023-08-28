@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 05:03:22 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 22:46:26 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 02:26:06 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*build_path(t_shell *g_shell, char **range, int plen)
 	return (path);
 }
 
-char	*build_path_and_check_existence(t_shell *g_shell, char **pfile, \
+char	*build_path_and_check_existence(t_shell *g_shell, char **pfile,
 		int plen)
 {
 	char	*path;
@@ -55,18 +55,32 @@ char	*build_path_and_check_existence(t_shell *g_shell, char **pfile, \
 	return (NULL);
 }
 
-char	*search_path(t_shell *g_shell, char *file)
+char	*initialize_path_lookup(t_shell *g_shell, char **poop_path)
 {
-	char					*poop_path[3];
-	int						plen;
-	char					*valid_path;
 	struct s_symtab_entry	*symtab;
 
 	symtab = get_symtab_entry(g_shell, "PATH");
-	poop_path[0] = symtab->val;
+	if (symtab)
+		poop_path[0] = symtab->val;
+	else
+		poop_path[0] = NULL;
 	if (!symtab || !poop_path[0])
-		return ((errno = ENOENT), NULL);
+	{
+		errno = ENOENT;
+		return (NULL);
+	}
 	poop_path[1] = poop_path[0];
+	return (poop_path[0]);
+}
+
+char	*search_path(t_shell *g_shell, char *file)
+{
+	char	*poop_path[3];
+	int		plen;
+	char	*valid_path;
+
+	if (!initialize_path_lookup(g_shell, poop_path))
+		return (NULL);
 	while (poop_path[1] && *poop_path[1])
 	{
 		poop_path[2] = ft_strchr(poop_path[1], ':');
@@ -75,8 +89,8 @@ char	*search_path(t_shell *g_shell, char *file)
 		plen = poop_path[2] - poop_path[1];
 		if (plen == 0)
 			plen = 1;
-		valid_path = build_path_and_check_existence(g_shell, \
-			(char *[]){poop_path[1], poop_path[2], file}, plen);
+		valid_path = build_path_and_check_existence(g_shell,
+				(char *[]){poop_path[1], poop_path[2], file}, plen);
 		if (valid_path != NULL)
 			return (valid_path);
 		if (*poop_path[2] == ':')
@@ -84,5 +98,6 @@ char	*search_path(t_shell *g_shell, char *file)
 		else
 			poop_path[1] = NULL;
 	}
-	return ((errno = ENOENT), NULL);
+	errno = ENOENT;
+	return (NULL);
 }

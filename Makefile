@@ -6,7 +6,7 @@
 #    By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/25 10:59:44 by asioud            #+#    #+#              #
-#    Updated: 2023/08/28 01:05:07 by lhasmi           ###   ########.fr        #
+#    Updated: 2023/08/28 01:47:43 by lhasmi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ SRC	=	core/shell \
 		expansion/variable \
 		expansion/pattern \
 		expansion/pattern_utils \
+		expansion/pattern_utils2 \
 		expansion/utils \
 		expansion/variable_utils \
 		\

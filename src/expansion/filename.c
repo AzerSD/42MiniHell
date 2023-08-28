@@ -44,9 +44,7 @@ void	save_matches(t_shell *g_shell, struct s_glob_info *glob_info)
 				glob_info->tail->next = make_word(g_shell, \
 					glob_info->matches[j]);
 				if (glob_info->tail->next)
-				{
 					glob_info->tail = glob_info->tail->next;
-				}
 			}
 		}
 		j++;

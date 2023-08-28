@@ -157,6 +157,17 @@ char						*read_and_cleanup_pipe(t_shell *g_shell, int fd,
 								char *cmd);
 char						*command_substitute(t_shell *g_shell,
 								char *orig_cmd);
+char						*error_inv_var_sub(char *orig_var_name);
+void						handle_get_length(struct s_var_expand *var);
+bool						match(const char *pattern, const char *string);
+
+bool						handle_asterisk_in_match(const char *pattern, \
+								const char *string);
+char						*create_final_string(char *before, char *s2, \
+								char *after, char *final);
+void						free_all_words(t_shell *g_shell, \
+								struct s_word *first);
+
 #endif
 // char						*read_from_pipe(t_shell *g_shell, int fd, char *b,
 // 								size_t *bufsz, char **p);

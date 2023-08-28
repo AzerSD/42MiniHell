@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:05:17 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 22:46:46 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 02:01:09 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,18 +120,4 @@ struct s_word	*expand(t_shell *g_shell, char *orig_word)
 	words = make_word(g_shell, m->pstart);
 	words = pathnames_expand(g_shell, words);
 	return (remove_quotes(words), words);
-}
-
-void	free_all_words(t_shell *g_shell, struct s_word *first)
-{
-	struct s_word	*del;
-
-	while (first)
-	{
-		del = first;
-		first = first->next;
-		if (del->data)
-			my_free(&g_shell->memory, del->data);
-		my_free(&g_shell->memory, del);
-	}
 }

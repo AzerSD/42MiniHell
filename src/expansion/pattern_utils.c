@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 01:55:24 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:27:28 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 01:48:09 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,9 @@ bool	match(const char *pattern, const char *string)
 		else if (*pattern == '*')
 		{
 			pattern++;
-			while (*string != '\0')
-			{
-				if (match(pattern, string))
-					return (true);
-				string++;
-			}
-			return (match(pattern, string));
+			if (handle_asterisk_in_match(pattern, string))
+				return (true);
+			return (false);
 		}
 		else
 		{

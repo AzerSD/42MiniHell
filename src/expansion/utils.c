@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/02 19:45:51 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 02:26:13 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 01:42:54 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,23 @@ void	search_colon(t_shell *g_shell, char *orig_var_name,
 	var->result = NULL;
 	var->expanded = 0;
 	var->p = NULL;
+}
+
+char	*error_inv_var_sub(char *orig_var_name)
+{
+	ft_printf_fd(2, "error: invalid var substitution: %s\n", \
+		orig_var_name);
+	return (INVALID_VAR);
+}
+
+void	handle_get_length(struct s_var_expand *var)
+{
+	char	*tmp_str;
+
+	tmp_str = ft_itoa(ft_strlen(var->tmp));
+	if (tmp_str)
+	{
+		ft_strcpy(var->buf, tmp_str);
+		free(tmp_str);
+	}
 }

@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 01:57:47 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 22:39:51 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 02:28:45 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	exec_cmd(t_shell *g_shell, int argc, char **argv)
-{
-	char	*path;
-
-	(void)argc;
-	if (ft_strchr(argv[0], '/'))
-		execve(argv[0], argv, NULL);
-	else
-	{
-		path = search_path(g_shell, argv[0]);
-		if (!path)
-			return (1);
-		execve(path, argv, NULL);
-	}
-	return (0);
-}
 
 pid_t	fork_command(t_shell *g_shell, int argc, char **argv)
 {
@@ -77,13 +60,25 @@ void	init_vars(int *argc, int *targc, char ***argv, int *ret)
 	*ret = 0;
 }
 
+int	handle_node_pipe(t_shell *g_shell, t_node *node)
+{
+	int	ret;
+	int	pipeline_status;
+
+	ret = dup(STDIN_FILENO);
+	pipeline_status = execute_pipeline(g_shell, node);
+	dup2(ret, STDIN_FILENO);
+	close(ret);
+	g_shell->status = pipeline_status;
+	return (pipeline_status);
+}
+
 int	execc(t_shell *g_shell, t_node *node)
 {
 	char	**argv;
 	int		argc;
 	int		targc;
 	int		ret;
-	int		pipeline_status;
 
 	init_vars(&argc, &targc, &argv, &ret);
 	if (!node)
@@ -91,14 +86,7 @@ int	execc(t_shell *g_shell, t_node *node)
 	if (node->type == NODE_ASSIGNMENT)
 		return (string_to_symtab(g_shell, node->first_child->val.str), 0);
 	if (node->type == NODE_PIPE)
-	{
-		ret = dup(STDIN_FILENO);
-		pipeline_status = execute_pipeline(g_shell, node);
-		dup2(ret, STDIN_FILENO);
-		close(ret);
-		g_shell->status = pipeline_status;
-		return (pipeline_status);
-	}
+		return (handle_node_pipe(g_shell, node));
 	parse_ast(g_shell, node, (int *[]){&argc, &targc}, &argv);
 	if (setup_redirections(g_shell, node))
 		return (1);
@@ -109,3 +97,35 @@ int	execc(t_shell *g_shell, t_node *node)
 		return (1);
 	return (exec_child_process(g_shell, argc, argv));
 }
+// int	execc(t_shell *g_shell, t_node *node)
+// {
+// 	char	**argv;
+// 	int		argc;
+// 	int		targc;
+// 	int		ret;
+// 	int		pipeline_status;
+
+// 	init_vars(&argc, &targc, &argv, &ret);
+// 	if (!node)
+// 		return (1);
+// 	if (node->type == NODE_ASSIGNMENT)
+// 		return (string_to_symtab(g_shell, node->first_child->val.str), 0);
+// 	if (node->type == NODE_PIPE)
+// 	{
+// 		ret = dup(STDIN_FILENO);
+// 		pipeline_status = execute_pipeline(g_shell, node);
+// 		dup2(ret, STDIN_FILENO);
+// 		close(ret);
+// 		g_shell->status = pipeline_status;
+// 		return (pipeline_status);
+// 	}
+// 	parse_ast(g_shell, node, (int *[]){&argc, &targc}, &argv);
+// 	if (setup_redirections(g_shell, node))
+// 		return (1);
+// 	ret = exec_builtin(g_shell, argc, argv);
+// 	if (ret >= 0)
+// 		return (g_shell->status = ret, ret);
+// 	if (!argv[0])
+// 		return (1);
+// 	return (exec_child_process(g_shell, argc, argv));
+// }

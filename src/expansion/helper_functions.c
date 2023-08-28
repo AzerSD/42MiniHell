@@ -3,26 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asioud <asioud@42heilbronn.de>             +#+  +:+       +#+        */
+/*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 19:01:00 by asioud            #+#    #+#             */
-/*   Updated: 2023/03/30 19:01:00 by asioud           ###   ########.fr       */
+/*   Created: 2023/08/28 01:54:23 by lhasmi            #+#    #+#             */
+/*   Updated: 2023/08/28 01:54:23 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	copy_word_and_advance(char **dest, struct s_word *w)
+{
+	ft_strcpy(*dest, w->data);
+	*dest += w->len;
+	ft_strcpy(*dest, " ");
+	*dest += 1;
+}
+
 char	*wordlist_to_str(t_shell *g_shell, struct s_word *word)
 {
-	size_t			len;
+	size_t			len ;
 	struct s_word	*w;
 	char			*str;
 	char			*str2;
 
-	if (!word)
-		return (NULL);
 	len = 0;
 	w = word;
+	if (!word)
+		return (NULL);
 	while (w)
 	{
 		len += w->len + 1;
@@ -33,10 +41,7 @@ char	*wordlist_to_str(t_shell *g_shell, struct s_word *word)
 	w = word;
 	while (w)
 	{
-		ft_strcpy(str2, w->data);
-		str2 += w->len;
-		ft_strcpy(str2, " ");
-		str2 += 1;
+		copy_word_and_advance(&str2, w);
 		w = w->next;
 	}
 	str2[-1] = '\0';
@@ -64,16 +69,7 @@ int	is_name(char *str)
 	return (1);
 }
 
-char	*create_final_string(char *before, char *s2, char *after, char *final)
-{
-	ft_strcpy(final, before);
-	ft_strcat(final, s2);
-	ft_strcat(final, after);
-	return (final);
-}
-
-char	*substitute_str(t_shell *g_shell, char *s1, \
-	char *s2, size_t *range)
+char	*substitute_str(t_shell *g_shell, char *s1, char *s2, size_t *range)
 {
 	char	*before;
 	size_t	afterlen;
@@ -81,7 +77,8 @@ char	*substitute_str(t_shell *g_shell, char *s1, \
 	char	*after;
 	char	*final;
 
-	before = (char *)my_malloc(&g_shell->memory, (range[0] + 1) * sizeof(char));
+	before = (char *)my_malloc(&g_shell->memory, (range[0] + 1)
+			* sizeof(char));
 	ft_strncpy(before, s1, range[0]);
 	before[range[0]] = '\0';
 	afterlen = ft_strlen(s1) - range[1] + 1;

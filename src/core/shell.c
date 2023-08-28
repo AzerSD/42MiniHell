@@ -6,7 +6,7 @@
 /*   By: lhasmi <lhasmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 01:45:52 by asioud            #+#    #+#             */
-/*   Updated: 2023/08/27 22:46:08 by lhasmi           ###   ########.fr       */
+/*   Updated: 2023/08/28 02:03:59 by lhasmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,27 @@ char	*get_cmd(void)
 	return (cmd);
 }
 
+void	main_loop_sub(t_shell *g_shell)
+{
+	char	*cmd;
+	t_cli	cli;
+
+	cmd = get_cmd();
+	if (!cmd)
+	{
+		free_all_mem(&g_shell->memory);
+		exit(g_shell->status);
+	}
+	if (isatty(STDIN_FILENO))
+		add_history(cmd);
+	cli.buffer = cmd;
+	cli.buff_size = ft_strlen(cmd);
+	cli.cur_pos = INIT_SRC_POS;
+	g_shell->status = parse_and_execute(g_shell, &cli);
+}
+
 void	main_loop(t_shell *g_shell)
 {
-	t_cli	cli;
-	char	*cmd;
 	int		original_stdout;
 	int		original_stdin;
 	int		original_stderr;
@@ -39,18 +56,7 @@ void	main_loop(t_shell *g_shell)
 	original_stderr = dup(STDERR_FILENO);
 	while (true)
 	{
-		cmd = get_cmd();
-		if (!cmd)
-		{
-			free_all_mem(&g_shell->memory);
-			exit(g_shell->status);
-		}
-		if (isatty(STDIN_FILENO))
-			add_history(cmd);
-		cli.buffer = cmd;
-		cli.buff_size = ft_strlen(cmd);
-		cli.cur_pos = INIT_SRC_POS;
-		g_shell->status = parse_and_execute(g_shell, &cli);
+		main_loop_sub(g_shell);
 		dup2(original_stdout, STDOUT_FILENO);
 		dup2(original_stdin, STDIN_FILENO);
 		dup2(original_stderr, STDERR_FILENO);
@@ -96,3 +102,35 @@ int	parse_and_execute(t_shell *g_shell, t_cli *cli)
 	}
 	return (execc(g_shell, ast_cmd));
 }
+
+// void	main_loop(t_shell *g_shell)
+// {
+// 	t_cli	cli;
+// 	char	*cmd;
+// 	int		original_stdout;
+// 	int		original_stdin;
+// 	int		original_stderr;
+
+// 	original_stdout = dup(STDOUT_FILENO);
+// 	original_stdin = dup(STDIN_FILENO);
+// 	original_stderr = dup(STDERR_FILENO);
+// 	while (true)
+// 	{
+// 		cmd = get_cmd();
+// 		if (!cmd)
+// 		{
+// 			free_all_mem(&g_shell->memory);
+// 			exit(g_shell->status);
+// 		}
+// 		if (isatty(STDIN_FILENO))
+// 			add_history(cmd);
+// 		cli.buffer = cmd;
+// 		cli.buff_size = ft_strlen(cmd);
+// 		cli.cur_pos = INIT_SRC_POS;
+// 		g_shell->status = parse_and_execute(g_shell, &cli);
+// 		dup2(original_stdout, STDOUT_FILENO);
+// 		dup2(original_stdin, STDIN_FILENO);
+// 		dup2(original_stderr, STDERR_FILENO);
+// 		unlink("/tmp/heredoc");
+// 	}
+// }
